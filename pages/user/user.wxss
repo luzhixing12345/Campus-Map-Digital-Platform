@@ -1,0 +1,39 @@
+/* pages/user/user.wxss */
+
+.circleImage{
+    margin-left: 250rpx;
+    margin-top: 100rpx;
+    height: 245rpx;
+    width: 245rpx;
+    border-radius:50%;
+}
+
+
+.userNickname {
+    margin-top: 50rpx;
+    margin-left: 300rpx;
+    font-size: large;
+}
+
+.label-list{
+    display: flex;
+    width: 100%;
+    height: 120rpx;
+    align-items: center;
+    border-bottom: 1rpx solid #e8e8e8;
+}
+.label-list .label {
+    color: #333;
+    margin-left: 100rpx;
+    font-weight: bold;
+}
+
+.footer {
+    position: fixed;
+    width: 90%;
+    margin: 0 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    bottom: 50rpx;
+}

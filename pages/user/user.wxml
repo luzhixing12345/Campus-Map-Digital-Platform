@@ -1,0 +1,11 @@
+
+<image class="circleImage" src="{{avatarUrl}}"></image>
+
+<view class="label-list">
+    <view class="label">用户名:</view>
+    <view class="label">{{userInfo.nickName}}</view>
+</view>
+
+<view class="footer">
+<button bindtap="changeUser" class="buttonType" type="warn">退出账号</button>
+</view>

@@ -1,0 +1,42 @@
+{
+    "pages": [
+        "pages/user/register/register",
+        "pages/user/user",
+        "pages/group/group",
+        "pages/group/message/message",
+        "pages/map/map"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#f5af19",
+        "navigationBarTitleText": "武汉大学校园地图数字平台",
+        "navigationBarTextStyle": "black"
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json",
+    "tabBar": {
+        "color": "#9c9d9b",
+        "backgroundColor": "#fff",
+        "selectedColor": "#0A44DF",
+        "list": [
+            {
+                "pagePath": "pages/group/group",
+                "text": "群组",
+                "iconPath": "images/group.png",
+                "selectedIconPath": "images/group.png"
+            },
+            {
+                "pagePath": "pages/map/map",
+                "text": "地图",
+                "iconPath": "images/map.png",
+                "selectedIconPath": "images/map.png"
+            },
+            {
+                "pagePath": "pages/user/user",
+                "text": "我的",
+                "iconPath": "images/user.png",
+                "selectedIconPath": "images/user.png"
+            }
+        ]
+    }
+}

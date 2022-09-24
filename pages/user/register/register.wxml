@@ -1,0 +1,7 @@
+
+
+
+<image class="logoImg" src="../../../images/WHU_logo.png"></image>
+<view class="logoName">{{logo_info}}</view>
+
+<button wx:if="{{!userInfo}}" type="default" bindtap="getUserProfile" class="buttonType">微信授权</button>
