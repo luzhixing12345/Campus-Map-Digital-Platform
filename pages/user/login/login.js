@@ -19,13 +19,18 @@ Page({
         that.setData({
           userInfo: res.userInfo
         })
-        wx.showToast({
-          title: '已授权',
-          duration: 500
-        })
         // 加入全局变量
         app.globalData.userInfo = res.userInfo
-        console.log(app.globalData.userInfo)
+        // 调用云函数拿到_openid保存在app.globalData.userInfo中
+        wx.cloud.callFunction({
+          name : 'login',
+          data : {},
+          success(ress) {
+            console.log(ress)
+            app.globalData.userInfo._openid = ress.result.openid;
+          }
+        })
+        
         wx.switchTab({
           url: '/pages/user/user',
         })

@@ -48,6 +48,7 @@
     "debugOptions": {
         "hidedInDevtools": []
     },
+    "cloudfunctionRoot":"cloudfunctions/",
     "scripts": {},
     "staticServerOptions": {
         "baseURL": "",

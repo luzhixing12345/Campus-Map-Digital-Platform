@@ -1,6 +1,6 @@
 {
     "pages": [
-        "pages/user/register/register",
+        "pages/user/login/login",
         "pages/user/user",
         "pages/group/group",
         "pages/group/message/message",

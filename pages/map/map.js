@@ -1,3 +1,4 @@
+
 Page({
     data: {
       latitude: 30.541093,
@@ -19,7 +20,7 @@ Page({
       }]
     },
     onReady: function (e) {
-      this.mapCtx = wx.createMapContext('myMap')
+      this.mapCtx = wx.createMapContext('WHUMap')
     },
     getCenterLocation: function () {
       this.mapCtx.getCenterLocation({
