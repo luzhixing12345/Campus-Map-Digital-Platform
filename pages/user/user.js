@@ -17,7 +17,7 @@ Page({
       // wx.cloud.database().collection('user').where({
       //   _openid : app.globalData.userInfo.
       // })
-      console.log(app.globalData.userInfo)
+      // console.log(app.globalData.userInfo)
 
   }
 

@@ -1,10 +1,10 @@
 {
     "pages": [
+        "pages/map/map",
         "pages/user/login/login",
         "pages/user/user",
         "pages/group/group",
-        "pages/group/message/message",
-        "pages/map/map"
+        "pages/group/message/message"
     ],
     "window": {
         "backgroundTextStyle": "light",

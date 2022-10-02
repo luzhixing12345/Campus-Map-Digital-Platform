@@ -1,13 +1,28 @@
-<view class="page-body">
-  <view class="page-section page-section-gap">
+
+ <view >
+  <view class="page-section-gap">
     <map
       id="myMap"
-      style="width: 100%; height: 800px;"
+      class="map"
       latitude="{{latitude}}"
       longitude="{{longitude}}"
       markers="{{markers}}"
       covers="{{covers}}"
       show-location
-    ></map>
-  </view>
+      bindtap="addNewMarker"
+      bindmarkertap="clickMarkers"
+    >
+    <!-- <cover-view slot="callout">
+        <block wx:for="{{customCalloutMarkerIds}}" wx:key="*this">
+          <cover-view  class="customCallout" marker-id="{{item}}" >
+            <cover-view class="content"> 
+              {{num}}-{{item}}-{{index}}
+            </cover-view>
+          </cover-view>
+        </block>
+    </cover-view> -->
+    
+    </map>
+  </view> 
+<view class="footer">123</view>
 </view>

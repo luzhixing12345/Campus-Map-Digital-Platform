@@ -15,7 +15,7 @@ Page({
     wx.getUserProfile({
       desc: '展示信息',
       success: (res) => {
-        console.log(res)
+        // console.log(res)
         that.setData({
           userInfo: res.userInfo
         })
@@ -26,7 +26,7 @@ Page({
           name : 'login',
           data : {},
           success(ress) {
-            console.log(ress)
+            // console.log(ress)
             app.globalData.userInfo._openid = ress.result.openid;
           }
         })
