@@ -1,7 +1,6 @@
 // app.js
 App({
     onLaunch() {
-      
       wx.cloud.init({
         env:"cloud1-0giy05gz218ffca8"
       })

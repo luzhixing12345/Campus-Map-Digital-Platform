@@ -6,7 +6,10 @@ Page({
       latitude: 30.541093,
       longitude: 114.360734,
       current_position : {},
+      markers_id : [], // 获取到的标记点 _id
       enable_add_marker : false, // 能否添加标记 false->不能添加
+      use_select : false, // 是否使用筛选
+      display_marker_info : false, // 是否显示标记点信息
     },
     onLoad() {
       this.getAllMarkers();
@@ -15,17 +18,31 @@ Page({
       })
     },
 
+    // 筛选标记点 TODO
+    selectMarker() {
+      console.log("select marker here")
+      var that = this;
+      this.setData({
+        use_select : !that.data.use_select
+      })
+    },
+
     // 将数据库查找出的数据转化为markers的形式
     // https://developers.weixin.qq.com/miniprogram/dev/component/map.html
     toMarkerFormat(data) {
       var res = [];
+      var markers_id = [];
       for (var i=0;i<data.length;i++) {
         var temp = {};
-        temp.id = data[i]._id;
+        temp.id = i;
         temp.latitude = data[i].position.latitude;
         temp.longitude = data[i].position.longitude;
+        markers_id.push(data[i]._id)
         res.push(temp);
       }
+      this.setData({
+        markers_id : markers_id
+      })
       return res;
     },
 
@@ -51,8 +68,6 @@ Page({
         enable_add_marker : true
       })
     },
-
-
     // 取消添加标记点
     cancelToAddMarker() {
       this.setData({
@@ -64,13 +79,14 @@ Page({
     // TODO: 分类
     getAllMarkers() {
       var  that = this;
-      const _ = wx.cloud.database().command;
+      // const _ = wx.cloud.database().command;
       wx.cloud.database().collection("marker").where({
         visiable : true
       }).get({
         success(res) {
-          console.log(res.data);
+          // console.log(res.data);
           var markers = that.toMarkerFormat(res.data);
+          console.log(markers)
           that.setData({
             markers : markers
           })
@@ -115,12 +131,26 @@ Page({
         }
       })
     },
-
+    // 展示标记点的信息
+    showMarkerInfo(marker_id) {
+      wx.cloud.database().collection("marker").doc(marker_id).get({
+        success(res) {
+          console.log(res)
+        }
+      })
+    },
 
     // 点击标记点
     clickMarkers(e) {
-      console.log("点击标记点了")
-      console.log(e)
+      // console.log("点击标记点了")
+      // console.log(e)
+      var marker_index = e.detail.markerId;
+      var marker_id = this.data.markers_id[marker_index];
+      this.showMarkerInfo(marker_id);
+      this.setData({
+        display_marker_info : true
+      })
+
     },
 
     calloutTap(e) {

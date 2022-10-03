@@ -1,8 +1,16 @@
-
- <view wx:if="{{enable_add_marker}}" class="text">点击地图位置添加新的标记</view>
- <view wx:if="{{enable_add_marker}}">
+<view class="header" wx:if="{{!enable_add_marker}}">
+  <input type="text" class="input-box" placeholder="搜索地点..." placeholder-class="place-holder"></input>
+  <view class="select-box" bindtap="selectMarker">
+    筛选
+    <view class="arrow" class="arrow-{{use_select?'down':'right'}}"></view>
+  </view>
+</view>
+<view wx:if="{{enable_add_marker}}" class="dark-background">
+  <view class="text">请选择添加标记的地点</view>
+ <view >
  <image src="../../images/cancel.png" bindtap="cancelToAddMarker" class="cancel-icon"></image>
  </view>
+</view>
  <view>
   <view class="page-section-gap">
     <map
@@ -28,9 +36,10 @@
     
     </map>
   </view> 
-<view class="footer" wx:if="{{!enable_add_marker}}">
-  <image src="../../images/search.png" class="search-icon"></image>
-  <input type="text" class="input"/>
-  <image src="../../images/add.png" class="add-icon" bindtap="readyToAddMarker">add</image>
 </view>
+
+<view wx:if="{{!enable_add_marker}}" class="circle" bindtap="readyToAddMarker" hover-class="circle-hover">
+  <view class="add"></view>
 </view>
+
+<view wx:if="{{display_marker_info}}" class="marker-info"></view>

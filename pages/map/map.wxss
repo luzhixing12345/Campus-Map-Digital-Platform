@@ -1,4 +1,9 @@
 
+page {
+  width: 750px;
+  height: 100vh;
+}
+
 .page-section-gap{
   box-sizing: border-box;
   padding: 0;
@@ -9,16 +14,15 @@
   height: 100vh;
 }
 
-.footer {
+.header {
   display:flex;
-  justify-content: space-around;
+  justify-content: space-between;
   position: absolute;
+  z-index: 2;
   width: 95%;
-  height: 50px;
+  height: 40px;
   left: 10px;  
-  bottom: 5px;
-  background-color: #fcfcfc;
-  border-radius: 15px;
+  top: 10px;
 }
 
 .search-icon {
@@ -27,10 +31,30 @@
   margin: auto 0;
 }
 
-.input {
-  background-color: white;
-  width: 80%;
-  height: 100%;
+.input-box {
+  background-color: grey;
+  width: 60%;
+  height: 80%;
+  border-radius: 15px;
+  opacity: 0.8;
+}
+
+.select-box {
+  color: white;
+  background-color: grey;
+  width: 30%;
+  height: 80%;
+  opacity: 0.8;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.place-holder {
+  color: white;
+  opacity: 0.9;
+  left: 10px;
 }
 
 .add-icon {
@@ -51,11 +75,83 @@
 
 .text {
   position: absolute;
-  z-index: 2;
-  font-weight: bold;
+  z-index: 3;
   width: 100%;
   text-align: center;
-  top : 15px;
-  color: red;
+  bottom: 25px;
+  font-size: 22px;
+  color: white;
   opacity: 0.8;
+}
+
+.dark-background {
+  position: absolute;
+  z-index: 2;
+  border-radius: 15px;
+  width: 95%;
+  height: 95%;
+  background-color: grey;
+  opacity: 0.6;
+  top: 10px;
+  left: 10px;
+}
+
+.arrow-right{
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  transform: rotate(45deg);
+  transition: all 0.3s;
+}
+
+.arrow-down{
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  transform: rotate(135deg);
+  transition: all 0.3s;
+}
+
+
+.circle {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(221,168,36);
+  transition: color .25s;
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+  z-index: 2;
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px #000;
+}
+
+.circle-hover {
+  box-shadow: 2px 2px 8px #000;
+}
+
+.add::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40%;
+  transform:translate(-50%, -50%);
+  border-top: 3px solid white;
+}
+
+.add::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 40%;
+  transform: translate(-50%,-50%);
+  border-left: 3px solid white;
+}
+
+.marker-info {
+  
 }
