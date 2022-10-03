@@ -24,5 +24,9 @@
     
     </map>
   </view> 
-<view class="footer">123</view>
+<view class="footer">
+  <image src="../../images/search.png" class="search-icon"></image>
+  <input type="text" class="input"/>
+  <image src="../../images/add.png" class="add-icon">add</image>
+</view>
 </view>
