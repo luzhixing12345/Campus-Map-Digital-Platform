@@ -42,13 +42,13 @@
         "ignoreUploadUnusedFiles": true
     },
     "compileType": "miniprogram",
-    "libVersion": "2.26.1",
+    "libVersion": "2.25.4",
     "appid": "wx1da74111d21bd6a6",
     "projectname": "Campus-Map-Digital-Platform",
     "debugOptions": {
         "hidedInDevtools": []
     },
-    "cloudfunctionRoot":"cloudfunctions/",
+    "cloudfunctionRoot": "cloudfunctions/",
     "scripts": {},
     "staticServerOptions": {
         "baseURL": "",

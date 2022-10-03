@@ -1,5 +1,9 @@
 
- <view >
+ <view wx:if="{{enable_add_marker}}" class="text">点击地图位置添加新的标记</view>
+ <view wx:if="{{enable_add_marker}}">
+ <image src="../../images/cancel.png" bindtap="cancelToAddMarker" class="cancel-icon"></image>
+ </view>
+ <view>
   <view class="page-section-gap">
     <map
       id="myMap"
@@ -24,9 +28,9 @@
     
     </map>
   </view> 
-<view class="footer">
+<view class="footer" wx:if="{{!enable_add_marker}}">
   <image src="../../images/search.png" class="search-icon"></image>
   <input type="text" class="input"/>
-  <image src="../../images/add.png" class="add-icon">add</image>
+  <image src="../../images/add.png" class="add-icon" bindtap="readyToAddMarker">add</image>
 </view>
 </view>

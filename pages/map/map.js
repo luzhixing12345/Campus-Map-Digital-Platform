@@ -5,6 +5,8 @@ Page({
     data: {
       latitude: 30.541093,
       longitude: 114.360734,
+      current_position : {},
+      enable_add_marker : false, // 能否添加标记 false->不能添加
     },
     onLoad() {
       this.getAllMarkers();
@@ -30,13 +32,36 @@ Page({
     // 用户点击地图中一个没有标记的点之后调用addNewMarker添加新标记点信息
     // return null 表示用户取消
     // return object 为存入数据库的输入
-    getMarkerDataInput() {
-      
+    handleUserInput() {
+      var that = this;
+      wx.navigateTo({
+        url: 'marker/addNewMarker/addNewMarker',
+        success(res) {
+          res.eventChannel.emit('position',{
+            latitude : that.data.current_position.latitude,
+            longitude : that.data.current_position.longitude
+          })
+        }
+      })
     },
 
-    // 获取所有的标记点 : 标记点本身可见 + 标间点不可见但是对小组成员可见
-    // TODO : 指定小组成员可见 (visiable: true)
-    // TOOD : 需要测试
+    // 点击加号准备添加新标记点
+    readyToAddMarker() {
+      this.setData({
+        enable_add_marker : true
+      })
+    },
+
+
+    // 取消添加标记点
+    cancelToAddMarker() {
+      this.setData({
+        enable_add_marker : false
+      })
+    },
+
+    // 获取所有标记点
+    // TODO: 分类
     getAllMarkers() {
       var  that = this;
       const _ = wx.cloud.database().command;
@@ -56,21 +81,35 @@ Page({
     // 点击地图中的某个点添加标记
     addNewMarker(e) {
       console.log(e)
-      // console.log(e.detail)
+      // 未点击加号，不处理
+      if(!this.data.enable_add_marker) return;
+      console.log("录入标记点信息")
+      this.setData({
+        enable_add_marker : false
+      })
+      // 获取经纬度
       var latitude = e.detail.latitude;
       var longitude = e.detail.longitude;
+      this.setData({
+        current_position : {
+          latitude : latitude,
+          longitude : longitude
+        }
+      })
+      this.handleUserInput();
+    },
 
-      var marker_data = this.getMarkerDataInput();
-      if (marker_data == null) {
-        // 用户取消
-        return;
-      }
+    addMarkerInfo() {
+      
+      wx.showLoading({
+        title: '正在添加新标记点信息',
+      })
       wx.cloud.database().collection("marker").add({
         data : marker_data,
         success(res) {
           console.log(res);
           wx.showToast({
-            title: '标记点已添加',
+            title: '新标记点已添加',
             icon: 'success',
           })
         }

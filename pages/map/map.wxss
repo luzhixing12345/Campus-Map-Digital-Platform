@@ -17,7 +17,7 @@
   height: 50px;
   left: 10px;  
   bottom: 5px;
-  background-color: #F0F8FF;
+  background-color: #fcfcfc;
   border-radius: 15px;
 }
 
@@ -37,4 +37,25 @@
   width: 30px;
   height: 30px;
   margin: auto 0;
+}
+
+.cancel-icon {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  z-index: 2;
+  top: 5px;
+  right: 5px;
+}
+
+.text {
+  position: absolute;
+  z-index: 2;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  top : 15px;
+  color: red;
+  opacity: 0.8;
 }
