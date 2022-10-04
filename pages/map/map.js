@@ -1,15 +1,19 @@
 
 const app = getApp();
 
+
 Page({
     data: {
-      latitude: 30.541093,
-      longitude: 114.360734,
+      latitude: 30.536764456043922,
+      longitude: 114.36191729394477,
       current_position : {},
       markers_id : [], // 获取到的标记点 _id
       enable_add_marker : false, // 能否添加标记 false->不能添加
       use_select : false, // 是否使用筛选
       display_marker_info : false, // 是否显示标记点信息
+      enable_search_marker : false, //是否显示搜索候选列表
+      searchResult : {},
+      searchName : "",
     },
     onLoad() {
       this.getAllMarkers();
@@ -156,8 +160,72 @@ Page({
     calloutTap(e) {
       console.log("@callout:",e);
     },
-
     
+    moveToMarker(targetLatitude,targetLongitude) {//将地图中心移至指定经纬度
+      let mpCtx = wx.createMapContext('myMap');
+      mpCtx.moveToLocation({
+        latitude:targetLatitude,
+        longitude:targetLongitude,
+        success(res) {
+          console.log("已经移至地图中心");
+        },
+        fail(res) {
+          console.log("调用失败");
+        }
+      })
+    },
 
+    showSearchResultList(){//显示搜索结果列表
+      this.setData({
+        enable_search_marker : true
+      })
+    },
+
+    notShowSearchResultList(){//不显示搜索结果列表
+      this.setData({
+        enable_search_marker : false
+      })
+    },
+    
+    doTheSearch(){//根据地点名执行搜索
+      var placeName = this.data.searchName;
+      const db = wx.cloud.database();
+      const _ = db.command;
+      db.collection("marker").where(
+        _.or([//模糊查询
+          {
+            // i	大小写不敏感
+            // m	跨行匹配；让开始匹配符 ^ 或结束匹配符 $ 时除了匹配字符串的开头和结尾
+            // 外，还匹配行的开头和结尾
+            // s	让 . 可以匹配包括换行符在内的所有字符
+            faculty :  db.RegExp({
+              regexp:".*" + placeName + ".*",//正则表达式
+              options:'s',
+            })
+          },
+          {
+            name :  db.RegExp({
+              regexp:".*" + placeName + ".*",//正则表达式
+              options:'s',
+            })
+          }
+        ])).get({
+        success:(res) => {
+          for (var i=0;i<res.data.length;i++) {
+            console.log("查询结果为：",res.data[i].faculty,res,data[i].name);
+          }
+        },
+        fail:(err) => {
+          console.log("查询失败");
+        }
+      })
+    },
+    capturePlaceName:(options) => {//捕获要搜索的地点名
+      let name = options.detail.value;
+      console.log("要搜索的地点是"+name);
+      this.setData({
+        searchName:name
+      })
+    }
   })
   
