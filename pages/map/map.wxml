@@ -1,5 +1,11 @@
 <view class="header" wx:if="{{!enable_add_marker}}">
-  <input type="text" class="input-box" placeholder="搜索地点..." placeholder-class="place-holder"></input>
+  <input 
+    type="text" 
+    class="input-box" 
+    placeholder="搜索地点..." 
+    placeholder-class="place-holder" 
+    ></input>
+  <!-- <button bindtap="readyToSearchMarker">搜索</button> -->
   <view class="select-box" bindtap="selectMarker">
     筛选
     <view class="arrow" class="arrow-{{use_select?'down':'right'}}"></view>
@@ -11,6 +17,41 @@
  <image src="../../images/cancel.png" bindtap="cancelToAddMarker" class="cancel-icon"></image>
  </view>
 </view>
+
+<view wx:if="{{enable_search_marker}}" class="search-area">
+  <scroll-view scroll-y="true" style="height: inherit;">
+    <mp-cells>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+      <mp-cell class="search-cell">
+      <view class="search-text">列表</view>
+      </mp-cell>
+    </mp-cells>
+  </scroll-view>
+</view>
+
  <view>
   <view class="page-section-gap">
     <map
@@ -23,6 +64,7 @@
       show-location
       bindtap="addNewMarker"
       bindmarkertap="clickMarkers"
+      show-location="true"
     >
     <!-- <cover-view slot="callout">
         <block wx:for="{{customCalloutMarkerIds}}" wx:key="*this">
