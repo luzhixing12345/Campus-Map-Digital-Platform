@@ -47,9 +47,9 @@
   "appid": "wx1da74111d21bd6a6",
   "projectname": "Campus-Map-Digital-Platform",
   "cloudfunctionRoot": "cloudfunctions/",
-  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "condition": {}
 }
