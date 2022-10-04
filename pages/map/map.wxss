@@ -10,7 +10,7 @@ page {
 }
 
 .map {
-  width: 750px;
+  width: 50%;
   height: 100vh;
 }
 
@@ -150,6 +150,34 @@ page {
   height: 40%;
   transform: translate(-50%,-50%);
   border-left: 3px solid white;
+}
+
+.search-area {
+  position: absolute;
+  z-index: 2;
+  border-radius: 15px;
+  width: 95%;
+  height: 95%;
+  background-color: grey;
+  opacity: 0.6;
+  top: 40px; /*区别于dark-background，top多一些，为40px*/
+  left: 10px;
+}
+
+.search-cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 144rpx;
+  border-bottom: 2rpx solid rgba(235, 235, 235, 1);
+}
+
+.search-text {
+  text-align: center;
+  color: white;
+  font-size: 40rpx;
+  width: 100%;
 }
 
 .marker-info {
