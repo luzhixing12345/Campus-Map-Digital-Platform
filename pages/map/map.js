@@ -11,8 +11,8 @@ Page({
       enable_add_marker : false, // 能否添加标记 false->不能添加
       use_select : false, // 是否使用筛选
       display_marker_info : false, // 是否显示标记点信息
-      enable_search_marker : false, //是否显示搜索候选列表
-      searchResult : {},
+      enable_search_list : false, //是否显示搜索候选列表
+      searchResult : [],
       searchName : "",
     },
     onLoad() {
@@ -161,7 +161,9 @@ Page({
       console.log("@callout:",e);
     },
     
-    moveToMarker(targetLatitude,targetLongitude) {//将地图中心移至指定经纬度
+    moveToMarker:(e)=>{//将地图中心移至指定经纬度
+      var targetLatitude = e.currentTarget.dataset.index.resultLatitude;
+      var targetLongitude = e.currentTarget.dataset.index.resultLongitude; 
       let mpCtx = wx.createMapContext('myMap');
       mpCtx.moveToLocation({
         latitude:targetLatitude,
@@ -175,20 +177,22 @@ Page({
       })
     },
 
-    showSearchResultList(){//显示搜索结果列表
+    showSearchResultList(){//显示搜索结果列表和取消按钮
       this.setData({
-        enable_search_marker : true
+        enable_search_list : true,
       })
     },
 
     notShowSearchResultList(){//不显示搜索结果列表
       this.setData({
-        enable_search_marker : false
+        enable_search_list : false,
       })
     },
-    
+
     doTheSearch(){//根据地点名执行搜索
+      // console.log("doTheSearch");
       var placeName = this.data.searchName;
+      // console.log(placeName);
       const db = wx.cloud.database();
       const _ = db.command;
       db.collection("marker").where(
@@ -200,27 +204,43 @@ Page({
             // s	让 . 可以匹配包括换行符在内的所有字符
             faculty :  db.RegExp({
               regexp:".*" + placeName + ".*",//正则表达式
-              options:'s',
+              options:'i',
             })
           },
           {
             name :  db.RegExp({
               regexp:".*" + placeName + ".*",//正则表达式
-              options:'s',
+              options:'i',
             })
           }
         ])).get({
         success:(res) => {
+          var list = [];
           for (var i=0;i<res.data.length;i++) {
-            console.log("查询结果为：",res.data[i].faculty,res,data[i].name);
+            var targetName = res.data[i].faculty+res.data[i].name;
+            var targetLatitude = res.data[i].position.latitude;
+            var targetLongitude = res.data[i].position.longitude;
+            // console.log(targetName);
+            // console.log(targetLatitude);
+            // console.log(targetLongitude);
+            var place = {
+              resultName:targetName,
+              resultLatitude:targetLatitude,
+              resultLongitude:targetLongitude
+            }
+            list.push(place);
+            // console.log(place);
           }
+          this.setData({
+            searchResult : list
+          })
         },
         fail:(err) => {
           console.log("查询失败");
         }
       })
     },
-    capturePlaceName:(options) => {//捕获要搜索的地点名
+    capturePlaceName(options){//捕获要搜索的地点名
       let name = options.detail.value;
       console.log("要搜索的地点是"+name);
       this.setData({
