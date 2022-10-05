@@ -192,6 +192,22 @@ page {
   width: 100%;
 }
 
-.marker-info {
-  
+.select-sheet {
+  position: absolute;
+  z-index: 2;
+  border-radius: 15px;
+  width: 30%;
+  height: 35vh;
+  background-color: grey;
+  opacity: 0.6;
+  top : 50px;
+  right : 10px;
 }
+
+.select-switch {
+  position: relative;
+  left:10px;
+  top:10px;
+}
+
+/* .marker-info {} */
