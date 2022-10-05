@@ -33,10 +33,22 @@ page {
 
 .input-box {
   background-color: grey;
-  width: 60%;
+  width: 50%;
   height: 80%;
   border-radius: 15px;
   opacity: 0.8;
+}
+
+.search-box {
+  color: white;
+  background-color: grey;
+  width: 15%;
+  height: 80%;
+  opacity: 0.8;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .select-box {
