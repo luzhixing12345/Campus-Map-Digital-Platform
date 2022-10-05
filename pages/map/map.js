@@ -14,6 +14,13 @@ Page({
       enable_search_list : false, //是否显示搜索候选列表
       searchResult : [],
       searchName : "",
+
+      //五大类筛选对应的布尔值（初始值默认均为true）
+      switch_food:true,
+      switch_learning:true,
+      switch_work:true,
+      switch_notify:true,
+      switch_group:true,
     },
     onLoad() {
       this.getAllMarkers();
@@ -24,6 +31,7 @@ Page({
 
     // 筛选标记点 TODO
     selectMarker() {
+
       console.log("select marker here")
       var that = this;
       this.setData({
@@ -246,6 +254,43 @@ Page({
       this.setData({
         searchName:name
       })
+    },
+
+    //筛选开关对应响应事件
+    switchChange_work(){
+      var that = this;
+      this.setData({
+        switch_work:!that.data.switch_work
+      });
+      console.log("办事筛选:"+this.data.switch_work);
+    },
+    switchChange_learning(){
+      var that = this;
+      this.setData({
+        switch_learning:!that.data.switch_learning
+      });
+      console.log("学习筛选:"+this.data.switch_learning);
+    },
+    switchChange_food(){
+      var that = this;
+      this.setData({
+        switch_food:!that.data.switch_food
+      });
+      console.log("餐饮筛选:"+this.data.switch_food);
+    },
+    switchChange_notify(){
+      var that = this;
+      this.setData({
+        switch_notify:!that.data.switch_notify
+      });
+      console.log("通知筛选:"+this.data.switch_notify);
+    },
+    switchChange_group(){
+      var that = this;
+      this.setData({
+        switch_group:!that.data.switch_group
+      });
+      console.log("群组筛选:"+this.data.switch_group);
     }
   })
   
