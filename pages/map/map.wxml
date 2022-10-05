@@ -1,4 +1,6 @@
+<!-- 地图顶部操作集 -->
 <view class="header" wx:if="{{!enable_add_marker}}">
+  <!-- 搜索输入框 -->
   <input 
     type="text" 
     class="input-box" 
@@ -7,12 +9,16 @@
     bindinput="capturePlaceName"
     bindfocus="showSearchResultList"
     ></input>
+  <!-- 搜索按钮 -->
   <view class="search-box" bindtap="doTheSearch"> 搜索 </view>
+  <!-- 筛选按钮 -->
   <view class="select-box" bindtap="selectMarker">
     筛选
     <view class="arrow" class="arrow-{{use_select?'down':'right'}}"></view>
   </view>
 </view>
+
+<!-- 添加标记地点界面 -->
 <view wx:if="{{enable_add_marker}}" class="dark-background">
   <view class="text">请选择添加标记的地点</view>
  <view >
@@ -20,6 +26,41 @@
  </view>
 </view>
 
+<!-- 筛选面板 -->
+<view wx:if="{{use_select}}" class="select-sheet">
+<switch 
+color="red" 
+class="select-switch" 
+bindchange="switchChange_work"
+checked="true"
+>办事</switch>
+<switch 
+color="blue" 
+class="select-switch" 
+bindchange="switchChange_learning"
+checked="true"
+>学习</switch>
+<switch 
+color="green" 
+class="select-switch" 
+bindchange="switchChange_food"
+checked="true"
+>餐饮</switch>
+<switch 
+color="yellow" 
+class="select-switch" 
+bindchange="switchChange_notify"
+checked="true"
+>通知</switch>
+<switch 
+color="black" 
+class="select-switch" 
+bindchange="switchChange_group"
+checked="true"
+>群组</switch>
+</view>
+
+<!-- 搜索结果列表 -->
 <view wx:if="{{enable_search_list}}" class="search-area">
   <scroll-view scroll-y="true" style="height: inherit;">
     <mp-cells>
@@ -33,7 +74,7 @@
   </view>
 </view>
 
-
+<!-- 地图组件 -->
  <view>
   <view class="page-section-gap">
     <map
@@ -62,6 +103,7 @@
   </view> 
 </view>
 
+<!-- 添加标记按钮 -->
 <view wx:if="{{!enable_add_marker}}" class="circle" bindtap="readyToAddMarker" hover-class="circle-hover">
   <view class="add"></view>
 </view>
