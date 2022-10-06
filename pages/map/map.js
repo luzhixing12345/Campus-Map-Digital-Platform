@@ -4,8 +4,8 @@ const app = getApp();
 
 Page({
     data: {
-      latitude: 30.536764456043922,
-      longitude: 114.36191729394477,
+      latitude: 30.536761304903035,
+      longitude: 114.36192806848169,
       current_position : {},
       markers_id : [], // 获取到的标记点 _id
       enable_add_marker : false, // 能否添加标记 false->不能添加
@@ -21,6 +21,9 @@ Page({
       switch_work:true,
       switch_notify:true,
       switch_group:true,
+
+      //marker原始数据，用于筛选
+      //marker筛选后数据
     },
     onLoad() {
       this.getAllMarkers();
@@ -47,8 +50,19 @@ Page({
       for (var i=0;i<data.length;i++) {
         var temp = {};
         temp.id = i;
-        temp.latitude = data[i].position.latitude;
-        temp.longitude = data[i].position.longitude;
+        //云函数数据的position属性值格式为
+        //"position":{
+        //   "type":"Point",
+        //   "coordinates":[114.36024436100001,30.53900057145802]
+        // }
+        //故改成如下格式
+        // temp.latitude = data[i].position.latitude;
+        temp.latitude = data[i].position.coordinates[1];
+        // temp.longitude = data[i].position.longitude;
+        temp.longitude = data[i].position.coordinates[0];
+        temp.width = 30;
+        temp.height = 45;
+
         markers_id.push(data[i]._id)
         res.push(temp);
       }
@@ -91,19 +105,34 @@ Page({
     // TODO: 分类
     getAllMarkers() {
       var  that = this;
-      // const _ = wx.cloud.database().command;
-      wx.cloud.database().collection("marker").where({
-        visiable : true
-      }).get({
-        success(res) {
-          // console.log(res.data);
-          var markers = that.toMarkerFormat(res.data);
-          console.log(markers)
-          that.setData({
-            markers : markers
-          })
-        }
+      wx.cloud.callFunction({
+        name : 'getAll'
+      }).then((res) => {
+        var newMarkers = that.toMarkerFormat(res.result);//原本是(res.data)
+        //但是这里调用了云函数，所以改成了res.result
+        console.log(newMarkers)
+        that.setData({
+          markers : newMarkers,
+          originMarkers : res.result
+        })
       })
+      
+      
+
+      //不使用云函数查询
+      // const _ = wx.cloud.database().command;
+      // wx.cloud.database().collection("marker").where({
+      //   visiable : true
+      // }).get({
+      //   success(res) {
+      //     // console.log(res.data);
+      //     var markers = that.toMarkerFormat(res.data);
+      //     console.log(markers)
+      //     that.setData({
+      //       markers : markers
+      //     })
+      //   }
+      // })
     },
 
     // 点击地图中的某个点添加标记
@@ -255,6 +284,34 @@ Page({
         searchName:name
       })
     },
+    //根据筛选条件更改可视性
+    changeMarkerVisibility(){
+      var temp = [];
+      var that = this;
+      var om = that.data.originMarkers;
+      for(let i=0;i< om.length;i++){
+        if(this.data.switch_work && om[i].type=="work"){
+          temp.push(om[i]);
+        }
+        else if(this.data.switch_learning && om[i].type=="learning"){
+          temp.push(om[i]);
+        }
+        else if(this.data.switch_food && om[i].type=="food"){
+          temp.push(om[i]);
+        }
+        else if(this.data.switch_notify && om[i].type=="notify"){
+          temp.push(om[i]);
+        }
+        else if(this.data.switch_group && om[i].type=="group"){
+          temp.push(om[i]);
+        }
+      }
+      var newMarker = that.toMarkerFormat(temp);
+      console.log(newMarker);
+      that.setData({
+        markers : newMarker
+      })
+    },
 
     //筛选开关对应响应事件
     switchChange_work(){
@@ -263,6 +320,7 @@ Page({
         switch_work:!that.data.switch_work
       });
       console.log("办事筛选:"+this.data.switch_work);
+      this.changeMarkerVisibility();
     },
     switchChange_learning(){
       var that = this;
@@ -270,6 +328,7 @@ Page({
         switch_learning:!that.data.switch_learning
       });
       console.log("学习筛选:"+this.data.switch_learning);
+      this.changeMarkerVisibility();
     },
     switchChange_food(){
       var that = this;
@@ -277,6 +336,7 @@ Page({
         switch_food:!that.data.switch_food
       });
       console.log("餐饮筛选:"+this.data.switch_food);
+      this.changeMarkerVisibility();
     },
     switchChange_notify(){
       var that = this;
@@ -284,6 +344,7 @@ Page({
         switch_notify:!that.data.switch_notify
       });
       console.log("通知筛选:"+this.data.switch_notify);
+      this.changeMarkerVisibility();
     },
     switchChange_group(){
       var that = this;
@@ -291,6 +352,7 @@ Page({
         switch_group:!that.data.switch_group
       });
       console.log("群组筛选:"+this.data.switch_group);
-    }
+      this.changeMarkerVisibility();
+    },
   })
   
