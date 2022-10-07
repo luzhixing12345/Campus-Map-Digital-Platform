@@ -18,7 +18,7 @@ page {
 .header {
   display:flex;
   justify-content: space-between;
-  position: absolute;
+  position: fixed;
   z-index: 2;
   width: 95%;
   height: 40px;
@@ -98,7 +98,7 @@ page {
 }
 
 .dark-background {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   border-radius: 15px;
   width: 95%;
@@ -133,7 +133,7 @@ page {
   height: 50px;
   background-color: rgb(221,168,36);
   transition: color .25s;
-  position: absolute;
+  position: fixed;
   bottom: 15px;
   right: 30px;
   z-index: 2;
@@ -166,14 +166,14 @@ page {
 }
 
 .search-area {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   border-radius: 15px;
   width: 95%;
   height: 95%;
   background-color: grey;
   opacity: 0.6;
-  top: 40px; /*区别于dark-background，top多一些，为40px*/
+  top: 45px; /*区别于dark-background，top多一些，为40px*/
   left: 10px;
 }
 
@@ -194,7 +194,7 @@ page {
 }
 
 .select-sheet {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   border-radius: 15px;
   width: 30%;
