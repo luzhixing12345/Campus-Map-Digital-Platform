@@ -4,7 +4,7 @@
   <input 
     type="text" 
     class="input-box" 
-    placeholder="搜索地点..." 
+    placeholder=" 搜索地点..." 
     placeholder-class="place-holder" 
     bindinput="capturePlaceName"
     bindfocus="showSearchResultList"
@@ -29,31 +29,31 @@
 <!-- 筛选面板 -->
 <view wx:if="{{use_select}}" class="select-sheet">
 <switch 
-color="red" 
+color="#d0021b" 
 class="select-switch" 
 bindchange="switchChange_work"
 checked="true"
 >办事</switch>
 <switch 
-color="blue" 
+color="#4a90e2" 
 class="select-switch" 
 bindchange="switchChange_learning"
 checked="true"
 >学习</switch>
 <switch 
-color="green" 
+color="#7ed321" 
 class="select-switch" 
 bindchange="switchChange_food"
 checked="true"
 >餐饮</switch>
 <switch 
-color="yellow" 
+color="#f5a623" 
 class="select-switch" 
 bindchange="switchChange_notify"
 checked="true"
 >通知</switch>
 <switch 
-color="black" 
+color="#000000" 
 class="select-switch" 
 bindchange="switchChange_group"
 checked="true"
