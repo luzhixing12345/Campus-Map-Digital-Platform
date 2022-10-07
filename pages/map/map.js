@@ -60,9 +60,24 @@ Page({
         temp.latitude = data[i].position.coordinates[1];
         // temp.longitude = data[i].position.longitude;
         temp.longitude = data[i].position.coordinates[0];
-        temp.width = 30;
-        temp.height = 45;
-
+        temp.width = 40;
+        temp.height = 40;
+        var iconType = data[i].type;
+        if(iconType == "learning"){
+          temp.iconPath = "../../images/learning.png";
+        }
+        else if(iconType == "work"){
+          temp.iconPath = "../../images/work.png";
+        }
+        else if(iconType == "food"){
+          temp.iconPath = "../../images/food.png";
+        }
+        else if(iconType == "notify"){
+          temp.iconPath = "../../images/notify.png";
+        }
+        else if(iconType == "group"){
+          temp.iconPath = "../../images/groupIcon.png";
+        }
         markers_id.push(data[i]._id)
         res.push(temp);
       }
