@@ -114,7 +114,7 @@ checked="true"
 <view wx:if="{{display_marker_info}}" class="marker-info"></view>
 
 <view class="light-background" animation="{{ani}}">
-  <view class="marker-info">{{markerInfo_faculty+markerInfo_name}}</view>
+  <view class="marker-info">{{marker_info.name}}</view>
   <view >
     <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
   </view>

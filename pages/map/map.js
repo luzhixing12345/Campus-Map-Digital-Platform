@@ -22,9 +22,36 @@ Page({
       switch_notify:true,
       switch_group:true,
 
+      // 选中的marker点的信息
+      marker_info : { 
+        name : "", // 地点名字
+        type : "", // 地点类型
+        like_number : 0, // 点赞个数
+        liked : false, // 该用户是否已经点赞
+        comment_info : [{ // 评论集合（数组）
+          comment : "", // 评论内容
+          picturesUrl : [] // 
+        }]
+      }, 
     },
-    onLoad() {
+
+    onShow() {
       this.getAllMarkers();
+    },
+
+    onLoad() {
+      wx.getSetting({
+        success(res) {
+          console.log(res)
+          if (!res.authSetting['scope.userLocation']){
+            wx.authorize({
+              scope: 'scope.userLocation',
+            })
+          }
+        }
+      })
+      console.log("$$$")
+      this.mpCtx = wx.createMapContext('myMap');
       this.setData({
         userInfo : app.globalData.userInfo
       })
@@ -54,9 +81,7 @@ Page({
         //   "coordinates":[114.36024436100001,30.53900057145802]
         // }
         //故改成如下格式
-        // temp.latitude = data[i].position.latitude;
         temp.latitude = data[i].position.coordinates[1];
-        // temp.longitude = data[i].position.longitude;
         temp.longitude = data[i].position.coordinates[0];
         temp.width = 40;
         temp.height = 40;
@@ -123,7 +148,7 @@ Page({
       }).then((res) => {
         var newMarkers = that.toMarkerFormat(res.result);//原本是(res.data)
         //但是这里调用了云函数，所以改成了res.result
-        console.log(newMarkers)
+        // console.log(newMarkers)
         that.setData({
           markers : newMarkers,
           originMarkers : res.result
@@ -150,7 +175,7 @@ Page({
 
     // 点击地图中的某个点添加标记
     addNewMarker(e) {
-      console.log(e)
+      // console.log(e)
       // 未点击加号，不处理
       if(!this.data.enable_add_marker) return;
       console.log("录入标记点信息")
@@ -169,53 +194,21 @@ Page({
       this.handleUserInput();
     },
 
-    addMarkerInfo() {
-      
-      wx.showLoading({
-        title: '正在添加新标记点信息',
-      })
-      wx.cloud.database().collection("marker").add({
-        data : marker_data,
-        success(res) {
-          console.log(res);
-          wx.showToast({
-            title: '新标记点已添加',
-            icon: 'success',
-          })
-        }
-      })
-    },
-    // 展示标记点的信息
-    showMarkerInfo(marker_id) {
-      wx.cloud.database().collection("marker").doc(marker_id).get({
-        success(res) {
-          console.log(res)
-        }
-      })
-    },
 
-    // 点击标记点
-    clickMarkers(e) {
-      // console.log("点击标记点了")
-      // console.log(e)
-      var marker_index = e.detail.markerId;
-      var marker_id = this.data.markers_id[marker_index];
-      this.showMarkerInfo(marker_id);
-      this.setData({
-        display_marker_info : true
+    // 跳转到指定position 处于视野中央
+    moveToLocation(latitude,longitude) {
+      let mpCtx = wx.createMapContext('myMap');
+      mpCtx.moveToLocation({
+        latitude:latitude,
+        longitude:longitude
       })
-
-    },
-
-    calloutTap(e) {
-      console.log("@callout:",e);
     },
     
     moveToMarker:(e)=>{//将地图中心移至指定经纬度
       var targetLatitude = e.currentTarget.dataset.index.resultLatitude;
       var targetLongitude = e.currentTarget.dataset.index.resultLongitude; 
-      let mpCtx = wx.createMapContext('myMap');
-      mpCtx.moveToLocation({
+      
+      this.mpCtx.moveToLocation({
         latitude:targetLatitude,
         longitude:targetLongitude,
         success(res) {
@@ -367,28 +360,29 @@ Page({
       console.log("群组筛选:"+this.data.switch_group);
       this.changeMarkerVisibility();
     },
+
+    // 获取标记点的详细信息保存在marker_info中
+    getMarkerInfo(res) {
+      console.log(res)
+      this.setData({
+        "marker_info.name" : res.data.name
+      })
+    },
     upMarkerInfo(e) {
-      console.log(e);
-      console.log(this.data.markers);
-      var markerLatitude = this.data.markers[e.markerId].latitude;
-      var markerLongitude = this.data.markers[e.markerId].longitude;
+      // console.log(e);
       var that = this;
+      var marker_id = this.data.markers_id[e.markerId];
+      var latitude = this.data.markers[e.markerId].latitude;
+      var longitude = this.data.markers[e.markerId].longitude;
+      // 标记点移动到视野中央
+      this.moveToLocation(latitude,longitude);
       const db = wx.cloud.database();
-      db.collection('marker').where({
-        position:db.Geo.Point(markerLongitude,markerLatitude)
-      }).get({
+      // 这里修改为了doc查询_id，速度快一些
+      db.collection('marker').doc(marker_id).get({
         success:(res)=>{
-          // console.log(res);
-          that.setData({
-            markerInfo_faculty : res.data[0].faculty,
-            markerInfo_name : res.data[0].name,
-          })
-        },
-        fail:(res)=>{
-          console.log("查询marker信息失败");
+          that.getMarkerInfo(res)
         }
       })
-      
       var animation = wx.createAnimation({
         duration: 500,
         timingFunction: 'linears',
