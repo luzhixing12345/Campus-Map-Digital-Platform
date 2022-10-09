@@ -109,6 +109,18 @@ page {
   left: 10px;
 }
 
+.light-background {
+  position: fixed;
+  z-index: 2;
+  border-radius: 15px;
+  width: 95%;
+  height: 95%;
+  background-color:white;
+  opacity: 1.0;
+  top: 1000px;
+  left: 10px;
+}
+
 .arrow-right{
   width: 10px;
   height: 10px;
@@ -211,4 +223,14 @@ page {
   top:10px;
 }
 
-/* .marker-info {} */
+.marker-info {
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+  top: 25px;
+  font-size: 22px;
+  color: black;
+  opacity: 1.0;
+}

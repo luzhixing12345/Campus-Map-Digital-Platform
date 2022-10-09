@@ -18,6 +18,7 @@
   </view>
 </view>
 
+
 <!-- 添加标记地点界面 -->
 <view wx:if="{{enable_add_marker}}" class="dark-background">
   <view class="text">请选择添加标记的地点</view>
@@ -85,10 +86,12 @@ checked="true"
       markers="{{markers}}"
       covers="{{covers}}"
       show-location
-      bindtap="addNewMarker"
       bindmarkertap="clickMarkers"
       show-location="true"
+      bindtap="addNewMarker"
+      bindmarkertap="upMarkerInfo"      
     >
+    <!-- bindtap="addNewMarker" -->
     <!-- <cover-view slot="callout">
         <block wx:for="{{customCalloutMarkerIds}}" wx:key="*this">
           <cover-view  class="customCallout" marker-id="{{item}}" >
@@ -109,3 +112,10 @@ checked="true"
 </view>
 
 <view wx:if="{{display_marker_info}}" class="marker-info"></view>
+
+<view class="light-background" animation="{{ani}}">
+  <view class="marker-info">{{markerInfo_faculty+markerInfo_name}}</view>
+  <view >
+    <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
+  </view>
+</view>

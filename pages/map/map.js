@@ -22,8 +22,6 @@ Page({
       switch_notify:true,
       switch_group:true,
 
-      //marker原始数据，用于筛选
-      //marker筛选后数据
     },
     onLoad() {
       this.getAllMarkers();
@@ -369,5 +367,48 @@ Page({
       console.log("群组筛选:"+this.data.switch_group);
       this.changeMarkerVisibility();
     },
+    upMarkerInfo(e) {
+      console.log(e);
+      console.log(this.data.markers);
+      var markerLatitude = this.data.markers[e.markerId].latitude;
+      var markerLongitude = this.data.markers[e.markerId].longitude;
+      var that = this;
+      const db = wx.cloud.database();
+      db.collection('marker').where({
+        position:db.Geo.Point(markerLongitude,markerLatitude)
+      }).get({
+        success:(res)=>{
+          // console.log(res);
+          that.setData({
+            markerInfo_faculty : res.data[0].faculty,
+            markerInfo_name : res.data[0].name,
+          })
+        },
+        fail:(res)=>{
+          console.log("查询marker信息失败");
+        }
+      })
+      
+      var animation = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'linears',
+        delay: 0,
+      });
+      animation.translateY(-800).step()
+      this.setData({
+        ani:  animation.export()
+      })
+    },
+    downMarkerInfo(e) {
+      var animation = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'linear',
+        delay: 0,
+      });
+      animation.translateY(800).step()
+      this.setData({
+        ani:  animation.export()
+      })
+    }
   })
   
