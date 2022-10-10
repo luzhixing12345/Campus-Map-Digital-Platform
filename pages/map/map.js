@@ -368,8 +368,8 @@ Page({
       this.changeMarkerVisibility();
     },
     upMarkerInfo(e) {
-      console.log(e);
-      console.log(this.data.markers);
+      // console.log(e);
+      // console.log(this.data.markers);
       var markerLatitude = this.data.markers[e.markerId].latitude;
       var markerLongitude = this.data.markers[e.markerId].longitude;
       var that = this;
