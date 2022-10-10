@@ -21,7 +21,7 @@ Page({
       switch_work:true,
       switch_notify:true,
       switch_group:true,
-
+      
       // 选中的marker点的信息
       marker_info : { 
         name : "", // 地点名字
@@ -40,9 +40,9 @@ Page({
     },
 
     onLoad() {
+      // 跳转到此页面即申请权限
       wx.getSetting({
         success(res) {
-          console.log(res)
           if (!res.authSetting['scope.userLocation']){
             wx.authorize({
               scope: 'scope.userLocation',
@@ -50,7 +50,6 @@ Page({
           }
         }
       })
-      console.log("$$$")
       this.mpCtx = wx.createMapContext('myMap');
       this.setData({
         userInfo : app.globalData.userInfo
@@ -75,32 +74,11 @@ Page({
       for (var i=0;i<data.length;i++) {
         var temp = {};
         temp.id = i;
-        //云函数数据的position属性值格式为
-        //"position":{
-        //   "type":"Point",
-        //   "coordinates":[114.36024436100001,30.53900057145802]
-        // }
-        //故改成如下格式
         temp.latitude = data[i].position.coordinates[1];
         temp.longitude = data[i].position.coordinates[0];
         temp.width = 40;
         temp.height = 40;
-        var iconType = data[i].type;
-        if(iconType == "learning"){
-          temp.iconPath = "../../images/learning.png";
-        }
-        else if(iconType == "work"){
-          temp.iconPath = "../../images/work.png";
-        }
-        else if(iconType == "food"){
-          temp.iconPath = "../../images/food.png";
-        }
-        else if(iconType == "notify"){
-          temp.iconPath = "../../images/notify.png";
-        }
-        else if(iconType == "group"){
-          temp.iconPath = "../../images/groupIcon.png";
-        }
+        temp.iconPath = "../../images/" + data[i].type + ".png";
         markers_id.push(data[i]._id)
         res.push(temp);
       }
