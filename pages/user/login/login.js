@@ -47,6 +47,7 @@ Page({
           success(ress) {
             // console.log(ress)
             app.globalData.userInfo._openid = ress.result.openid;
+            wx.setStorageSync('userInfo', app.globalData.userInfo)
             wx.cloud.database().collection('user').where({
               _openid: app.globalData.userInfo._openid
             }).get({

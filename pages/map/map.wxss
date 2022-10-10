@@ -223,15 +223,3 @@ page {
   left:10px;
   top:10px;
 }
-
-.marker-info {
-  position: absolute;
-  z-index: 3;
-  width: 100%;
-  text-align: center;
-  font-size: 40px;
-  top: 25px;
-  font-size: 22px;
-  color: black;
-  opacity: 1.0;
-}

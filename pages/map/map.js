@@ -21,18 +21,8 @@ Page({
       switch_work:true,
       switch_notify:true,
       switch_group:true,
-      
-      // 选中的marker点的信息
-      marker_info : { 
-        name : "", // 地点名字
-        type : "", // 地点类型
-        like_number : 0, // 点赞个数
-        liked : false, // 该用户是否已经点赞
-        comment_info : [{ // 评论集合（数组）
-          comment : "", // 评论内容
-          picturesUrl : [] // 
-        }]
-      }, 
+
+      marker_info : {} // 标记点信息
     },
 
     onShow() {
@@ -58,7 +48,6 @@ Page({
 
     // 筛选标记点 TODO
     selectMarker() {
-
       console.log("select marker here")
       var that = this;
       this.setData({
@@ -132,23 +121,6 @@ Page({
           originMarkers : res.result
         })
       })
-      
-      
-
-      //不使用云函数查询
-      // const _ = wx.cloud.database().command;
-      // wx.cloud.database().collection("marker").where({
-      //   visiable : true
-      // }).get({
-      //   success(res) {
-      //     // console.log(res.data);
-      //     var markers = that.toMarkerFormat(res.data);
-      //     console.log(markers)
-      //     that.setData({
-      //       markers : markers
-      //     })
-      //   }
-      // })
     },
 
     // 点击地图中的某个点添加标记
@@ -211,9 +183,7 @@ Page({
     },
 
     doTheSearch(){//根据地点名执行搜索
-      // console.log("doTheSearch");
       var placeName = this.data.searchName;
-      // console.log(placeName);
       const db = wx.cloud.database();
       const _ = db.command;
       db.collection("marker").where(
@@ -241,9 +211,6 @@ Page({
             var targetName = res.data[i].faculty+res.data[i].name;
             var targetLatitude = res.data[i].position.latitude;
             var targetLongitude = res.data[i].position.longitude;
-            // console.log(targetName);
-            // console.log(targetLatitude);
-            // console.log(targetLongitude);
             var place = {
               resultName:targetName,
               resultLatitude:targetLatitude,
@@ -274,24 +241,14 @@ Page({
       var that = this;
       var om = that.data.originMarkers;
       for(let i=0;i< om.length;i++){
-        if(this.data.switch_work && om[i].type=="work"){
-          temp.push(om[i]);
-        }
-        else if(this.data.switch_learning && om[i].type=="learning"){
-          temp.push(om[i]);
-        }
-        else if(this.data.switch_food && om[i].type=="food"){
-          temp.push(om[i]);
-        }
-        else if(this.data.switch_notify && om[i].type=="notify"){
-          temp.push(om[i]);
-        }
-        else if(this.data.switch_group && om[i].type=="group"){
-          temp.push(om[i]);
-        }
+        if(this.data.switch_work && om[i].type=="work") temp.push(om[i]);
+        if(this.data.switch_learning && om[i].type=="learning") temp.push(om[i]);
+        if(this.data.switch_food && om[i].type=="food") temp.push(om[i]);
+        if(this.data.switch_notify && om[i].type=="notify") temp.push(om[i]);
+        if(this.data.switch_group && om[i].type=="group") temp.push(om[i]);
       }
       var newMarker = that.toMarkerFormat(temp);
-      console.log(newMarker);
+      // console.log(newMarker);
       that.setData({
         markers : newMarker
       })
@@ -341,9 +298,19 @@ Page({
 
     // 获取标记点的详细信息保存在marker_info中
     getMarkerInfo(res) {
+      // marker表中指保存like collection的数量
+      // 具体的点赞和收藏信息保存在user表中
       console.log(res)
       this.setData({
-        "marker_info.name" : res.data.name
+        "marker_info.name" : res.data.name,
+        "marker_info.type" : res.data.type,
+        "marker_info.creator" : res.data.creator,
+        "marker_info.faculty" : res.data.faculty,
+        "marker_info.like_number" : res.data.like,
+        "marker_info.comment_number" : res.data.comment.length,
+        "marker_info.collection_number" : res.data.collection,
+        "marker_info.description" : res.data.description,
+        "marker_info.picturesUrl" : res.data.picturesUrl
       })
     },
     upMarkerInfo(e) {
