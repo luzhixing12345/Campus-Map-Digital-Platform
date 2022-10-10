@@ -1,2 +1,24 @@
 <!--pages/map/marker/addNewMarker/addNewMarker.wxml-->
-<text>pages/map/marker/addNewMarker/addNewMarker.wxml</text>
+
+<view>
+  <form catchsubmit="formSubmit" catchreset="formReset">
+    <view>
+      <view>学部：</view>
+      <picker name="faculty" bindchange="bindFacultyChange" value="{{facultyIndex}}" range="{{facultyArray}}">
+        <view>{{facultyArray[facultyIndex]}}</view>
+      </picker>
+    </view>
+    <view>
+      <view>名称：</view>
+      <input name="input" placeholder="请输入地点名称" /></view>
+    <view>
+      <view>类型：</view>
+      <picker name="type" bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeArray}}">
+        <view>{{typeArray[typeIndex]}}</view>
+      </picker>
+    </view>
+    <view>
+      <button type="primary" formType="submit">Submit</button>
+    </view>
+  </form>
+</view>

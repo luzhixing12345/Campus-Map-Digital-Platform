@@ -102,7 +102,7 @@ page {
   z-index: 2;
   border-radius: 15px;
   width: 95%;
-  height: 95%;
+  height: 15%;
   background-color: grey;
   opacity: 0.6;
   top: 10px;
