@@ -8,7 +8,7 @@ App({
         this.globalData.userInfo = wx.getStorageSync('userInfo')
         console.log('get storage')
         wx.switchTab({
-            url: '/pages/user/user',
+            url: '/pages/map/map',
           })
       }
       console.log("no storage found")

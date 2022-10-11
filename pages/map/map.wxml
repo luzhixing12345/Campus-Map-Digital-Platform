@@ -114,7 +114,40 @@ checked="true"
 <view wx:if="{{display_marker_info}}" class="marker-info"></view>
 
 <view class="light-background" animation="{{ani}}">
-  <view class="marker-info">{{markerInfo_faculty+markerInfo_name}}</view>
+  <view class="marker-info">
+    <view class="marker-info-header">
+      <view class="left-header">
+        <view class="name">{{marker_info.name}}</view>
+        <view>
+          类型：<view class="type">{{marker_info.type}}</view>
+        </view>
+        <view class="creator">创建者: {{marker_info.creator}}</view>
+      </view>
+      <view class="right-header">
+        <view class="right-header-up">
+        <!-- 这里未来考虑hover -->
+          <view>
+            <image src="../../images/like.png" class="icon"></image>
+            <text>{{marker_info.like_number}}</text>
+          </view>
+          <view>
+            <image src="../../images/comment.png" class="icon"></image>
+            <text>{{marker_info.comment_number}}</text>
+          </view>
+          <view>
+            <image src="../../images/collection.png" class="icon"></image>
+            <text>{{marker_info.collection_number}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="marker-info-footer">
+      <view class="description">{{marker_info.description}}</view>
+      <view wx:for="{{marker_info.picturesUrl}}">
+        <!-- 这里展示图片 -->
+      </view>
+    </view>
+  </view>
   <view >
     <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
   </view>

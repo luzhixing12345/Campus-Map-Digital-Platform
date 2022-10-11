@@ -25,7 +25,7 @@
                 "pagePath": "pages/group/group",
                 "text": "群组",
                 "iconPath": "images/group.png",
-                "selectedIconPath": "images/group.png"
+                "selectedIconPath": "images/groupIcon.png"
             },
             {
                 "pagePath": "pages/map/map",

@@ -13,12 +13,6 @@ Page({
    })
   },
   onLoad() {
-      wx.setStorageSync('userInfo', app.globalData.userInfo)
-      // wx.cloud.database().collection('user').where({
-      //   _openid : app.globalData.userInfo.
-      // })
-      // console.log(app.globalData.userInfo)
-
   }
 
     

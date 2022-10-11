@@ -119,6 +119,7 @@ page {
   opacity: 1.0;
   top: 1000px;
   left: 10px;
+  opacity: 0.9;
 }
 
 .arrow-right{
@@ -221,16 +222,4 @@ page {
   position: relative;
   left:10px;
   top:10px;
-}
-
-.marker-info {
-  position: absolute;
-  z-index: 3;
-  width: 100%;
-  text-align: center;
-  font-size: 40px;
-  top: 25px;
-  font-size: 22px;
-  color: black;
-  opacity: 1.0;
 }
