@@ -30,6 +30,7 @@ Page({
     },
 
     onLoad() {
+      this.refactorDatabaseMarkerItem();
       // 跳转到此页面即申请权限
       wx.getSetting({
         success(res) {
@@ -45,6 +46,43 @@ Page({
         userInfo : app.globalData.userInfo
       })
     },
+
+    // marker数据库 表项整体修改
+    // 用于开发过程中重构一次数据库表项，使用后记得注释掉
+    refactorDatabaseMarkerItem() {
+
+      var new_item = {
+        collection : 0,
+        commment : [],
+        creator : "admin",
+        description : "",
+        like : 0,
+        picturesUrl : []
+      }
+
+      wx.cloud.database().collection('marker').get({
+        success(res) {
+          console.log(res);
+          var i;
+          for (i=0;i<res.data.length;i++) {
+            wx.cloud.database().collection('marker').doc(res.data[i]._id).update({
+              data : {
+                collection : 0,
+                commment : [],
+                creator : "admin",
+                description : "",
+                like : 0,
+                picturesUrl : []
+              },
+              success(r) {
+                console.log(r)
+              }
+            })
+          }
+        }
+      })
+    },
+
 
     // 筛选标记点 TODO
     selectMarker() {
