@@ -86,7 +86,6 @@ checked="true"
       markers="{{markers}}"
       covers="{{covers}}"
       show-location
-      bindmarkertap="clickMarkers"
       show-location="true"
       bindtap="addNewMarker"
       bindmarkertap="upMarkerInfo"      
@@ -111,8 +110,6 @@ checked="true"
   <view class="add"></view>
 </view>
 
-<view wx:if="{{display_marker_info}}" class="marker-info"></view>
-
 <view class="light-background" animation="{{ani}}">
   <view class="marker-info">
     <view class="marker-info-header">
@@ -127,15 +124,15 @@ checked="true"
         <view class="right-header-up">
         <!-- 这里未来考虑hover -->
           <view>
-            <image src="../../images/like.png" class="icon"></image>
+            <image src="../../images/like.png"></image>
             <text>{{marker_info.like_number}}</text>
           </view>
           <view>
-            <image src="../../images/comment.png" class="icon"></image>
+            <image src="../../images/comment.png"></image>
             <text>{{marker_info.comment_number}}</text>
           </view>
           <view>
-            <image src="../../images/collection.png" class="icon"></image>
+            <image src="../../images/collection.png"></image>
             <text>{{marker_info.collection_number}}</text>
           </view>
         </view>
@@ -147,8 +144,5 @@ checked="true"
         <!-- 这里展示图片 -->
       </view>
     </view>
-  </view>
-  <view >
-    <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
   </view>
 </view>

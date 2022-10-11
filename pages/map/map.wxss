@@ -223,3 +223,41 @@ page {
   left:10px;
   top:10px;
 }
+
+.marker-info-header {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: space-between;
+  overflow: visible;
+}
+
+.marker-info-header .left-header {
+  width: 40%;
+  height: 100%;
+  background-color: crimson;
+}
+
+.marker-info-header .right-header {
+  width: 50%;
+  height: 100%;
+  background-color: cyan;
+}
+
+.marker-info-header .right-header .right-header-up {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 60%;
+}
+
+.marker-info-header .right-header .right-header-up image{
+  width: 10%;
+  height: 10%;
+}
+
+.marker-info-footer {
+  width: 100%;
+  height: 300px;
+  background-color: blue;
+}
