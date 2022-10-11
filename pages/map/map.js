@@ -30,7 +30,7 @@ Page({
     },
 
     onLoad() {
-      this.refactorDatabaseMarkerItem();
+      // this.refactorDatabaseMarkerItem();
       // 跳转到此页面即申请权限
       wx.getSetting({
         success(res) {
@@ -53,14 +53,14 @@ Page({
 
       var new_item = {
         collection : 0,
-        commment : [],
+        comment : [],
         creator : "admin",
         description : "",
         like : 0,
         picturesUrl : []
       }
 
-      wx.cloud.database().collection('marker').get({
+      wx.cloud.database().collection('marker').where({}).get({
         success(res) {
           console.log(res);
           var i;
@@ -68,7 +68,7 @@ Page({
             wx.cloud.database().collection('marker').doc(res.data[i]._id).update({
               data : {
                 collection : 0,
-                commment : [],
+                comment : [],
                 creator : "admin",
                 description : "",
                 like : 0,
@@ -339,6 +339,8 @@ Page({
       // marker表中指保存like collection的数量
       // 具体的点赞和收藏信息保存在user表中
       console.log(res)
+      console.log(res.data.comment)
+      console.log(res.data.collection)
       this.setData({
         "marker_info.name" : res.data.name,
         "marker_info.type" : res.data.type,
