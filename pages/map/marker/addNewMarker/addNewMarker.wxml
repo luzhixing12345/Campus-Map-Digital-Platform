@@ -10,7 +10,7 @@
     </view>
     <view>
       <view>名称：</view>
-      <input name="input" placeholder="请输入地点名称" /></view>
+      <input name="name" placeholder="请输入地点名称" /></view>
     <view>
       <view>类型：</view>
       <picker name="type" bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeArray}}">
