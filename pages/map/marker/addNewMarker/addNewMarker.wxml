@@ -1,20 +1,18 @@
 <!--pages/map/marker/addNewMarker/addNewMarker.wxml-->
 
-<view>
+<view class="body-page">
   <form catchsubmit="formSubmit" catchreset="formReset">
-    <view>
-      <view>学部：</view>
+    <view class="form-box">
       <picker name="faculty" bindchange="bindFacultyChange" value="{{facultyIndex}}" range="{{facultyArray}}">
-        <view>{{facultyArray[facultyIndex]}}</view>
+        <view>学部：{{facultyArray[facultyIndex]}}</view>
       </picker>
     </view>
-    <view>
-      <view>名称：</view>
-      <input name="name" placeholder="请输入地点名称" /></view>
-    <view>
-      <view>类型：</view>
+    <view class="form-box">
+      <text>名称：</text>
+      <input name="name" placeholder="请输入地点名称" style="display: inline-flex;"/></view>
+    <view class="form-box">
       <picker name="type" bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeArray}}">
-        <view>{{typeArray[typeIndex]}}</view>
+        <view>类型：{{typeArray[typeIndex]}}</view>
       </picker>
     </view>
     <view>
