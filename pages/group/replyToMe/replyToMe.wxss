@@ -1,1 +1,24 @@
 /* pages/group/replyToMe/replyToMe.wxss */
+
+.reply-cell {
+  padding: 10rpx;
+  align-self: left;
+  border-radius: 20rpx;
+  margin: 10rpx;
+  background-color: #e6e5e5;
+}
+
+.user-avartar {
+  position: relative; 
+  width: 150rpx; 
+  height:150rpx; 
+  border-radius: 50rpx;
+}
+
+.user-name {
+  position: relative;
+  left: 50rpx;
+  top: -60rpx;
+  color: black;
+  font-size: 40rpx;
+}

@@ -1,2 +1,16 @@
 <!--pages/group/replyToMe/replyToMe.wxml-->
-<text>pages/group/replyToMe/replyToMe.wxml</text>
+
+<mp-cells>
+  <mp-cell wx:for="{{textArray}}" wx:key="" wx:for-item="a">
+    <view class="reply-cell" bindtap="reply">
+      <view>
+        <image class="user-avartar" src="/images/zood.png"></image>
+        <text class="user-name">{{replyerName}} 回复您：</text>
+        <text>{{replyTime}}</text>
+      </view>
+      <view>
+        <text>{{a}}</text>
+      </view>
+    </view>
+  </mp-cell>
+</mp-cells>
