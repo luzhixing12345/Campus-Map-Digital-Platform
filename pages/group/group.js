@@ -62,5 +62,29 @@ Page({
      */
     onShareAppMessage: function () {
 
+    },
+
+    replyToMe(e){
+        wx.navigateTo({
+          url: '../group/replyToMe/replyToMe',
+        })
+    },
+
+    atMe(e){
+        wx.navigateTo({
+          url: '../group/atMe/atMe',
+        })
+    },
+
+    receivedLikes(e){
+        wx.navigateTo({
+          url: '../group/receivedLikes/receivedLikes',
+        })
+    },
+
+    systemNotify(e){
+        wx.navigateTo({
+          url: '../group/systemNotify/systemNotify',
+        })
     }
 })

@@ -1,1 +1,23 @@
 /* group/group.wxss */
+.table {
+  width: 100%;
+  position: fixed;
+  top: 100rpx;
+}
+
+.tr {
+  width: 100%;
+  position: relative;
+}
+
+.td{
+  width: 25%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 100rpx;
+  height: 100rpx;
+}
