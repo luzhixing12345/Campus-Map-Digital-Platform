@@ -46,6 +46,16 @@ Page({
         }
       })
       this.mpCtx = wx.createMapContext('myMap');
+
+      // 获取用户的 _id 方便数据库使用 doc 查询
+      wx.cloud.database().collection('user').where({
+        _openid : app.globalData.userInfo._openid
+      }).get({
+        success(res) {
+          app.globalData.userInfo._id = res.data[0]._id;
+        }
+      })
+
     },
 
     // marker数据库 表项整体修改
@@ -61,7 +71,7 @@ Page({
         picturesUrl : []
       }
 
-      wx.cloud.database().collection('marker').where({}).get({
+      wx.cloud.database().collection('marker').get({
         success(res) {
           console.log(res);
           var i;
@@ -81,6 +91,22 @@ Page({
             })
           }
         }
+      })
+    },
+
+    // 动画效果
+    // animation_name(string) : animation="{{animation_name}}"
+    // position(string) : 'up'(向上展开) | 'down'(向下关闭)
+    animationAdjust(animation_name,position) {
+      var bias = position == 'up' ? -800 : 800;
+      var animation = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'linears',
+        delay: 0,
+      });
+      animation.translateY(bias).step()
+      this.setData({
+        [animation_name]:  animation.export(),
       })
     },
 
@@ -341,6 +367,7 @@ Page({
       // marker表中指保存like collection的数量
       // 具体的点赞和收藏信息保存在user表中
       this.setData({
+        "marker_info._id" : res.data._id, // 用于点赞和收藏的信息处理
         "marker_info.name" : res.data.name,
         "marker_info.type" : res.data.type,
         "marker_info.creator" : res.data.creator,
@@ -354,50 +381,130 @@ Page({
     },
     async upMarkerInfo(e) {
       // console.log(e)
-      var that = this;
       var marker_id = this.data.markers_id[e.markerId];
       var latitude = this.data.markers[e.markerId].latitude;
       var longitude = this.data.markers[e.markerId].longitude;
       // 标记点移动到视野中央
       this.moveToLocation(latitude,longitude);
-
       const db = wx.cloud.database();
-      const res = await db.collection('user').where({
-        _openid : app.globalData.userInfo._openid
-      }).get();
-      console.log(res)
+      const res = await db.collection('user').doc(app.globalData.userInfo._id).get();
       this.setData({
-        liked : res.data[0].likes.indexOf(marker_id) != -1,
-        collected : res.data[0].collections.indexOf(marker_id) != -1
+        liked : res.data.likes.indexOf(marker_id) != -1,
+        collected : res.data.collections.indexOf(marker_id) != -1
       })
-      // 这里修改为了doc查询_id，速度快一些
       const marker_info = await db.collection('marker').doc(marker_id).get()
-      console.log(marker_info)
       this.getMarkerInfo(marker_info)
-    
-      var animation = wx.createAnimation({
-        duration: 500,
-        timingFunction: 'linears',
-        delay: 0,
-      });
-      animation.translateY(-800).step()
-      this.setData({
-        ani:  animation.export(),
-      })
+      this.animationAdjust('ani','up');
     },
 
     // 降下显示信息
     downMarkerInfo() {
-      // console.log("undisplay the mark info")
-      var animation = wx.createAnimation({
-        duration: 500,
-        timingFunction: 'linear',
-        delay: 0,
-      });
-      animation.translateY(800).step()
+      this.animationAdjust('ani','down');
+    },
+
+    // 当用户点击喜欢按钮
+    clickLikeButton() {
+      var that = this;
+      var like_status = !this.data.liked; // 改变之后的liked
       this.setData({
-        ani:  animation.export()
+        liked : like_status
+      })
+      // 更新user表
+      wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).get({
+        success(res) {
+          // 喜欢则添加，取消喜欢则删除
+          var new_likes = res.data.likes;
+          if (like_status) {
+            new_likes.push(that.data.marker_info._id);
+          } else {
+            for (var i = 0; i<new_likes.length; i++) {
+              if (new_likes[i] == that.data.marker_info._id) {
+                new_likes.splice(i,1);
+                break;
+              }
+            }
+          }
+          // 更新用户数据库表
+          wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).update({
+            data : {
+              likes : new_likes
+            }
+          })
+        }
+      })
+      // 更新marker表
+      wx.cloud.database().collection('marker').doc(that.data.marker_info._id).get({
+        success(res) {
+          // 喜欢则+1，取消喜欢则-1
+          var new_like = like_status ? res.data.like + 1 : res.data.like-1;
+          that.setData({
+            'marker_info.like_number' : new_like
+          })
+          wx.cloud.database().collection('marker').doc(that.data.marker_info._id).update({
+            data : {
+              like : new_like
+            }
+          })
+        }
       })
     },
+    // 当用户点击收藏按钮
+    clickCollectionButton() {
+      var that = this;
+      var collection_status = !this.data.collected; // 改变之后的liked
+      this.setData({
+        collected : collection_status
+      })
+      // 更新user表
+      wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).get({
+        success(res) {
+          // 喜欢则添加，取消喜欢则删除
+          var new_collections = res.data.collections;
+          if (like_status) {
+            new_collections.push(that.data.marker_info._id);
+          } else {
+            for (var i = 0; i<new_collections.length; i++) {
+              if (new_collections[i] == that.data.marker_info._id) {
+                new_collections.splice(i,1);
+                break;
+              }
+            }
+          }
+          // 更新用户数据库表
+          wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).update({
+            data : {
+              collections : new_collections
+            }
+          })
+        }
+      })
+      // 更新marker表
+      wx.cloud.database().collection('marker').doc(that.data.marker_info._id).get({
+        success(res) {
+          // 喜欢则+1，取消喜欢则-1
+          var new_collection = collection_status ? res.data.collection + 1 : res.data.collection-1;
+          that.setData({
+            'marker_info.collection_number' : new_collection
+          })
+          wx.cloud.database().collection('marker').doc(that.data.marker_info._id).update({
+            data : {
+              collection : new_collection
+            }
+          })
+        }
+      })
+    },
+
+
+    // 当用户点击评论按钮,打开所有评论信息
+    upCommentInfo() {
+      this.animationAdjust('comment_ani','up');
+    },
+
+    // 关闭评论信息
+    downCommentInfo() {
+      this.animationAdjust('comment_ani','down');
+    },
+
   })
   

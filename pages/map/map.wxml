@@ -90,17 +90,6 @@ checked="true"
       bindtap="addNewMarker"
       bindmarkertap="upMarkerInfo"      
     >
-    <!-- bindtap="addNewMarker" -->
-    <!-- <cover-view slot="callout">
-        <block wx:for="{{customCalloutMarkerIds}}" wx:key="*this">
-          <cover-view  class="customCallout" marker-id="{{item}}" >
-            <cover-view class="content"> 
-              {{num}}-{{item}}-{{index}}
-            </cover-view>
-          </cover-view>
-        </block>
-    </cover-view> -->
-    
     </map>
   </view> 
 </view>
@@ -123,16 +112,16 @@ checked="true"
       </view>
       <view class="right-header">
         <!-- 这里未来考虑hover -->
-          <view class="item">
+          <view class="item" bindtap="clickLikeButton">
             <image wx:if="{{!liked}}" src="../../images/like.png"></image>
             <image wx:else src="../../images/liked.png"></image>
             <text>{{marker_info.like_number}}</text>
           </view>
-          <view class="item">
+          <view class="item" bindtap="upCommentInfo">
             <image src="../../images/comment.png"></image>
             <text>{{marker_info.comment_number}}</text>
           </view>
-          <view class="item">
+          <view class="item" bindtap="clickCollectionButton">
             <image wx:if="{{!collected}}" src="../../images/collection.png"></image>
             <image wx:else src="../../images/collected.png"></image>
             <text>{{marker_info.collection_number}}</text>
@@ -149,5 +138,34 @@ checked="true"
 
   <view >
     <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
+  </view>
+</view>
+
+<!-- 评论信息展开TODO -->
+<view class="comment" animation="{{comment_ani}}">
+  <view class="main-comment">
+    <view class="comment-header">
+      <image src="{{comment_info.avatarUrl}}"></image>
+      <view class="comment-id">{{comment_info.nickName}}</view>
+      <view class="comment-time">{{comment_info.time}}</view>
+    </view>
+    <view class="comment-body">{{comment_info.content}}</view>
+    <view class="comment-footer">
+      <view class="left">
+        <image src="../../images/like.png"></image>
+        <view>{{comment_info.like_number}}</view>
+        <!-- 倒转180变不喜欢 -->
+        <image src="../../images/like.png"></image>
+        <view>{{comment_info.dislike_number}}</view>
+        <image src='../../images/inner_comment.png'></image>
+      </view>
+      <view class="right">删除</view>
+    </view>
+  </view>
+  <view class="comment-for-comment" wx:for="{{comment_info.cfc}}">
+    <view>{{item.nickName}}:{{item.content}}</view>
+  </view>
+  <view >
+    <image src="../../images/cancel.png" bindtap="downCommentInfo" class="cancel-icon"></image>
   </view>
 </view>
