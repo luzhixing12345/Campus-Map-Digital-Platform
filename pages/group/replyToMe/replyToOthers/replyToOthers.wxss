@@ -1,1 +1,69 @@
 /* pages/group/replyToMe/replyToOthers/replyToOthers.wxss */
+.head {
+  position: relative;
+  height: 10%;
+  text-align: center;
+  padding: 20rpx;
+  background-color: rgb(219, 219, 218);
+  font-size: 30rpx;
+}
+
+.user-avartar {
+  position: relative; 
+  width: 150rpx; 
+  height:150rpx; 
+  border-radius: 50rpx;
+}
+
+.user-name {
+  position: relative;
+  left: 50rpx;
+  top: -60rpx;
+  color: black;
+  font-size: 40rpx;
+}
+
+.user-post {
+  padding: 10rpx;
+  align-self: left;
+  margin: 10rpx;
+  background-color: rgb(233, 233, 233);
+}
+
+.reply-cell {
+  padding: 10rpx;
+  align-self: left;
+  /* border-radius: 20rpx; */
+  margin: 10rpx;
+  background-color: rgb(233, 233, 233);
+}
+
+.comment-input {
+  width:100%;
+  position: fixed;
+  bottom: 30rpx;
+}
+
+
+.input-box {
+  background-color: rgb(126, 125, 125);
+  padding: 10rpx;
+  margin-left: 30rpx;
+  width: 70%;
+  border-radius: 15px;
+  opacity: 1.0;
+}
+
+
+.comment-button {
+  background-color: #04BE02;
+  padding: 10rpx;
+  margin-left: 10rpx;
+  width: 15%;
+  border-radius: 15px;
+  opacity: 1.0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}

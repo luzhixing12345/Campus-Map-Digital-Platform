@@ -1,9 +1,17 @@
 /* pages/group/replyToMe/replyToMe.wxss */
+.head {
+  position: relative;
+  height: 10%;
+  text-align: center;
+  padding: 20rpx;
+  background-color: rgb(219, 219, 218);
+  font-size: 30rpx;
+}
 
 .reply-cell {
   padding: 10rpx;
   align-self: left;
-  border-radius: 20rpx;
+  /* border-radius: 20rpx; */
   margin: 10rpx;
   background-color: #e6e5e5;
 }

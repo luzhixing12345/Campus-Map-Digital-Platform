@@ -1,4 +1,5 @@
 <!--pages/group/replyToMe/replyToMe.wxml-->
+<view class="head">回复我的</view>
 
 <mp-cells>
   <mp-cell wx:for="{{textArray}}" wx:key="" wx:for-item="a">
@@ -6,8 +7,9 @@
       <view>
         <image class="user-avartar" src="/images/zood.png"></image>
         <text class="user-name">{{replyerName}} 回复您：</text>
-        <text>{{replyTime}}</text>
+        
       </view>
+      <view><text>{{replyTime}}</text></view>
       <view>
         <text>{{a}}</text>
       </view>

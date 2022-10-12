@@ -1,2 +1,44 @@
 <!--pages/group/replyToMe/replyToOthers/replyToOthers.wxml-->
-<text>pages/group/replyToMe/replyToOthers/replyToOthers.wxml</text>
+<view class="head">评论详情</view>
+
+<view class="user-post">
+  <view>
+    <image class="user-avartar" src="/images/zood.png"></image>
+    <text class="user-name">{{userName}}</text>
+  </view>
+  <view><text>{{postTime}}</text></view>
+  <view><text>{{postText}}</text></view>
+</view>
+
+<view>
+    <mp-cells>
+      <mp-cell wx:for="{{commentData}}" wx:for-item="a" wx:key="replyerName">
+        <view class="reply-cell">
+          <view>
+            <image class="user-avartar" src="{{a.replyerAvartar}}"></image>
+            <text class="user-name">{{a.replyerName}} 回复 {{userName}}</text>
+          </view>
+          <view><text>{{a.replyTime}}</text></view>
+          <view>
+            <text>{{a.replyContent}}</text>
+          </view>
+        </view>
+      </mp-cell>
+    </mp-cells>
+    <view style="width: 100%;height: 100rpx;"></view>
+</view>
+
+
+<view class="comment-input">
+    <input 
+    class="input-box" 
+    placeholder="留下你的评论" 
+    style="display: inline-flex;" 
+    placeholder-style="color: white;"
+    bindinput="captureComment"
+    value="{{commentContent}}"
+    />
+    <view class="comment-button" bindtap="postComment">发布</view>
+
+  
+</view>
