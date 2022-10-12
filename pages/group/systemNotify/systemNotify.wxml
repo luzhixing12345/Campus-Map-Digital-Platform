@@ -1,2 +1,2 @@
 <!--pages/group/systemNotify/systemNotify.wxml-->
-<text>pages/group/systemNotify/systemNotify.wxml</text>
+<view class="head">系统通知</view>
