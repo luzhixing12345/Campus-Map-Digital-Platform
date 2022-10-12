@@ -1,2 +1,15 @@
 <!--pages/group/atMe/atMe.wxml-->
-<text>pages/group/atMe/atMe.wxml</text>
+<!-- 其实并不是很确定要不要加入at功能 -->
+<view class="head">@我的</view>
+
+<mp-cells>
+  <mp-cell wx:for="{{atArray}}" wx:key="" wx:for-item="a">
+    <view class="at-cell" bindtap="at">
+      <view>
+        <image class="user-avartar" src="{{a.atAvartar}}"></image>
+        <text class="user-name">{{a.atName}} @您：</text>
+      </view>
+      <view><text>{{a.atTime}}</text></view>
+    </view>
+  </mp-cell>
+</mp-cells>

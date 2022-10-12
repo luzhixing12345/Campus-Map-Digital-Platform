@@ -5,7 +5,53 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    likesArray : [
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+      {
+        likesAvartar : '/images/zood.png',
+        likesName : '丁真珍珠',
+        likesTime : '2022/10/10 15:15:15'
+      },
+    ],
   },
 
   /**
