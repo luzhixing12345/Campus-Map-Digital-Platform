@@ -30,7 +30,7 @@ Page({
     },
 
     onLoad() {
-      this.refactorDatabaseMarkerItem();
+      // this.refactorDatabaseMarkerItem();
       // 跳转到此页面即申请权限
       wx.getSetting({
         success(res) {
@@ -47,20 +47,34 @@ Page({
       })
     },
 
+    // 降下显示信息
+    downMarkerInfo() {
+      console.log("undisplay the mark info")
+      var animation = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'linear',
+        delay: 0,
+      });
+      animation.translateY(800).step()
+      this.setData({
+        ani:  animation.export()
+      })
+    },
+
     // marker数据库 表项整体修改
     // 用于开发过程中重构一次数据库表项，使用后记得注释掉
     refactorDatabaseMarkerItem() {
 
       var new_item = {
         collection : 0,
-        commment : [],
+        comment : [],
         creator : "admin",
         description : "",
         like : 0,
         picturesUrl : []
       }
 
-      wx.cloud.database().collection('marker').get({
+      wx.cloud.database().collection('marker').where({}).get({
         success(res) {
           console.log(res);
           var i;
@@ -68,7 +82,7 @@ Page({
             wx.cloud.database().collection('marker').doc(res.data[i]._id).update({
               data : {
                 collection : 0,
-                commment : [],
+                comment : [],
                 creator : "admin",
                 description : "",
                 like : 0,
@@ -86,6 +100,14 @@ Page({
 
     // 筛选标记点 TODO
     selectMarker() {
+
+      if (this.data.display_marker_info) {
+        this.downMarkerInfo();
+        this.setData({
+          display_marker_info : false
+        })
+      }
+
       console.log("select marker here")
       var that = this;
       this.setData({
@@ -165,8 +187,16 @@ Page({
     addNewMarker(e) {
       // console.log(e)
       // 未点击加号，不处理
+      if(this.data.display_marker_info) {
+        console.log("@@ start to undisplay the mark info")
+        this.downMarkerInfo();
+        this.setData({
+          display_marker_info : false
+        })
+      }
       if(!this.data.enable_add_marker) return;
-      console.log("录入标记点信息")
+
+      // console.log("录入标记点信息")
       this.setData({
         enable_add_marker : false
       })
@@ -221,6 +251,14 @@ Page({
     },
 
     doTheSearch(){//根据地点名执行搜索
+
+      if(this.data.display_marker_info) {
+        this.downMarkerInfo();
+        this.setData({
+          display_marker_info : false
+        })
+      }
+
       var placeName = this.data.searchName;
       const db = wx.cloud.database();
       const _ = db.command;
@@ -267,6 +305,14 @@ Page({
       })
     },
     capturePlaceName(options){//捕获要搜索的地点名
+
+      if(this.data.display_marker_info) {
+        this.downMarkerInfo();
+        this.setData({
+          display_marker_info : false
+        })
+      }
+
       let name = options.detail.value;
       console.log("要搜索的地点是"+name);
       this.setData({
@@ -338,21 +384,22 @@ Page({
     getMarkerInfo(res) {
       // marker表中指保存like collection的数量
       // 具体的点赞和收藏信息保存在user表中
-      console.log(res)
       this.setData({
         "marker_info.name" : res.data.name,
         "marker_info.type" : res.data.type,
         "marker_info.creator" : res.data.creator,
         "marker_info.faculty" : res.data.faculty,
         "marker_info.like_number" : res.data.like,
-        "marker_info.comment_number" : res.data.comment.length,
         "marker_info.collection_number" : res.data.collection,
         "marker_info.description" : res.data.description,
         "marker_info.picturesUrl" : res.data.picturesUrl
       })
     },
     upMarkerInfo(e) {
-      // console.log(e);
+      console.log("display the marker info")
+      this.setData({
+        display_marker_info : true
+      })
       var that = this;
       var marker_id = this.data.markers_id[e.markerId];
       var latitude = this.data.markers[e.markerId].latitude;
@@ -373,19 +420,9 @@ Page({
       });
       animation.translateY(-800).step()
       this.setData({
-        ani:  animation.export()
+        ani:  animation.export(),
       })
     },
-    downMarkerInfo(e) {
-      var animation = wx.createAnimation({
-        duration: 500,
-        timingFunction: 'linear',
-        delay: 0,
-      });
-      animation.translateY(800).step()
-      this.setData({
-        ani:  animation.export()
-      })
-    }
+
   })
   
