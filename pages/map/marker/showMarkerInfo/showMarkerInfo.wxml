@@ -1,5 +1,0 @@
-<!--pages/map/marker/showMarkerInfo/showMarkerInfo.wxml-->
-<view>
-[{{latitude}},{{longitude}}]
-</view>
-

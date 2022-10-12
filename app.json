@@ -6,7 +6,6 @@
     "pages/group/group",
     "pages/group/message/message",
     "pages/map/marker/addNewMarker/addNewMarker",
-    "pages/map/marker/showMarkerInfo/showMarkerInfo",
     "pages/group/replyToMe/replyToMe",
     "pages/group/atMe/atMe",
     "pages/group/receivedLikes/receivedLikes",
@@ -28,9 +27,9 @@
     "list": [
       {
         "pagePath": "pages/group/group",
-        "text": "群组",
-        "iconPath": "images/groupIcon.png",
-        "selectedIconPath": "images/groupIcon.png"
+        "text": "消息",
+        "iconPath": "images/message.png",
+        "selectedIconPath": "images/message.png"
       },
       {
         "pagePath": "pages/map/map",

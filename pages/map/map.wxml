@@ -115,27 +115,28 @@ checked="true"
     <view class="marker-info-header">
       <view class="left-header">
         <view class="name">{{marker_info.name}}</view>
-        <view>
-          类型：<view class="type">{{marker_info.type}}</view>
+        <view class="type">
+          <view>类型：</view>
+          <view>{{marker_info.type}}</view>
         </view>
         <view class="creator">创建者: {{marker_info.creator}}</view>
       </view>
       <view class="right-header">
-        <view class="right-header-up">
         <!-- 这里未来考虑hover -->
-          <view>
-            <image src="../../images/like.png"></image>
+          <view class="item">
+            <image wx:if="{{!liked}}" src="../../images/like.png"></image>
+            <image wx:else src="../../images/liked.png"></image>
             <text>{{marker_info.like_number}}</text>
           </view>
-          <view>
+          <view class="item">
             <image src="../../images/comment.png"></image>
             <text>{{marker_info.comment_number}}</text>
           </view>
-          <view>
-            <image src="../../images/collection.png"></image>
+          <view class="item">
+            <image wx:if="{{!collected}}" src="../../images/collection.png"></image>
+            <image wx:else src="../../images/collected.png"></image>
             <text>{{marker_info.collection_number}}</text>
           </view>
-        </view>
       </view>
     </view>
     <view class="marker-info-footer">
@@ -144,5 +145,9 @@ checked="true"
         <!-- 这里展示图片 -->
       </view>
     </view>
+  </view>
+
+  <view >
+    <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
   </view>
 </view>

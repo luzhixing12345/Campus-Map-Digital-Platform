@@ -22,7 +22,11 @@ Page({
       switch_notify:true,
       switch_group:true,
 
-      marker_info : {} // 标记点信息
+      marker_info : {}, // 标记点信息
+
+      // 用户是否点赞收藏
+      liked : false,
+      collected : false
     },
 
     onShow() {
@@ -42,23 +46,6 @@ Page({
         }
       })
       this.mpCtx = wx.createMapContext('myMap');
-      this.setData({
-        userInfo : app.globalData.userInfo
-      })
-    },
-
-    // 降下显示信息
-    downMarkerInfo() {
-      console.log("undisplay the mark info")
-      var animation = wx.createAnimation({
-        duration: 500,
-        timingFunction: 'linear',
-        delay: 0,
-      });
-      animation.translateY(800).step()
-      this.setData({
-        ani:  animation.export()
-      })
     },
 
     // marker数据库 表项整体修改
@@ -100,15 +87,6 @@ Page({
 
     // 筛选标记点 TODO
     selectMarker() {
-
-      if (this.data.display_marker_info) {
-        this.downMarkerInfo();
-        this.setData({
-          display_marker_info : false
-        })
-      }
-
-      console.log("select marker here")
       var that = this;
       this.setData({
         use_select : !that.data.use_select
@@ -187,13 +165,6 @@ Page({
     addNewMarker(e) {
       // console.log(e)
       // 未点击加号，不处理
-      if(this.data.display_marker_info) {
-        console.log("@@ start to undisplay the mark info")
-        this.downMarkerInfo();
-        this.setData({
-          display_marker_info : false
-        })
-      }
       if(!this.data.enable_add_marker) return;
 
       // console.log("录入标记点信息")
@@ -251,14 +222,6 @@ Page({
     },
 
     doTheSearch(){//根据地点名执行搜索
-
-      if(this.data.display_marker_info) {
-        this.downMarkerInfo();
-        this.setData({
-          display_marker_info : false
-        })
-      }
-
       var placeName = this.data.searchName;
       const db = wx.cloud.database();
       const _ = db.command;
@@ -305,13 +268,6 @@ Page({
       })
     },
     capturePlaceName(options){//捕获要搜索的地点名
-
-      if(this.data.display_marker_info) {
-        this.downMarkerInfo();
-        this.setData({
-          display_marker_info : false
-        })
-      }
 
       let name = options.detail.value;
       console.log("要搜索的地点是"+name);
@@ -391,28 +347,34 @@ Page({
         "marker_info.faculty" : res.data.faculty,
         "marker_info.like_number" : res.data.like,
         "marker_info.collection_number" : res.data.collection,
+        "marker_info.comment_number" : 0,
         "marker_info.description" : res.data.description,
         "marker_info.picturesUrl" : res.data.picturesUrl
       })
     },
-    upMarkerInfo(e) {
-      console.log("display the marker info")
-      this.setData({
-        display_marker_info : true
-      })
+    async upMarkerInfo(e) {
+      // console.log(e)
       var that = this;
       var marker_id = this.data.markers_id[e.markerId];
       var latitude = this.data.markers[e.markerId].latitude;
       var longitude = this.data.markers[e.markerId].longitude;
       // 标记点移动到视野中央
       this.moveToLocation(latitude,longitude);
+
       const db = wx.cloud.database();
-      // 这里修改为了doc查询_id，速度快一些
-      db.collection('marker').doc(marker_id).get({
-        success:(res)=>{
-          that.getMarkerInfo(res)
-        }
+      const res = await db.collection('user').where({
+        _openid : app.globalData.userInfo._openid
+      }).get();
+      console.log(res)
+      this.setData({
+        liked : res.data[0].likes.indexOf(marker_id) != -1,
+        collected : res.data[0].collections.indexOf(marker_id) != -1
       })
+      // 这里修改为了doc查询_id，速度快一些
+      const marker_info = await db.collection('marker').doc(marker_id).get()
+      console.log(marker_info)
+      this.getMarkerInfo(marker_info)
+    
       var animation = wx.createAnimation({
         duration: 500,
         timingFunction: 'linears',
@@ -424,5 +386,18 @@ Page({
       })
     },
 
+    // 降下显示信息
+    downMarkerInfo() {
+      // console.log("undisplay the mark info")
+      var animation = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'linear',
+        delay: 0,
+      });
+      animation.translateY(800).step()
+      this.setData({
+        ani:  animation.export()
+      })
+    },
   })
   
