@@ -305,3 +305,73 @@ page {
   top: 1000px;
   left: 10px;
 }
+
+.comment .main-comment .comment-header {
+  display: flex;
+}
+
+.comment .main-comment .comment-header .left image{
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.comment .main-comment .comment-header .right .comment-id {
+  color: rgb(225,135,171);
+  margin-top: 10px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.comment .main-comment .comment-header .right .comment-time {
+  color: grey;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.comment .main-comment .comment-body {
+  margin-left: 20px;
+  margin-right: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
+}
+
+.comment .main-comment .comment-footer {
+  display: flex;
+}
+
+.comment .main-comment .comment-footer .left {
+  display: flex;
+  margin-left: 15px;
+  margin-top: 5px;
+  width: 40%;
+  justify-content: space-around;
+}
+
+.comment .main-comment .comment-footer .left image{
+  width: 22px;
+  height: 22px;
+}
+
+.comment .main-comment .comment-footer .left :nth-child(2) image {
+  transform: rotateY(180deg);
+  transform: rotateX(180deg);
+}
+
+.comment .comment-box {
+  position: absolute;
+  bottom: 180px;
+  background-color: rgb(244,244,244);
+  width: 95%;
+  left: 2.5%;
+  height: 6%;
+  border-radius: 10px;
+}
+
+.comment-placeholder {
+  margin-left: 10px;
+  color: rgb(198,198,198);
+}

@@ -148,18 +148,26 @@ checked="true"
   </view>
   <view class="main-comment">
     <view class="comment-header">
-      <image src="{{comment_info.userInfo.avatarUrl}}"></image>
-      <view class="comment-id">{{comment_info.userInfo.nickName}}</view>
-      <view class="comment-time">{{comment_info.time}}</view>
+      <view class="left">
+        <image src="{{comment_info.userInfo.avatarUrl}}"></image>
+      </view>
+      <view class="right">
+        <view class="comment-id">{{comment_info.userInfo.nickName}}</view>
+        <view class="comment-time">{{comment_info.time}}</view>
+      </view>
     </view>
     <view class="comment-body">{{comment_info.content}}</view>
     <view class="comment-footer">
       <view class="left">
-        <image src="../../images/like.png"></image>
-        <view>{{comment_info.like}}</view>
-        <!-- 倒转180变不喜欢 -->
-        <image src="../../images/like.png"></image>
-        <view>{{comment_info.dislike}}</view>
+        <view class="like" style="display:flex;">
+          <image src="../../images/like.png"></image>
+          <view style="margin-left: 10px;">{{comment_info.like}}</view>
+        </view>
+        <view class="dislike" style="display: flex;">
+          <!-- 倒转180变不喜欢 -->
+          <image src="../../images/like.png"></image>
+          <view style="margin-left: 10px;">{{comment_info.dislike}}</view>
+        </view>
         <image src='../../images/inner_comment.png'></image>
       </view>
       <!-- 版主和评论用户本人可以删除 -->
@@ -172,9 +180,9 @@ checked="true"
   <view>
     <input 
     type="text" 
-    class="input-box" 
+    class="comment-box" 
     placeholder="发一条友善的评论" 
-    placeholder-class="place-holder" 
+    placeholder-class="comment-placeholder" 
     bindinput="capturePlaceName"
     ></input>
   </view>

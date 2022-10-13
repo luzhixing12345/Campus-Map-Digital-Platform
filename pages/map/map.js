@@ -489,10 +489,8 @@ Page({
         _marker_id : that.data.marker_id
       }).get({
         success(res) {
-          console.log(res)
+          // console.log(res)
           var time = timeUtil.displayRelativeTime(res.data[0].time);
-          // console.log(time)
-          // var time = 0;
           that.setData({
               "comment_info.userInfo" : res.data[0].userInfo,
               "comment_info.content" : res.data[0].content,
