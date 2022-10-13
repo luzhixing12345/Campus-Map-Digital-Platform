@@ -13,6 +13,12 @@ Page({
    })
   },
   onLoad() {
+  },
+
+  reportErr() {
+    wx.navigateTo({
+      url: './reportErr/reportErr',
+    })
   }
 
     

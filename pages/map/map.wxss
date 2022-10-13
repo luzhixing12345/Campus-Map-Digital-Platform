@@ -361,14 +361,29 @@ page {
   transform: rotateX(180deg);
 }
 
+
 .comment .comment-box {
   position: absolute;
   bottom: 180px;
   background-color: rgb(244,244,244);
-  width: 95%;
+  width: 75%;
   left: 2.5%;
   height: 6%;
   border-radius: 10px;
+}
+
+.comment .comment-button {
+  position: absolute;
+  bottom: 180px;
+  background-color: #04BE02;
+  width: 18%;
+  right: 2.5%;
+  height: 6%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center ;
+  color: white;
 }
 
 .comment-placeholder {

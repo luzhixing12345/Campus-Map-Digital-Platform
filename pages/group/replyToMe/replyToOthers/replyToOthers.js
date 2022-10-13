@@ -53,8 +53,6 @@ Page({
       }
     ],
 
-    commentContent : '',
-
   },
 
   /**
@@ -135,7 +133,7 @@ Page({
 
     //弹窗确认并且清零输入框
     wx.showModal({
-      content: '评论已发布',
+      content: '评论发布成功',
       title: '提示',
       showCancel : false,
       success: (result) => {},

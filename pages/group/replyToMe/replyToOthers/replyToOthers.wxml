@@ -32,7 +32,7 @@
 <view class="comment-input">
     <input 
     class="input-box" 
-    placeholder="留下你的评论" 
+    placeholder="发一条友善的评论" 
     style="display: inline-flex;" 
     placeholder-style="color: white;"
     bindinput="captureComment"

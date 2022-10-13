@@ -1,0 +1,25 @@
+/* pages/user/reportErr/reportErr.wxss */
+.body-page {
+  position: relative;
+  top: 50rpx;
+  margin: 20rpx;
+}
+
+.form-box {
+  font-size: 30rpx;
+  padding : 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-box {
+  background-color: rgb(219, 219, 219);
+  width: 95%;
+  height: 900rpx; 
+  border-radius: 10px;
+}
+
+.input-placeholder {
+  text-align: center;
+}

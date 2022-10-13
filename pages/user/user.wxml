@@ -8,4 +8,5 @@
 
 <view class="footer">
 <button bindtap="changeUser" class="buttonType" type="warn">退出账号</button>
+<button bindtap="reportErr" class="buttonType" type="warn">报告问题</button>
 </view>

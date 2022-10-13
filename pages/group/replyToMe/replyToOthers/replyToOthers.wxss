@@ -50,7 +50,7 @@
   padding: 10rpx;
   margin-left: 30rpx;
   width: 70%;
-  border-radius: 15px;
+  border-radius: 10px;
   opacity: 1.0;
 }
 
@@ -60,10 +60,11 @@
   padding: 10rpx;
   margin-left: 10rpx;
   width: 15%;
-  border-radius: 15px;
+  border-radius: 10px;
   opacity: 1.0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: white;
 }
+

@@ -510,5 +510,36 @@ Page({
       this.animationAdjust('comment_ani','down');
     },
 
+    captureComment(e){
+      let content = e.detail.value;
+      console.log("要发布的评论是"+content);
+      this.setData({
+        commentContent : content
+      })
+    },
+  
+    /**
+     * 发布评论 
+     */
+    postComment(e){
+      console.log("发布评论"+this.data.commentContent);
+      //TODO:将评论内容上传到数据库
+  
+  
+  
+      //弹窗确认并且清零输入框
+      wx.showModal({
+        content: '评论发布成功',
+        title: '提示',
+        showCancel : false,
+        success: (result) => {},
+        fail: (res) => {},
+        complete: (res) => {},
+      })
+      this.setData({
+        commentContent : ''
+      })
+    }
+
   })
   

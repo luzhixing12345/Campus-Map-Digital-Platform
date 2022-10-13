@@ -183,7 +183,9 @@ checked="true"
     class="comment-box" 
     placeholder="发一条友善的评论" 
     placeholder-class="comment-placeholder" 
-    bindinput="capturePlaceName"
+    bindinput="captureComment"
+    value="{{commentContent}}"
     ></input>
+    <view class="comment-button" bindtap="postComment">发送</view>
   </view>
 </view>
