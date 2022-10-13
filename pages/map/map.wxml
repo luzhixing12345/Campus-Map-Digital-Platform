@@ -143,29 +143,39 @@ checked="true"
 
 <!-- 评论信息展开TODO -->
 <view class="comment" animation="{{comment_ani}}">
+  <view >
+    <image src="../../images/cancel.png" bindtap="downCommentInfo" class="cancel-icon"></image>
+  </view>
   <view class="main-comment">
     <view class="comment-header">
-      <image src="{{comment_info.avatarUrl}}"></image>
-      <view class="comment-id">{{comment_info.nickName}}</view>
+      <image src="{{comment_info.userInfo.avatarUrl}}"></image>
+      <view class="comment-id">{{comment_info.userInfo.nickName}}</view>
       <view class="comment-time">{{comment_info.time}}</view>
     </view>
     <view class="comment-body">{{comment_info.content}}</view>
     <view class="comment-footer">
       <view class="left">
         <image src="../../images/like.png"></image>
-        <view>{{comment_info.like_number}}</view>
+        <view>{{comment_info.like}}</view>
         <!-- 倒转180变不喜欢 -->
         <image src="../../images/like.png"></image>
-        <view>{{comment_info.dislike_number}}</view>
+        <view>{{comment_info.dislike}}</view>
         <image src='../../images/inner_comment.png'></image>
       </view>
-      <view class="right">删除</view>
+      <!-- 版主和评论用户本人可以删除 -->
+      <view class="right" wx:if="{{comment_info.enable_delete}}">删除</view>
     </view>
   </view>
   <view class="comment-for-comment" wx:for="{{comment_info.cfc}}">
     <view>{{item.nickName}}:{{item.content}}</view>
   </view>
-  <view >
-    <image src="../../images/cancel.png" bindtap="downCommentInfo" class="cancel-icon"></image>
+  <view>
+    <input 
+    type="text" 
+    class="input-box" 
+    placeholder="发一条友善的评论" 
+    placeholder-class="place-holder" 
+    bindinput="capturePlaceName"
+    ></input>
   </view>
 </view>

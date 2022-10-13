@@ -1,6 +1,6 @@
 
 const app = getApp();
-
+var timeUtil = require("../utils/time");
 
 Page({
     data: {
@@ -34,7 +34,6 @@ Page({
     },
 
     onLoad() {
-      // this.refactorDatabaseMarkerItem();
       // 跳转到此页面即申请权限
       wx.getSetting({
         success(res) {
@@ -53,43 +52,6 @@ Page({
       }).get({
         success(res) {
           app.globalData.userInfo._id = res.data[0]._id;
-        }
-      })
-
-    },
-
-    // marker数据库 表项整体修改
-    // 用于开发过程中重构一次数据库表项，使用后记得注释掉
-    refactorDatabaseMarkerItem() {
-
-      var new_item = {
-        collection : 0,
-        comment : [],
-        creator : "admin",
-        description : "",
-        like : 0,
-        picturesUrl : []
-      }
-
-      wx.cloud.database().collection('marker').get({
-        success(res) {
-          console.log(res);
-          var i;
-          for (i=0;i<res.data.length;i++) {
-            wx.cloud.database().collection('marker').doc(res.data[i]._id).update({
-              data : {
-                collection : 0,
-                comment : [],
-                creator : "admin",
-                description : "",
-                like : 0,
-                picturesUrl : []
-              },
-              success(r) {
-                console.log(r)
-              }
-            })
-          }
         }
       })
     },
@@ -385,6 +347,9 @@ Page({
       var latitude = this.data.markers[e.markerId].latitude;
       var longitude = this.data.markers[e.markerId].longitude;
       // 标记点移动到视野中央
+      this.setData({
+        marker_id : marker_id
+      })
       this.moveToLocation(latitude,longitude);
       const db = wx.cloud.database();
       const res = await db.collection('user').doc(app.globalData.userInfo._id).get();
@@ -496,8 +461,49 @@ Page({
     },
 
 
+    // ------------------------------------------------------------
+    // 以下是对评论信息的处理
+
+    // 开发测试使用
+    addCommentForTest() {
+      var that = this;
+      wx.cloud.database().collection('comment').add({
+        data : {
+          _marker_id : that.data.marker_id,
+          userInfo : app.globalData.userInfo,
+          time : new Date(),
+          content : "hahaha",
+          like : 0,
+          dislike : 0,
+          cfc : [] // cfc : comment for comment (楼中楼)
+        }
+      })
+    },
+
+
     // 当用户点击评论按钮,打开所有评论信息
     upCommentInfo() {
+      // this.addCommentForTest();
+      var that = this;
+      wx.cloud.database().collection('comment').where({
+        _marker_id : that.data.marker_id
+      }).get({
+        success(res) {
+          console.log(res)
+          var time = timeUtil.displayRelativeTime(res.data[0].time);
+          // console.log(time)
+          // var time = 0;
+          that.setData({
+              "comment_info.userInfo" : res.data[0].userInfo,
+              "comment_info.content" : res.data[0].content,
+              "comment_info.like" : res.data[0].like,
+              "comment_info.dislike" : res.data[0].dislike,
+              "comment_info.time" : time,
+              "comment_info.cfc" : res.data[0].cfc
+            }
+          )
+        }
+      })
       this.animationAdjust('comment_ani','up');
     },
 
