@@ -370,13 +370,14 @@ page {
   left: 2.5%;
   height: 6%;
   border-radius: 10px;
+  padding-left: 10px;
 }
 
 .comment .comment-button {
   position: absolute;
   bottom: 180px;
   background-color: #04BE02;
-  width: 18%;
+  width: 16%;
   right: 2.5%;
   height: 6%;
   border-radius: 10px;
@@ -387,6 +388,6 @@ page {
 }
 
 .comment-placeholder {
-  margin-left: 10px;
+  /* margin-left: 10px; */
   color: rgb(198,198,198);
 }
