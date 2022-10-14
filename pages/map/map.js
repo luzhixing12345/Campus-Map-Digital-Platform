@@ -480,16 +480,13 @@ Page({
       })
     },
 
-
-    // 当用户点击评论按钮,打开所有评论信息
-    upCommentInfo() {
-      // this.addCommentForTest();
+    // 更新当前的评论信息
+    updateCommentInfo() {
       var that = this;
       wx.cloud.database().collection('comment').where({
         _marker_id : that.data.marker_id
       }).get({
         success(res) {
-
           var tempList = [];
           // console.log(res)
           for(var i = 0; i<res.data.length; i++){
@@ -508,9 +505,6 @@ Page({
           that.setData({
             comment_info : tempList,
           })
-
-
-
           // var time = timeUtil.displayRelativeTime(res.data[0].time);
           // that.setData({
           //     "comment_info.userInfo" : res.data[0].userInfo,
@@ -523,6 +517,12 @@ Page({
           // )
         }
       })
+    },
+
+    // 当用户点击评论按钮,打开所有评论信息
+    upCommentInfo() {
+      // this.addCommentForTest();
+      this.updateCommentInfo();
       this.animationAdjust('comment_ani','up');
     },
 
@@ -558,29 +558,10 @@ Page({
           cfc : [] // cfc : comment for comment (楼中楼)
         },
         success : ()=>{
-          //弹窗确认并且清零输入框
-          wx.showModal({
-            content: '评论发布成功',
-            title: '提示',
-            showCancel : false,
-            success: (result) => {},
-            fail: (res) => {},
-            complete: (res) => {},
-          });
           that.setData({
             commentContent : ''
           });
-          that.downCommentInfo();
-        },
-        fail : () => {
-          wx.showModal({
-            content: '评论发布失败，请重新发送',
-            title: '提示',
-            showCancel : false,
-            success: (result) => {},
-            fail: (res) => {},
-            complete: (res) => {},
-          })
+          that.updateCommentInfo();
         }
       })
       
