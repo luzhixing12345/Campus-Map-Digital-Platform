@@ -1,10 +1,283 @@
-.body-page {
-  position: relative;
-  top: 50rpx;
-  margin: 20rpx;
+/* 主标题 */
+.title {
+  display: flex;
+}
+.title .line {
+  background-color: #ffeb37;
+  height: 14rpx;
+  border-radius: 35rpx;
+  width: 100%;
+}
+.title .release {
+  margin: 30rpx 50rpx 0rpx;
+  font-size: 38rpx;
 }
 
-.form-box {
+
+.content {
+  background-color: #fff;
+  padding: 20rpx;
+  height: 1020rpx;
+  width: 85%;
+  margin: 0 auto;
+  border-radius: 50rpx;
+  margin-top: 30rpx;
+  box-shadow: 5rpx 5rpx 10rpx 5rpx #e1e1e1;
+}
+
+.content .input .release {
+  margin: 0rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-left: 30rpx;
+  margin-top: 15rpx;
+}
+
+.content .input textarea {
+  background-color: #e2e2e250;
+  border-radius: 50rpx;
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  height: 400rpx;
+  word-break: break-all;
+  padding: 20rpx;
+  width: 85%;
+}
+
+.content .input input {
+  background-color: #e2e2e250;
+  border-radius: 50rpx;
+  margin: 0 auto;
+  margin-top: 30rpx;
+  height: 50rpx;
+  word-break: break-all;
+  padding: 20rpx;
+  width: 85%;
+}
+.content .list {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+.content .list .item {
+  background-color: #e2e2e250;
+  width: 100rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  padding: 10rpx;
+  margin-top: 20rpx;
+  text-align: center;
+  color: #252525;
+}
+.content .list .item1 {
+  background-color: #ffeb37;
+  width: 100rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  padding: 10rpx;
+  margin-top: 20rpx;
+  text-align: center;
+  color: #252525;
+}
+
+.place .font {
   font-size: 30rpx;
-  padding : 15rpx;
+  font-weight: bold;
+  color: rgb(63, 63, 63);
+  background-color: #ffeb37;
+  padding: 10rpx;
+  width: 380rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  margin-left: 20rpx;
+  margin-top: 35rpx;
+}
+
+.place .input input {
+  background-color: #e2e2e250;
+  border-radius: 50rpx;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  height: 50rpx;
+  padding: 10rpx;
+  padding-left: 30rpx;
+  width: 70%;
+}
+
+.text {
+  display: flex;
+  margin-left: 30rpx;
+  margin-top: 50rpx;
+}
+
+.text .textFont {
+  color: gray;
+}
+
+.text .input {
+  margin-left: 50rpx;
+}
+
+.thingLocation .list .item {
+  background-color: #e2e2e250;
+  width: 130rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  padding: 15rpx;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  text-align: center;
+  color: #252525;
+}
+.thingLocation .list .item1 {
+  background-color: #ffeb37;
+  width: 130rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  padding: 15rpx;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  text-align: center;
+}
+
+.addImg .add {
+  width: 90%;
+  height: 400rpx;
+  background-color: #e2e2e29d;
+  border-radius: 25rpx;
+  font-size: 80rpx;
+  line-height: 400rpx;
+  text-align: center;
+  margin: 40rpx;
+}
+.addImg image {
+  border-radius: 25rpx;
+  margin: 28rpx;
+}
+.addImg .font {
+  font-size: 20rpx;
+  color: gray;
+  margin: 45rpx;
+}
+
+
+.submitButton {
+  background-color: rgb(245,175,25);
+  margin: 0 auto;
+  margin-top: 30rpx;
+  border-radius: 30rpx;
+  width: 80%;
+  text-align: center;
+  padding: 30rpx;
+  margin-bottom: 100rpx;
+  box-shadow: 5rpx 5rpx 10rpx 5rpx #e1e1e1;
+}
+
+.submitButton-hover {
+  box-shadow: 10rpx 10rpx 20rpx 10rpx #e1e1e1;
+}
+
+/* ————寻物启事—————— */
+.seekContent {
+  background-color: #fff;
+  height: 350rpx;
+  width: 90%;
+  border-radius: 30rpx;
+  margin: 20rpx auto;
+}
+.seekContent .seekTitle {
+  text-align: center;
+  padding: 20rpx;
+}
+.seekContent .seekTitle input {
+  background-color: #e2e2e250;
+  border-radius: 50rpx;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  height: 50rpx;
+  padding: 20rpx;
+  padding-left: 30rpx;
+  width: 88%;
+}
+.seekContent .list {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+.seekContent .list .item {
+  background-color: #e2e2e250;
+  width: 100rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  padding: 10rpx;
+  margin-top: 20rpx;
+  text-align: center;
+  color: #252525;
+}
+.seekContent .list .item1 {
+  background-color: #ffeb37;
+  width: 100rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  padding: 10rpx;
+  margin-top: 20rpx;
+  text-align: center;
+  color: #252525;
+}
+
+.call .seekButton .callOrVx1 {
+  background-color: #ffeb37;
+  border-radius: 32rpx;
+  padding: 15rpx;
+  margin-left: 80rpx;
+  margin-top: -20rpx;
+}
+.call .seekButton .callOrVx2 {
+  color: #fff;
+  font-weight: bold;
+  background-color: #33ff00;
+  border-radius: 32rpx;
+  padding: 15rpx;
+  margin-left: 80rpx;
+  margin-top: -20rpx;
+}
+.call .input {
+  background-color: #e2e2e250;
+  border-radius: 50rpx;
+  margin-top: 30rpx;
+}
+.call .input input {
+  padding: 20rpx;
+  margin-left: 10rpx;
+}
+.call .icon {
+  display: flex;
+}
+.call .icon image {
+  margin-top: 15rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+.call .icon .font {
+  font-size: 24rpx;
+  color: gray;
+}
+
+.login-image {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login-image .text {
+  color: gray
+}
+
+.login {
+  color: #000;
+  background-color: #ffd23c;
 }

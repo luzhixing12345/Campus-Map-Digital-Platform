@@ -1,22 +1,26 @@
-<!--pages/map/marker/addNewMarker/addNewMarker.wxml-->
 
-<view class="body-page">
-  <form catchsubmit="formSubmit" catchreset="formReset">
-    <view class="form-box">
-      <picker name="faculty" bindchange="bindFacultyChange" value="{{facultyIndex}}" range="{{facultyArray}}">
-        <view>学部：{{facultyArray[facultyIndex]}}</view>
-      </picker>
-    </view>
-    <view class="form-box">
-      <text>名称：</text>
-      <input name="name" placeholder="请输入地点名称" style="display: inline-flex;"/></view>
-    <view class="form-box">
-      <picker name="type" bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeArray}}">
-        <view>类型：{{typeArray[typeIndex]}}</view>
-      </picker>
-    </view>
-    <view>
-      <button type="primary" formType="submit">Submit</button>
-    </view>
-  </form>
+<view class="title">
+  <view class="release">
+    添加地点信息
+    <view class="line"></view>
+  </view>
 </view>
+
+<view class="content">
+  <view class="input">
+    <view class="release">
+      描述信息
+    </view>
+    <textarea placeholder="请输入该地点的描述信息" bindinput="describe" value="{{describe}}" autoheight />
+  </view>
+
+
+  <view class="input">
+    <view class="release">
+      补充图片
+    </view>
+    <uploadImages bindmyevent="myEventListener" count='{{countPic}}' showUrl="{{showImgUrl}}" uploadUrl="{{uploadImgUrl}}"></uploadImages>
+  </view>
+</view>
+
+<view class="submitButton" bindtap="submitButton" hover-class="submitButton-hover">发布</view>

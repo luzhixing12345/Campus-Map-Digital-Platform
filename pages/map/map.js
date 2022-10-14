@@ -103,22 +103,6 @@ Page({
       return res;
     },
 
-    // 用户点击地图中一个没有标记的点之后调用addNewMarker添加新标记点信息
-    // return null 表示用户取消
-    // return object 为存入数据库的输入
-    handleUserInput() {
-      var that = this;
-      wx.navigateTo({
-        url: 'marker/addNewMarker/addNewMarker',
-        success(res) {
-          res.eventChannel.emit('position',{
-            latitude : that.data.current_position.latitude,
-            longitude : that.data.current_position.longitude
-          })
-        }
-      })
-    },
-
     // 点击加号准备添加新标记点
     readyToAddMarker() {
       this.setData({
@@ -151,24 +135,25 @@ Page({
 
     // 点击地图中的某个点添加标记
     addNewMarker(e) {
-      // console.log(e)
       // 未点击加号，不处理
       if(!this.data.enable_add_marker) return;
-
-      // console.log("录入标记点信息")
       this.setData({
         enable_add_marker : false
       })
       // 获取经纬度
       var latitude = e.detail.latitude;
       var longitude = e.detail.longitude;
-      this.setData({
-        current_position : {
-          latitude : latitude,
-          longitude : longitude
+      // 查重
+      
+      wx.navigateTo({
+        url: 'marker/addNewMarker/addNewMarker',
+        success(res) {
+          res.eventChannel.emit('position',{
+            latitude : latitude,
+            longitude : longitude
+          })
         }
       })
-      this.handleUserInput();
     },
 
 
@@ -342,7 +327,10 @@ Page({
       })
     },
     async upMarkerInfo(e) {
-      // console.log(e)
+      // 添加标记点的情况，不处理
+      console.log("@")
+      if (this.data.enable_add_marker) return;
+      console.log("@@")
       var marker_id = this.data.markers_id[e.markerId];
       var latitude = this.data.markers[e.markerId].latitude;
       var longitude = this.data.markers[e.markerId].longitude;
@@ -564,10 +552,6 @@ Page({
           that.updateCommentInfo();
         }
       })
-      
-  
-  
-      
     }
 
   })
