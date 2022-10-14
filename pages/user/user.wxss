@@ -1,39 +1,228 @@
-/* pages/user/user.wxss */
 
-.circleImage{
-    margin-left: 250rpx;
-    margin-top: 100rpx;
-    height: 245rpx;
-    width: 245rpx;
-    border-radius:50%;
+/* header start */
+
+.header {
+  text-align: center;
+}
+
+.header .filter {
+  background-color: rgb(245,175,25);
+  height: 450rpx;
+  border-bottom-right-radius: 50rpx;
+  border-bottom-left-radius: 50rpx;
+}
+
+.header .user-info {
+  margin-top: -400rpx;
+  margin-left: 80rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  z-index: 1;
+}
+.header .font {
+  font-size: 45rpx;
+  margin-top: 50rpx;
+  margin-left: 30rpx;
+  color: rgb(26, 26, 26);
+}
+
+.header .user-info .image image {
+  height: 150rpx;
+  width: 150rpx;
+  border-radius: 50%;
+  border: #fff solid 10rpx;
+}
+
+/* header end */
+
+/* body start  */
+
+.body .user-account {
+  display: flex;
+  justify-content: center;
+}
+
+.body .user-account image {
+  width: 30px;
+  height: 30px;
+}
+
+.body .user-account view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.body .user-account view view {
+  text-align: center;
 }
 
 
-.userNickname {
-    margin-top: 50rpx;
-    margin-left: 300rpx;
-    font-size: large;
+.footer .bottom-content {
+  width: 90%;
+  border-radius: 50rpx;
+  margin: 0 auto;
+  height: 70rpx;
+  background-color: rgb(253, 253, 253);
+  padding-bottom: 35rpx;
+  box-shadow: 5rpx 5rpx 10rpx 5rpx #e1e1e1;
 }
 
-.label-list{
-    display: flex;
-    width: 100%;
-    height: 120rpx;
-    align-items: center;
-    border-bottom: 1rpx solid #e8e8e8;
-}
-.label-list .label {
-    color: #333;
-    margin-left: 100rpx;
-    font-weight: bold;
+.feed-back-button {
+  width: 90%;
+  border-radius: 50rpx;
+  margin: 0 auto;
+  height: 70rpx;
+  background-color: rgb(253, 253, 253);
+  padding-bottom: 35rpx;
+  box-shadow: 5rpx 5rpx 10rpx 5rpx #e1e1e1;
 }
 
-.footer {
-    position: fixed;
-    width: 90%;
-    margin: 0 5%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    bottom: 50rpx;
+.button-type {
+  font-weight :normal;
+  font-size: 32rpx;
 }
+
+
+.information-content {
+  width: 90%;
+  border-radius: 50rpx;
+  margin: 0 auto;
+  background-color: rgb(253, 253, 253);
+  padding-bottom: 35rpx;
+  box-shadow: 5rpx 5rpx 10rpx 5rpx #e1e1e1;
+}
+.me-about {
+  display: flex;
+  margin: 20rpx 40rpx;
+  padding: 30rpx 0rpx;
+  justify-content: space-between;
+  border-bottom: 2rpx solid rgb(238, 238, 238);
+}
+.me-about image {
+  align-self: center;
+  width: 35rpx;
+  height: 35rpx;
+}
+.footer .me-about button {
+  position: relative;
+  left: -50rpx;
+  font-weight: normal;
+  font-size: 36rpx;
+  width: 600rpx;
+  text-align: left;
+  background-color: transparent;
+}
+
+.send-message-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.req-font {
+  margin: 10rpx 40rpx 0rpx;
+  font-size: 38rpx;
+  font-weight: bolder;
+}
+
+.bePPTmaker-font {
+  margin: 10rpx 40rpx 0rpx;
+  font-size: 38rpx;
+  font-weight: bolder;
+  color: goldenrod
+}
+
+.line {
+  background-color: #ffeb37;
+  height: 14rpx;
+  border-radius: 35rpx;
+  width: 35%;
+}
+
+.no-release-img {
+  width: 350rpx;
+  height: 350rpx;
+  margin-top: 50rpx;
+}
+
+.no-release-font {
+  color: gray;
+  margin-bottom: 50rpx;
+}
+
+.img-box {
+  width: 100%;
+  margin: auto;
+  padding-top: 20rpx;
+}
+
+.img-list {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.img-item {
+  width: 30%;
+  text-align: left;
+  margin-right: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.img-item image {
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.reward {
+  font-weight: bolder;
+  margin-left: 20rpx;
+  color: #ff4828;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  background-color: #ffd23c;
+  border-radius: 30rpx;
+  padding: 12rpx;
+  font-size: 32rpx;
+  text-align: center;
+  width: 145rpx;
+  margin-top: 5rpx;
+  color: #252525;
+  float: right;
+  box-shadow: 5rpx 5rpx 10rpx 5rpx #e1e1e1;
+}
+
+.button-hover {
+  box-shadow: 10rpx 10rpx 20rpx 10rpx #e1e1e1;
+}
+
+.li {
+  background-color: #ffd23c;
+  border-radius: 50%;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.list-title {
+  background-color: #fff;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  padding: 0rpx 0rpx 12rpx 0rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 5rpx 5rpx 10rpx 5rpx #e1e1e1;
+}
+
+

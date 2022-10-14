@@ -10,8 +10,7 @@
     "pages/group/atMe/atMe",
     "pages/group/receivedLikes/receivedLikes",
     "pages/group/systemNotify/systemNotify",
-    "pages/group/replyToMe/replyToOthers/replyToOthers",
-    "pages/user/reportErr/reportErr"
+    "pages/group/replyToMe/replyToOthers/replyToOthers"
   ],
   "window": {
     "backgroundTextStyle": "light",

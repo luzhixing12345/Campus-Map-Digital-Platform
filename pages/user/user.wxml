@@ -1,12 +1,46 @@
 
-<image class="circleImage" src="{{avatarUrl}}"></image>
-
-<view class="label-list">
-    <view class="label">用户名:</view>
-    <view class="label">{{userInfo.nickName}}</view>
+<view class="header">
+    <view class="filter"></view>
+    <view class="user-info">
+      <view class="image">
+        <image src="{{userInfo.avatarUrl}}"></image>
+      </view>
+      <view class="font">{{userInfo.nickName}}</view>
+    </view>
 </view>
 
+<view class="body">
+  <view class="user-account">
+    <view>
+      <image src="../../images/like.png"></image>
+      <view>我的点赞</view>
+    </view>
+    <view>
+      <image src="../../images/collection.png"></image>
+      <view>我的收藏</view>
+    </view>
+    <view>
+      <image src="../../images/comment.png"></image>
+      <view>我的消息</view>
+    </view>
+    <view>
+      <image src="../../images/record.png"></image>
+      <view>我的记录</view>
+    </view>
+  </view>
+
+</view>
+
+
 <view class="footer">
-<button bindtap="changeUser" class="buttonType" type="warn">退出账号</button>
-<button bindtap="reportErr" class="buttonType" type="warn">报告问题</button>
+  <view class="bottom-content">
+    <view class="me-about" bindtap="showAboutInfo">
+      <text>关于我们</text>
+    </view>
+  </view>
+  <view class="feed-back-button">
+  <button class="button-type" open-type="feedback" style="display: contents" >
+    <view class="me-about">反馈与建议</view>
+  </button>
+</view>
 </view>
