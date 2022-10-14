@@ -327,7 +327,7 @@ Page({
     // 获取标记点的详细信息保存在marker_info中
     getMarkerInfo(res) {
       // marker表中指保存like collection的数量
-      // 具体的点赞和收藏信息保存在user表中
+      // 具体的点赞和收藏信息保存在user表中s
       this.setData({
         "marker_info._id" : res.data._id, // 用于点赞和收藏的信息处理
         "marker_info.name" : res.data.name,
@@ -489,17 +489,38 @@ Page({
         _marker_id : that.data.marker_id
       }).get({
         success(res) {
+
+          var tempList = [];
           // console.log(res)
-          var time = timeUtil.displayRelativeTime(res.data[0].time);
+          for(var i = 0; i<res.data.length; i++){
+            var time = timeUtil.displayRelativeTime(res.data[i].time);
+            var temp = {};
+            temp.userInfo = res.data[i].userInfo,
+            temp.content = res.data[i].content,
+            temp.like = res.data[i].like,
+            temp.dislike = res.data[i].dislike,
+            temp.time = time,
+            temp.cfc = res.data[i].cfc
+
+            tempList.push(temp);
+          }
+
           that.setData({
-              "comment_info.userInfo" : res.data[0].userInfo,
-              "comment_info.content" : res.data[0].content,
-              "comment_info.like" : res.data[0].like,
-              "comment_info.dislike" : res.data[0].dislike,
-              "comment_info.time" : time,
-              "comment_info.cfc" : res.data[0].cfc
-            }
-          )
+            comment_info : tempList,
+          })
+
+
+
+          // var time = timeUtil.displayRelativeTime(res.data[0].time);
+          // that.setData({
+          //     "comment_info.userInfo" : res.data[0].userInfo,
+          //     "comment_info.content" : res.data[0].content,
+          //     "comment_info.like" : res.data[0].like,
+          //     "comment_info.dislike" : res.data[0].dislike,
+          //     "comment_info.time" : time,
+          //     "comment_info.cfc" : res.data[0].cfc
+          //   }
+          // )
         }
       })
       this.animationAdjust('comment_ani','up');
@@ -525,20 +546,47 @@ Page({
       console.log("发布评论"+this.data.commentContent);
       //TODO:将评论内容上传到数据库
   
+      var that = this;
+      wx.cloud.database().collection('comment').add({
+        data : {
+          _marker_id : that.data.marker_id,
+          userInfo : app.globalData.userInfo,
+          time : new Date(),
+          content : that.data.commentContent,
+          like : 0,
+          dislike : 0,
+          cfc : [] // cfc : comment for comment (楼中楼)
+        },
+        success : ()=>{
+          //弹窗确认并且清零输入框
+          wx.showModal({
+            content: '评论发布成功',
+            title: '提示',
+            showCancel : false,
+            success: (result) => {},
+            fail: (res) => {},
+            complete: (res) => {},
+          });
+          that.setData({
+            commentContent : ''
+          });
+          that.downCommentInfo();
+        },
+        fail : () => {
+          wx.showModal({
+            content: '评论发布失败，请重新发送',
+            title: '提示',
+            showCancel : false,
+            success: (result) => {},
+            fail: (res) => {},
+            complete: (res) => {},
+          })
+        }
+      })
+      
   
   
-      //弹窗确认并且清零输入框
-      wx.showModal({
-        content: '评论发布成功',
-        title: '提示',
-        showCancel : false,
-        success: (result) => {},
-        fail: (res) => {},
-        complete: (res) => {},
-      })
-      this.setData({
-        commentContent : ''
-      })
+      
     }
 
   })
