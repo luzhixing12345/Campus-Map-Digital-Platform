@@ -519,6 +519,17 @@ Page({
       this.animationAdjust('comment_ani','down');
     },
 
+    upCfcInfo(e){
+      this.setData({
+        cfc_data : e.currentTarget.dataset
+      })
+      this.animationAdjust('cfc_ani','up');  
+    },
+
+    downCfcInfo(){
+      this.animationAdjust('cfc_ani','down');
+    },
+
     captureComment(e){
       let content = e.detail.value;
       console.log("要发布的评论是"+content);
@@ -552,6 +563,23 @@ Page({
           that.updateCommentInfo();
         }
       })
+    },
+
+    captureCfc(e){
+      let content = e.detail.value;
+      console.log("要发布的cfc是"+content);
+      this.setData({
+        cfcContent : content
+      })
+    },
+    //发送楼中楼评论
+    postCfc(e){
+      var that = this;
+      console.log(that.data.cfcContent);
+      //TODO：完成对应评论cfc数据的更新
+      that.setData({
+        cfcContent : ''
+      });
     }
 
   })

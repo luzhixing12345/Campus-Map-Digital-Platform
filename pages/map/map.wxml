@@ -172,7 +172,17 @@ checked="true"
                 <image src="../../images/like.png"></image>
                 <view style="margin-left: 10px;">{{a.dislike}}</view>
               </view>
-              <image src='../../images/inner_comment.png'></image>
+              <image 
+              src='../../images/inner_comment.png' 
+              bindtap="upCfcInfo" 
+              data-avatarurl="{{a.userInfo.avatarUrl}}"
+              data-nickname="{{a.userInfo.nickName}}"
+              data-time="{{a.time}}"
+              data-content="{{a.content}}"
+              data-like="{{a.like}}"
+              data-dislike="{{a.dislike}}"
+              data-cfc="{{a.cfc}}"
+              ></image>
             </view>
             <!-- 版主和评论用户本人可以删除 -->
             <view class="right" wx:if="{{a.enable_delete}}">删除</view>
@@ -185,9 +195,7 @@ checked="true"
   
   
 
-  <view class="comment-for-comment" wx:for="{{comment_info.cfc}}">
-    <view>{{item.nickName}}:{{item.content}}</view>
-  </view>
+  
   <view>
     <input 
     type="text" 
@@ -199,4 +207,51 @@ checked="true"
     ></input>
     <view class="comment-button" bindtap="postComment">发送</view>
   </view>
+</view>
+
+
+<view class="comment" animation="{{cfc_ani}}">
+  <view >
+    <image src="../../images/cancel.png" bindtap="downCfcInfo" class="cancel-icon"></image>
+  </view>
+  <view class="main-comment">
+    <view class="comment-header">
+      <view class="left">
+        <image src="{{cfc_data.avatarurl}}"></image>
+      </view>
+      <view class="right">
+        <view class="comment-id">{{cfc_data.nickname}}</view>
+        <view class="comment-time">{{cfc_data.time}}</view>
+      </view>
+    </view>
+    <view class="comment-body">{{cfc_data.content}}</view>
+    <view class="comment-footer">
+      <view class="left">
+        <view class="like" style="display:flex;">
+          <image src="../../images/like.png"></image>
+          <view style="margin-left: 10px;">{{cfc_data.like}}</view>
+        </view>
+        <view class="dislike" style="display: flex;">
+          <!-- 倒转180变不喜欢 -->
+          <image src="../../images/like.png"></image>
+          <view style="margin-left: 10px;">{{cfc_data.dislike}}</view>
+        </view>
+      </view>
+      <!-- 版主和评论用户本人可以删除 -->
+      <view class="right" wx:if="{{cfc_data.enable_delete}}">删除</view>
+    </view>
+  </view>
+  <!-- <view>评论回复</view><scroll-view scroll-y="true"></scroll-view> -->
+  <view>
+    <input 
+    type="text" 
+    class="comment-box" 
+    placeholder="发一条友善的评论" 
+    placeholder-class="comment-placeholder" 
+    bindinput="captureCfc"
+    value="{{cfcContent}}"
+    ></input>
+    <view class="comment-button" bindtap="postCfc">发送</view>
+  </view>
+  
 </view>
