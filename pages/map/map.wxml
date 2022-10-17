@@ -1,9 +1,9 @@
 <!-- 地图顶部操作集 -->
 <view class="header" wx:if="{{!enable_add_marker}}">
   <!-- 搜索输入框 -->
-  <input type="text" class="input-box" placeholder=" 搜索地点..." placeholder-class="place-holder" bindinput="capturePlaceName" bindfocus="showSearchResultList"></input>
+  <input type="text" class="input-box" placeholder=" 搜索地点..." placeholder-class="place-holder" bindinput="handleInput" bindfocus="showSearchResultList"></input>
   <!-- 搜索按钮 -->
-  <view class="search-box" bindtap="doTheSearch"> 搜索 </view>
+  <!-- <view class="search-box" bindtap="doTheSearch"> 搜索 </view> -->
   <!-- 筛选按钮 -->
   <view class="select-box" bindtap="selectMarker">
     筛选

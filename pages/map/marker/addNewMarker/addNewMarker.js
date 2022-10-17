@@ -8,13 +8,13 @@ Page({
     name : "",
 
     facultyArray: [['文理学部', '工学部', '信息学部']],
-    faculty : "文理学部",
+    faculty : ["文理学部"],
     close_faculty_picker : false,
     show_faculty_picker : false,
 
     typeArray: [['办事', '学习', '餐饮', '通知', '群组']],
     typeArray_en: ['work', 'learning', 'food', 'notify', 'group'],
-    type : "办事",
+    type : ["办事"],
     close_type_picker : false,
     show_type_picker : false,
 
@@ -202,7 +202,7 @@ Page({
     var that = this;
     this.data.time = setTimeout(() => {
       that.setDescription(e.detail.value)
-    }, 1000)
+    }, 500)
   },
 
   setDescription(value) {
@@ -243,18 +243,18 @@ Page({
       })
       return;
     }
-
     // console.log(this.data.name)
     // console.log(this.data.description)
     // console.log(this.data.type)
     // console.log(this.data.faculty)
     // console.log(this.data.picList)
     var that = this;
+
     wx.cloud.database().collection("marker").add({
       data : {
         name : that.data.name.trim(),
-        faculty : that.data.faculty,
-        type : that.data.typeArray_en[that.data.typeArray[0].indexOf(that.data.type)],
+        faculty : that.data.faculty[0],
+        type : that.data.typeArray_en[that.data.typeArray[0].indexOf(that.data.type[0])],
         description : that.data.description.trim(),
         like : 0,
         collection : 0,

@@ -34,10 +34,12 @@ page {
 
 .input-box {
   background-color: grey;
+  color: white;
   width: 50%;
   height: 80%;
   border-radius: 15px;
   opacity: 0.8;
+  padding-left: 10px;
 }
 
 .search-box {
@@ -67,7 +69,7 @@ page {
 .place-holder {
   color: white;
   opacity: 0.9;
-  left: 10px;
+  /* left: 10px */
 }
 
 .add-icon {

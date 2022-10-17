@@ -8,6 +8,8 @@ var distance = require("../utils/distance")
 
 Page({
     data: {
+
+      time : 0,
       latitude: 30.536761304903035,
       longitude: 114.36192806848169,
       current_position : {},
@@ -212,27 +214,18 @@ Page({
 
     // 跳转到指定position 处于视野中央
     moveToLocation(latitude,longitude) {
-      let mpCtx = wx.createMapContext('myMap');
-      mpCtx.moveToLocation({
+      
+      this.mpCtx.moveToLocation({
         latitude:latitude,
         longitude:longitude
       })
     },
-    
-    moveToMarker:(e)=>{//将地图中心移至指定经纬度
+    //将地图中心移至指定经纬度
+    moveToMarker(e){
       var targetLatitude = e.currentTarget.dataset.index.resultLatitude;
       var targetLongitude = e.currentTarget.dataset.index.resultLongitude; 
       
-      this.mpCtx.moveToLocation({
-        latitude:targetLatitude,
-        longitude:targetLongitude,
-        success(res) {
-          console.log("已经移至地图中心");
-        },
-        fail(res) {
-          console.log("调用失败");
-        }
-      })
+      this.moveToLocation(targetLatitude,targetLongitude)
     },
 
     showSearchResultList(){//显示搜索结果列表和取消按钮
@@ -293,13 +286,24 @@ Page({
         }
       })
     },
-    capturePlaceName(options){//捕获要搜索的地点名
 
-      let name = options.detail.value;
-      console.log("要搜索的地点是"+name);
-      this.setData({
+    // 页面防抖
+  handleInput(e) {
+    clearTimeout(this.data.time)
+    var that = this;
+    this.data.time = setTimeout(() => {
+      that.capturePlaceName(e.detail.value)
+    }, 1000)
+  },
+
+
+    async capturePlaceName(name){//捕获要搜索的地点名
+      await this.setData({
         searchName:name
       })
+
+      await this.doTheSearch();
+
     },
     //根据筛选条件更改可视性
     changeMarkerVisibility(){
@@ -616,7 +620,9 @@ Page({
           comment : that.data.marker_info.comment_number + 1
         },
         success(res) {
-          console.log(res)
+          that.setData({
+            "marker_info.comment_number" : that.data.marker_info.comment_number + 1
+          })
         }
       })
       
