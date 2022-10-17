@@ -43,9 +43,27 @@ page {
 }
 
 .main-comment .cfc-info {
-  background-color: grey;
+  background-color: rgb(244,244,244);
+  opacity: 0.5;
+  margin-left: 20px;
+  margin-right: 20px;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
 }
 
+.main-comment .cfc-info .cfc-item {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.main-comment .cfc-info .cfc-item .name {
+  float: left;
+  color: black;
+  font-weight: bolder;
+}
 .search-box {
   color: white;
   background-color: grey;
@@ -321,7 +339,7 @@ page {
   border-radius: 15px;
   width: 95%;
   height: 95%;
-  background-color:rgb(241,242,244);
+  background-color:rgb(255,255,255);
   opacity: 1.0;
   top: 1000px;
   left: 10px;
