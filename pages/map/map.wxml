@@ -139,6 +139,11 @@
             <!-- 版主和评论用户本人可以删除 -->
             <view class="right" wx:if="{{a.enable_delete}}">删除</view>
           </view>
+          <!-- <view class="cfc-info">
+            <view wx:for="{{a.cfc}}">
+              <view>{{item.nickName}}:{{item.content}}</view>
+            </view>
+          </view> -->
         </view>
       </mp-cell>
     </mp-cells>

@@ -665,6 +665,18 @@ Page({
       var commentId = that.data.cfc_data.commentid;
       const db = wx.cloud.database();
       const _ = db.command;
+
+      db.collection("marker").doc(that.data.marker_id).update({
+        data : {
+          comment : that.data.marker_info.comment_number + 1
+        },
+        success(res) {
+          that.setData({
+            "marker_info.comment_number" : that.data.marker_info.comment_number + 1
+          })
+        }
+      })
+
       db.collection('comment').doc(commentId).update({
         data : {
           cfc : _.push(temp)

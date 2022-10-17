@@ -42,6 +42,10 @@ page {
   padding-left: 10px;
 }
 
+.main-comment .cfc-info {
+  background-color: grey;
+}
+
 .search-box {
   color: white;
   background-color: grey;
