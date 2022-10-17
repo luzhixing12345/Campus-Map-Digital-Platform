@@ -485,7 +485,8 @@ Page({
             temp.like = res.data[i].like,
             temp.dislike = res.data[i].dislike,
             temp.time = time,
-            temp.cfc = res.data[i].cfc
+            temp.cfc = res.data[i].cfc,
+            temp._id = res.data[i]._id
 
             tempList.push(temp);
           }
@@ -519,10 +520,36 @@ Page({
       this.animationAdjust('comment_ani','down');
     },
 
-    upCfcInfo(e){
-      this.setData({
-        cfc_data : e.currentTarget.dataset
+    updateCfc(commentId){
+      var that = this;
+      wx.cloud.database().collection('comment').doc(commentId).get({
+        success : (res) => {
+          var tempList = [];
+          for(var i=0;i<res.data.cfc.length;i++){
+            var temp = {};
+            var time = timeUtil.displayRelativeTime(res.data.cfc[i].time); 
+            temp.userInfo = res.data.cfc[i].userInfo;
+            temp.time = time;
+            temp.content = res.data.cfc[i].content;
+            temp.like = res.data.cfc[i].like;
+            temp.dislike = res.data.cfc[i].dislike;
+            tempList.push(temp);
+          }
+          that.setData({
+            'cfc_data.cfc' : tempList,
+          })
+        },
+        fail:(res)=>{
+          console.log('查询失败');
+        }
       })
+    },
+
+    upCfcInfo(e){ 
+      this.setData({
+        cfc_data : e.currentTarget.dataset,
+      })
+      this.updateCfc(e.currentTarget.dataset.commentid);
       this.animationAdjust('cfc_ani','up');  
     },
 
@@ -564,7 +591,7 @@ Page({
         }
       })
     },
-
+    
     captureCfc(e){
       let content = e.detail.value;
       console.log("要发布的cfc是"+content);
@@ -575,11 +602,28 @@ Page({
     //发送楼中楼评论
     postCfc(e){
       var that = this;
-      console.log(that.data.cfcContent);
+      var temp = {};
+      temp.userInfo = app.globalData.userInfo;
+      temp.time = new Date();
+      temp.content = that.data.cfcContent;
+      temp.like = 0;
+      temp.dislike = 0;
       //TODO：完成对应评论cfc数据的更新
-      that.setData({
-        cfcContent : ''
-      });
+      var commentId = that.data.cfc_data.commentid;
+      const db = wx.cloud.database();
+      const _ = db.command;
+      db.collection('comment').doc(commentId).update({
+        data : {
+          cfc : _.push(temp)
+        },
+        success : ()=>{
+          //TODO:刷新楼中楼评论
+          that.updateCfc(commentId);
+          that.setData({
+            cfcContent : ''
+          });
+        }
+      })
     }
 
   })
