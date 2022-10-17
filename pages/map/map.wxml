@@ -1,14 +1,7 @@
 <!-- 地图顶部操作集 -->
 <view class="header" wx:if="{{!enable_add_marker}}">
   <!-- 搜索输入框 -->
-  <input 
-    type="text" 
-    class="input-box" 
-    placeholder=" 搜索地点..." 
-    placeholder-class="place-holder" 
-    bindinput="capturePlaceName"
-    bindfocus="showSearchResultList"
-    ></input>
+  <input type="text" class="input-box" placeholder=" 搜索地点..." placeholder-class="place-holder" bindinput="capturePlaceName" bindfocus="showSearchResultList"></input>
   <!-- 搜索按钮 -->
   <view class="search-box" bindtap="doTheSearch"> 搜索 </view>
   <!-- 筛选按钮 -->
@@ -22,43 +15,18 @@
 <!-- 添加标记地点界面 -->
 <view wx:if="{{enable_add_marker}}" class="dark-background">
   <view class="text">请选择添加标记的地点</view>
- <view >
- <image src="../../images/cancel.png" bindtap="cancelToAddMarker" class="cancel-icon"></image>
- </view>
+  <view>
+    <image src="../../images/cancel.png" bindtap="cancelToAddMarker" class="cancel-icon"></image>
+  </view>
 </view>
 
 <!-- 筛选面板 -->
 <view wx:if="{{use_select}}" class="select-sheet">
-<switch 
-color="#d0021b" 
-class="select-switch" 
-bindchange="switchChange_work"
-checked="true"
->办事</switch>
-<switch 
-color="#4a90e2" 
-class="select-switch" 
-bindchange="switchChange_learning"
-checked="true"
->学习</switch>
-<switch 
-color="#7ed321" 
-class="select-switch" 
-bindchange="switchChange_food"
-checked="true"
->餐饮</switch>
-<switch 
-color="#f5a623" 
-class="select-switch" 
-bindchange="switchChange_notify"
-checked="true"
->通知</switch>
-<switch 
-color="#000000" 
-class="select-switch" 
-bindchange="switchChange_group"
-checked="true"
->群组</switch>
+  <switch color="#d0021b" class="select-switch" bindchange="switchChange_work" checked="true">办事</switch>
+  <switch color="#4a90e2" class="select-switch" bindchange="switchChange_learning" checked="true">学习</switch>
+  <switch color="#7ed321" class="select-switch" bindchange="switchChange_food" checked="true">餐饮</switch>
+  <switch color="#f5a623" class="select-switch" bindchange="switchChange_notify" checked="true">通知</switch>
+  <switch color="#000000" class="select-switch" bindchange="switchChange_group" checked="true">群组</switch>
 </view>
 
 <!-- 搜索结果列表 -->
@@ -66,32 +34,21 @@ checked="true"
   <scroll-view scroll-y="true" style="height: inherit;">
     <mp-cells>
       <mp-cell wx:for="{{searchResult}}" wx:for-item="a" wx:key="resultName" class="search-cell">
-      <view class="search-text" bindtap="moveToMarker" data-index="{{a}}"> {{a.resultName}} </view>
+        <view class="search-text" bindtap="moveToMarker" data-index="{{a}}"> {{a.resultName}} </view>
       </mp-cell>
     </mp-cells>
   </scroll-view>
-  <view >
+  <view>
     <image src="../../images/cancel.png" bindtap="notShowSearchResultList" class="cancel-icon"></image>
   </view>
 </view>
 
 <!-- 地图组件 -->
- <view>
+<view>
   <view class="page-section-gap">
-    <map
-      id="myMap"
-      class="map"
-      latitude="{{latitude}}"
-      longitude="{{longitude}}"
-      markers="{{markers}}"
-      covers="{{covers}}"
-      show-location
-      show-location="true"
-      bindtap="addNewMarker"
-      bindmarkertap="upMarkerInfo"      
-    >
+    <map id="myMap" class="map" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" covers="{{covers}}" show-location show-location="true" bindtap="addNewMarker" bindmarkertap="upMarkerInfo">
     </map>
-  </view> 
+  </view>
 </view>
 
 <!-- 添加标记按钮 -->
@@ -112,42 +69,47 @@ checked="true"
       </view>
       <view class="right-header">
         <!-- 这里未来考虑hover -->
-          <view class="item" bindtap="clickLikeButton">
-            <image wx:if="{{!liked}}" src="../../images/like.png"></image>
-            <image wx:else src="../../images/liked.png"></image>
-            <text>{{marker_info.like_number}}</text>
-          </view>
-          <view class="item" bindtap="upCommentInfo">
-            <image src="../../images/comment.png"></image>
-            <text>{{marker_info.comment_number}}</text>
-          </view>
-          <view class="item" bindtap="clickCollectionButton">
-            <image wx:if="{{!collected}}" src="../../images/collection.png"></image>
-            <image wx:else src="../../images/collected.png"></image>
-            <text>{{marker_info.collection_number}}</text>
-          </view>
+        <view class="item" bindtap="clickLikeButton">
+          <image wx:if="{{!liked}}" src="../../images/like.png"></image>
+          <image wx:else src="../../images/liked.png"></image>
+          <text>{{marker_info.like_number}}</text>
+        </view>
+        <view class="item" bindtap="upCommentInfo">
+          <image src="../../images/comment.png"></image>
+          <text>{{marker_info.comment_number}}</text>
+        </view>
+        <view class="item" bindtap="clickCollectionButton">
+          <image wx:if="{{!collected}}" src="../../images/collection.png"></image>
+          <image wx:else src="../../images/collected.png"></image>
+          <text>{{marker_info.collection_number}}</text>
+        </view>
       </view>
     </view>
     <view class="marker-info-footer">
       <view class="description">{{marker_info.description}}</view>
-      <view wx:for="{{marker_info.picturesUrl}}">
-        <!-- 这里展示图片 -->
-      </view>
+      <swiper indicator-dots='true' autoplay='true' interval='3000' duration='1000' circular='true' class="swip">
+        <block wx:for="{{marker_info.picturesUrl}}" wx:for-index="index">
+          <swiper-item>
+            <image src='{{marker_info.picturesUrl[index]}}' mode='heightFix' bindtap="preview" data-src='{{marker_info.picturesUrl}}' data-index="{{index}}" ></image>
+          </swiper-item>
+        </block>
+      </swiper>
     </view>
   </view>
 
-  <view >
+  <view>
     <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
   </view>
 </view>
 
 <!-- 评论信息展开TODO -->
 <view class="comment" animation="{{comment_ani}}">
-  <view >
+  <view>
     <image src="../../images/cancel.png" bindtap="downCommentInfo" class="cancel-icon"></image>
   </view>
 
-  <scroll-view scroll-y="true" style="height: 900rpx;">
+  <block wx:if="{{marker_info.comment_number!=0}}">
+    <scroll-view scroll-y="true" style="height: 900rpx;">
     <mp-cells>
       <mp-cell wx:for="{{comment_info}}" wx:key="" wx:for-item="a">
         <view class="main-comment">
@@ -172,18 +134,7 @@ checked="true"
                 <image src="../../images/like.png"></image>
                 <view style="margin-left: 10px;">{{a.dislike}}</view>
               </view>
-              <image 
-              src='../../images/inner_comment.png' 
-              bindtap="upCfcInfo" 
-              data-avatarurl="{{a.userInfo.avatarUrl}}"
-              data-nickname="{{a.userInfo.nickName}}"
-              data-time="{{a.time}}"
-              data-content="{{a.content}}"
-              data-like="{{a.like}}"
-              data-dislike="{{a.dislike}}"
-              data-cfc="{{a.cfc}}"
-              data-commentid="{{a._id}}" 
-              ></image>
+              <image src='../../images/inner_comment.png' bindtap="upCfcInfo" data-avatarurl="{{a.userInfo.avatarUrl}}" data-nickname="{{a.userInfo.nickName}}" data-time="{{a.time}}" data-content="{{a.content}}" data-like="{{a.like}}" data-dislike="{{a.dislike}}" data-cfc="{{a.cfc}}" data-commentid="{{a._id}}"></image>
             </view>
             <!-- 版主和评论用户本人可以删除 -->
             <view class="right" wx:if="{{a.enable_delete}}">删除</view>
@@ -193,27 +144,24 @@ checked="true"
     </mp-cells>
     <view style="width: 100%; height: 150px;"></view>
   </scroll-view>
-  
-  
 
-  
+  </block>
+  <block wx:else>
+    <image src="../../images/noInfo.png" class="no_info"></image>
+  </block>
+
+
+
   <view>
-    <input 
-    type="text" 
-    class="comment-box" 
-    placeholder="发一条友善的评论" 
-    placeholder-class="comment-placeholder" 
-    bindinput="captureComment"
-    value="{{commentContent}}"
-    ></input>
+    <input type="text" class="comment-box" placeholder="发一条友善的评论" placeholder-class="comment-placeholder" bindinput="captureComment" value="{{commentContent}}"></input>
     <view class="comment-button" bindtap="postComment">发送</view>
   </view>
 </view>
 
 <!-- 楼中楼评论页面 -->
 <view class="comment" animation="{{cfc_ani}}">
-  <view >
-      <image src="../../images/cancel.png" bindtap="downCfcInfo" class="cancel-icon"></image>
+  <view>
+    <image src="../../images/cancel.png" bindtap="downCfcInfo" class="cancel-icon"></image>
   </view>
   <scroll-view scroll-y="true" style="height: 900rpx;">
     <view class="main-comment">
@@ -243,7 +191,7 @@ checked="true"
         <view class="right" wx:if="{{cfc_data.enable_delete}}">删除</view>
       </view>
     </view>
-    
+
     <view style="width: 100%; height: 30px; text-align: center; background-color: rgb(238, 238, 238);">评论回复</view>
     <mp-cells>
       <mp-cell wx:for="{{cfc_data.cfc}}" wx:key="" wx:for-item="a">
@@ -278,17 +226,10 @@ checked="true"
     </mp-cells>
     <view style="width: 100%; height: 150px;"></view>
   </scroll-view>
-  
+
   <view>
-    <input 
-    type="text" 
-    class="comment-box" 
-    placeholder="发一条友善的评论" 
-    placeholder-class="comment-placeholder" 
-    bindinput="captureCfc"
-    value="{{cfcContent}}"
-    ></input>
+    <input type="text" class="comment-box" placeholder="发一条友善的评论" placeholder-class="comment-placeholder" bindinput="captureCfc" value="{{cfcContent}}"></input>
     <view class="comment-button" bindtap="postCfc">发送</view>
   </view>
-  
+
 </view>

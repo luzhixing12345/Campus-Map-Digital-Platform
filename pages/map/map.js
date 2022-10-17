@@ -38,6 +38,7 @@ Page({
     },
 
     onLoad() {
+      // this.refactorDatabaseMarkerItem();
       // 跳转到此页面即申请权限
       wx.getSetting({
         success(res) {
@@ -60,6 +61,17 @@ Page({
       })
     },
 
+    // 放大预览图片
+    preview(e) {
+      // console.log(e)
+      let picturesUrl = e.currentTarget.dataset.src
+      let index = e.currentTarget.dataset.index
+      wx.previewImage({
+        urls: picturesUrl,
+        current : picturesUrl[index]
+      })
+    },
+
     // 动画效果
     // animation_name(string) : animation="{{animation_name}}"
     // position(string) : 'up'(向上展开) | 'down'(向下关闭)
@@ -73,6 +85,30 @@ Page({
       animation.translateY(bias).step()
       this.setData({
         [animation_name]:  animation.export(),
+      })
+    },
+
+        // marker数据库 表项整体修改
+    // 用于开发过程中重构一次数据库表项，使用后记得注释掉
+    refactorDatabaseMarkerItem() {
+      wx.cloud.database().collection('marker').get({
+        success(res) {
+          var i;
+          for (i=0;i<res.data.length;i++) {
+            wx.cloud.database().collection('marker').doc(res.data[i]._id).update({
+              data : {
+                collection : 0,
+                comment : [],
+                creator : "admin",
+                description : "",
+                like : 0,
+                comment : 0,
+                picturesUrl : []
+              },
+            })
+          }
+          console.log("已更新所有marker表信息");
+        }
       })
     },
 
@@ -338,7 +374,7 @@ Page({
         "marker_info.faculty" : res.data.faculty,
         "marker_info.like_number" : res.data.like,
         "marker_info.collection_number" : res.data.collection,
-        "marker_info.comment_number" : 0,
+        "marker_info.comment_number" : res.data.comment,
         "marker_info.description" : res.data.description,
         "marker_info.picturesUrl" : res.data.picturesUrl
       })
@@ -491,7 +527,7 @@ Page({
       }).get({
         success(res) {
           var tempList = [];
-          // console.log(res)
+          console.log(res)
           for(var i = 0; i<res.data.length; i++){
             var time = timeUtil.displayRelativeTime(res.data[i].time);
             var temp = {};
@@ -509,16 +545,6 @@ Page({
           that.setData({
             comment_info : tempList,
           })
-          // var time = timeUtil.displayRelativeTime(res.data[0].time);
-          // that.setData({
-          //     "comment_info.userInfo" : res.data[0].userInfo,
-          //     "comment_info.content" : res.data[0].content,
-          //     "comment_info.like" : res.data[0].like,
-          //     "comment_info.dislike" : res.data[0].dislike,
-          //     "comment_info.time" : time,
-          //     "comment_info.cfc" : res.data[0].cfc
-          //   }
-          // )
         }
       })
     },
@@ -584,10 +610,16 @@ Page({
      * 发布评论 
      */
     postComment(e){
-      console.log("发布评论"+this.data.commentContent);
-      //TODO:将评论内容上传到数据库
-  
       var that = this;
+      wx.cloud.database().collection('marker').doc(that.data.marker_id).update({
+        data : {
+          comment : that.data.marker_info.comment_number + 1
+        },
+        success(res) {
+          console.log(res)
+        }
+      })
+      
       wx.cloud.database().collection('comment').add({
         data : {
           _marker_id : that.data.marker_id,

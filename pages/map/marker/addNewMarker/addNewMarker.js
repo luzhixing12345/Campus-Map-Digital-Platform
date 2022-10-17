@@ -265,7 +265,7 @@ Page({
         visiable : true
       },
       success(res) {
-        console.log(res);
+        // console.log(res);
         wx.showModal({
           title: "温馨提示", // 提示的标题
           content: "上传成功", // 提示的内容
