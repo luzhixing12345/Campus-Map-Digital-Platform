@@ -3,16 +3,25 @@ const app = getApp();
 Page({
 
   data: {
-    facultyArray: ['文理学部', '工学部', '信息学部'],
-    facultyIndex: 0,
-    typeArray: ['办事', '学习', '餐饮', '通知', '群组'],
-    typeArray_en: ['work', 'learning', 'food', 'notify', 'group'],
-    typeIndex: 0,
 
+    time : 0,
+    name : "",
+
+    facultyArray: [['文理学部', '工学部', '信息学部']],
+    faculty : "文理学部",
+    close_faculty_picker : false,
+    show_faculty_picker : false,
+
+    typeArray: [['办事', '学习', '餐饮', '通知', '群组']],
+    typeArray_en: ['work', 'learning', 'food', 'notify', 'group'],
+    type : "办事",
+    close_type_picker : false,
+    show_type_picker : false,
 
     countPic : 9, // 最多9图
     showImgUrl: "",
     uploadImgUrl: '',
+    picList : [],
   },
 
   onLoad: function (options) {
@@ -20,7 +29,7 @@ Page({
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('position', function (data) {
       that.setData({
-        position : data
+        position : data.position
       })
     })
   },
@@ -77,21 +86,6 @@ Page({
 
   },
 
-  bindFacultyChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      facultyIndex: e.detail.value
-    })
-  },
-
-  bindTypeChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      typeIndex: e.detail.value
-    })
-  },
-
-
   myEventListener: function (e) {
     console.log("上传的图片结果集合")
     console.log(e.detail.picsList)
@@ -134,6 +128,159 @@ Page({
             }
           }
         })
+      }
+    })
+  },
+
+  selectFaculty() { 
+    if (this.data.close_faculty_picker) return;
+    if (!this.data.show_faculty_picker) {
+      this.setData({
+        show_faculty_picker : true
+      })
+    }
+  },
+
+  async comfirmFaculty(e) {
+    // console.log("call confirm")
+    this.setData({
+      show_faculty_picker : false,
+      faculty: e.detail.choosedData
+    })
+    await this.setData({
+      close_faculty_picker : true
+    })
+  },
+
+  async comfirmType(e) {
+    this.setData({
+      show_type_picker : false,
+      type: e.detail.choosedData
+    })
+    await this.setData({
+      close_type_picker : true
+    })
+  },
+
+  async cancelFaculty(e) {
+    this.setData({
+      show_faculty_picker : false
+    })
+    await this.setData({
+      close_faculty_picker : true
+    })
+  },
+
+  async cancelType(e) {
+    this.setData({
+      show_type_picker : false
+    })
+    await this.setData({
+      close_type_picker : true
+    })
+  },
+
+  selectType() {
+    if (this.data.close_type_picker) return;
+    if (!this.data.show_type_picker) {
+      this.setData({
+        show_type_picker : true
+      })
+    }
+  },
+
+  captureName(e) {
+    var name = e.detail.value;
+    this.setData({
+      name : name
+    })
+  },
+
+  // 页面防抖
+  handleInput(e) {
+    clearTimeout(this.data.time)
+    var that = this;
+    this.data.time = setTimeout(() => {
+      that.setDescription(e.detail.value)
+    }, 1000)
+  },
+
+  setDescription(value) {
+    this.setData({
+      description: value
+    })
+  },
+
+  submitButton() {
+
+    if (this.data.picList.length == 0) {
+      wx.showModal({
+        title: "温馨提示", // 提示的标题
+        content: "请至少添加一张描述图片", // 提示的内容
+        showCancel: false, // 是否显示取消按钮，默认true
+        confirmText: "确定", // 确认按钮的文字，最多4个字符
+        confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+      })
+      return;
+    }
+    if (this.data.name.trim() == '') {
+      wx.showModal({
+        title: "温馨提示", // 提示的标题
+        content: "地点名称不能为空", // 提示的内容
+        showCancel: false, // 是否显示取消按钮，默认true
+        confirmText: "确定", // 确认按钮的文字，最多4个字符
+        confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+      })
+      return;
+    }
+    if (this.data.description.trim() == '') {
+      wx.showModal({
+        title: "温馨提示", // 提示的标题
+        content: "请添加相关的描述信息", // 提示的内容
+        showCancel: false, // 是否显示取消按钮，默认true
+        confirmText: "确定", // 确认按钮的文字，最多4个字符
+        confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+      })
+      return;
+    }
+
+    // console.log(this.data.name)
+    // console.log(this.data.description)
+    // console.log(this.data.type)
+    // console.log(this.data.faculty)
+    // console.log(this.data.picList)
+    var that = this;
+    wx.cloud.database().collection("marker").add({
+      data : {
+        name : that.data.name.trim(),
+        faculty : that.data.faculty,
+        type : that.data.typeArray_en[that.data.typeArray[0].indexOf(that.data.type)],
+        description : that.data.description.trim(),
+        like : 0,
+        collection : 0,
+        comment : 0,
+        picturesUrl : that.data.picList,
+        creator : app.globalData.userInfo.nickName,
+        position : that.data.position,
+        visiable : true
+      },
+      success(res) {
+        console.log(res);
+        wx.showModal({
+          title: "温馨提示", // 提示的标题
+          content: "上传成功", // 提示的内容
+          showCancel: false, // 是否显示取消按钮，默认true
+          confirmText: "确定", // 确认按钮的文字，最多4个字符
+          confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+          success(r) {
+            if (r.confirm) {
+              wx.navigateBack({
+                delta: 1,
+              })
+            }
+          }
+        })
+
       }
     })
   },

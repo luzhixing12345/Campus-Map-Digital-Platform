@@ -1,6 +1,10 @@
 
 const app = getApp();
 var timeUtil = require("../utils/time");
+var distance = require("../utils/distance")
+// 查重判断的经纬度范围
+
+
 
 Page({
     data: {
@@ -143,14 +147,27 @@ Page({
       // 获取经纬度
       var latitude = e.detail.latitude;
       var longitude = e.detail.longitude;
+      // console.log(latitude,longitude)
+      // return;
       // 查重
-      
+      if (!distance.checkMarkerDistance(this.data.markers,e.detail)) {
+        // 地点过于靠近，提示
+        // console.log("#")
+        wx.showModal({
+          title: "温馨提示", // 提示的标题
+          content: "标记的地点距离过近", // 提示的内容
+          showCancel: false, // 是否显示取消按钮，默认true
+          confirmText: "确定", // 确认按钮的文字，最多4个字符
+          confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+        })
+        return;
+      }
+      var db = wx.cloud.database();
       wx.navigateTo({
         url: 'marker/addNewMarker/addNewMarker',
         success(res) {
           res.eventChannel.emit('position',{
-            latitude : latitude,
-            longitude : longitude
+            position : db.Geo.Point(e.detail.longitude,e.detail.latitude)
           })
         }
       })
@@ -328,9 +345,7 @@ Page({
     },
     async upMarkerInfo(e) {
       // 添加标记点的情况，不处理
-      console.log("@")
       if (this.data.enable_add_marker) return;
-      console.log("@@")
       var marker_id = this.data.markers_id[e.markerId];
       var latitude = this.data.markers[e.markerId].latitude;
       var longitude = this.data.markers[e.markerId].longitude;

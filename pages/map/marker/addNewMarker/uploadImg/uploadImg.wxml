@@ -6,7 +6,7 @@
           <image src='{{item}}' bindlongpress="bindlongpressimg" data-id='{{index}}'></image>
         </view>
       </block>
-      <view class='chooseimg' bindtap='uploadDetailImage'>
+      <view class='chooseimg' bindtap='uploadDetailImage' wx:if="{{detailPics.length!=9}}">
         <view class="weui-uploader__input-box"></view>
       </view>
     </view>

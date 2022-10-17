@@ -11,7 +11,8 @@
     "pages/group/receivedLikes/receivedLikes",
     "pages/group/systemNotify/systemNotify",
     "pages/group/replyToMe/replyToOthers/replyToOthers",
-    "pages/map/marker/addNewMarker/uploadImg/uploadImg"
+    "pages/map/marker/addNewMarker/uploadImg/uploadImg",
+    "pages/map/marker/addNewMarker/picker/picker"
   ],
   "window": {
     "backgroundTextStyle": "light",
