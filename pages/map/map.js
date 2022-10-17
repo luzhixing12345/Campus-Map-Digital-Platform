@@ -569,23 +569,13 @@ Page({
       var that = this;
       wx.cloud.database().collection('comment').doc(commentId).get({
         success : (res) => {
+          for(var i=0;i<res.data.cfc.length;i++){
+            var time = timeUtil.displayRelativeTime(res.data.cfc[i].time); 
+            res.data.cfc[i].time = time;
+          }
           that.setData({
             "cfc_data.cfc" : res.data.cfc
           })
-          // var tempList = [];
-          // for(var i=0;i<res.data.cfc.length;i++){
-          //   var temp = {};
-          //   var time = timeUtil.displayRelativeTime(res.data.cfc[i].time); 
-          //   temp.userInfo = res.data.cfc[i].userInfo;
-          //   temp.time = time;
-          //   temp.content = res.data.cfc[i].content;
-          //   temp.like = res.data.cfc[i].like;
-          //   temp.dislike = res.data.cfc[i].dislike;
-          //   tempList.push(temp);
-          // }
-          // that.setData({
-          //   'cfc_data.cfc' : tempList,
-          // })
         },
       })
     },

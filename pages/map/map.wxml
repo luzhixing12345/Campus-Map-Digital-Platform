@@ -90,7 +90,7 @@
       <swiper indicator-dots='true' autoplay='true' interval='3000' duration='1000' circular='true' class="swip">
         <block wx:for="{{marker_info.picturesUrl}}" wx:for-index="index">
           <swiper-item>
-            <image src='{{marker_info.picturesUrl[index]}}' mode='heightFix' bindtap="preview" data-src='{{marker_info.picturesUrl}}' data-index="{{index}}" ></image>
+            <image src='{{marker_info.picturesUrl[index]}}' mode='aspectFill' bindtap="preview" data-src='{{marker_info.picturesUrl}}' data-index="{{index}}" ></image>
           </swiper-item>
         </block>
       </swiper>
