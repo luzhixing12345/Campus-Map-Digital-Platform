@@ -1,26 +1,59 @@
 <!--pages/group/replyToMe/replyToOthers/replyToOthers.wxml-->
 <view class="head">评论详情</view>
 
+<!-- 原始评论 -->
 <view class="user-post">
-  <view>
-    <image class="user-avartar" src="/images/zood.png"></image>
-    <text class="user-name">{{userName}}</text>
+  <view class="user-avartar-row">
+    <image class="user-avartar" src="{{commentUserAvatarUrl}}"></image>
   </view>
-  <view><text>{{postTime}}</text></view>
-  <view><text>{{postText}}</text></view>
+  <view class="content-row">
+    <view><text class="user-name">{{commentUserName}}</text></view>
+    <view><text class="user-name">{{commentTime}}</text></view>
+    <view><text>{{commentContent}}</text></view>
+    <view>
+      <image 
+      src="/images/like.png" 
+      style="width: 40rpx;height: 40rpx;margin-right: 30rpx;"
+      bindtap="cmtTapLike"
+      ></image><text>{{commentLike}}</text>
+      <image 
+      src="/images/like.png" 
+      style="width: 40rpx;height: 40rpx;transform: rotateX(180deg);margin-left: 20rpx;margin-right: 30rpx;"
+      bindtap="cmtTapDislike"
+      ></image><text>{{commentDislike}}</text>
+    </view>
+  </view>
+  
 </view>
 
+<view class="head">评论回复</view>
+
+<!-- 对评论的回复 -->
 <view>
     <mp-cells>
-      <mp-cell wx:for="{{commentData}}" wx:for-item="a" wx:key="replyerName">
+      <mp-cell wx:for="{{commentCfcList}}">
         <view class="reply-cell">
-          <view>
-            <image class="user-avartar" src="{{a.replyerAvartar}}"></image>
-            <text class="user-name">{{a.replyerName}} 回复 {{userName}}</text>
+          <view class="user-avartar-row">
+            <image class="user-avartar" src="{{item.avatarUrl}}"></image>
           </view>
-          <view><text>{{a.replyTime}}</text></view>
-          <view>
-            <text>{{a.replyContent}}</text>
+          <view class="content-row">
+            <view><text class="user-name">{{item.nickName}} 回复 {{commentUserName}}</text></view>
+            <view><text class="user-name">{{item.time}}</text></view>
+            <view><text>{{item.content}}</text></view>
+            <view>
+              <image 
+              src="/images/like.png" 
+              style="width: 40rpx;height: 40rpx;margin-right: 30rpx;"
+              bindtap="cfcTapLike"
+              data-index="{{item.index}}"
+              ></image><text>{{item.like}}</text>
+              <image 
+              src="/images/like.png" 
+              style="width: 40rpx;height: 40rpx;transform: rotateX(180deg);margin-left: 20rpx;margin-right: 30rpx;"
+              bindtap="cfcTapDislike"
+              data-index="{{item.index}}"
+              ></image><text>{{item.dislike}}</text>
+            </view>
           </view>
         </view>
       </mp-cell>
@@ -36,7 +69,7 @@
     style="display: inline-flex;" 
     placeholder-style="color: white;"
     bindinput="captureComment"
-    value="{{commentContent}}"
+    value="{{yourCommentContent}}"
     />
     <view class="comment-button" bindtap="postComment">发布</view>
 

@@ -2,16 +2,25 @@
 <view class="head">回复我的</view>
 
 <mp-cells>
-  <mp-cell wx:for="{{textArray}}" wx:key="" wx:for-item="a">
-    <view class="reply-cell" bindtap="reply">
-      <view>
-        <image class="user-avartar" src="/images/zood.png"></image>
-        <text class="user-name">{{replyerName}} 回复您：</text>
+  <mp-cell wx:for="{{replyList}}" wx:key="">
+    <view class="reply-cell" bindtap="reply" data-commentid="{{item.originCommentId}}">
+      <view class="user-avartar-row">
+        <image class="user-avartar" src="{{item.replyerAvatarUrl}}"></image>
+      </view>
+      <view class="reply-content-row">
+        <view>
+          <text style="color: gray;font-weight: bold;font-size: 12px;">{{item.replyerName}}</text>
+          <text style="color: gray;font-size: 12px;"> 回复了我的评论</text>
+        </view>
+        <view>
+          <text style="color: grey;font-size: 14px;">回复<text style="color:cornflowerblue;font-size: 14px;">@{{userName}}</text>: </text>
+          <text style="color: grey;font-size: 14px;">{{item.replyContent}}</text>
+        </view>
+        <view><text style="color: grey;font-size: 14px;">{{item.replyTime}}</text></view>
         
       </view>
-      <view><text>{{replyTime}}</text></view>
-      <view>
-        <text>{{a}}</text>
+      <view class="your-comment-row">
+        <text style="color: grey;font-size: 14px;">{{item.originComment}}</text>
       </view>
     </view>
   </mp-cell>

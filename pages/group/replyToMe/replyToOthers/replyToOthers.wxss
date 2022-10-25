@@ -8,34 +8,49 @@
   font-size: 30rpx;
 }
 
+.user-avartar-row,.content-row {
+  display: block;
+  height: 15vh;
+}
+
+.user-avartar-row {
+  width: 15%;
+}
+
+.content-row {
+  width: 85%;
+}
+
 .user-avartar {
   position: relative; 
-  width: 150rpx; 
-  height:150rpx; 
-  border-radius: 50rpx;
+  width: 80rpx; 
+  height: 80rpx; 
+  border-radius: 50%;
 }
 
 .user-name {
   position: relative;
-  left: 50rpx;
-  top: -60rpx;
-  color: black;
-  font-size: 40rpx;
+  color: gray;
+  font-size: 14px;
 }
 
 .user-post {
+  display: flex;
   padding: 10rpx;
   align-self: left;
   margin: 10rpx;
   background-color: rgb(233, 233, 233);
+  height: 15vh;
 }
 
 .reply-cell {
+  display: flex;
   padding: 10rpx;
   align-self: left;
   /* border-radius: 20rpx; */
   margin: 10rpx;
   background-color: rgb(233, 233, 233);
+  height: 15vh;
 }
 
 .comment-input {

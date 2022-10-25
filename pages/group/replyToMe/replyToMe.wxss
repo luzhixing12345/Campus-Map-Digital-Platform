@@ -14,19 +14,31 @@
   /* border-radius: 20rpx; */
   margin: 10rpx;
   background-color: #e6e5e5;
+  display: flex;
+  flex-direction: row;
+}
+
+.user-avartar-row,.reply-content-row,.your-comment-row {
+  display: block;
+  height: 15vh;
+}
+
+.user-avartar-row {
+  width: 15%;
+}
+
+.reply-content-row {
+  width: 70%;
+}
+
+.your-comment-row {
+  width: 15%;
 }
 
 .user-avartar {
   position: relative; 
-  width: 150rpx; 
-  height:150rpx; 
-  border-radius: 50rpx;
+  width: 80rpx; 
+  height:80rpx; 
+  border-radius: 50%;
 }
 
-.user-name {
-  position: relative;
-  left: 50rpx;
-  top: -60rpx;
-  color: black;
-  font-size: 40rpx;
-}
