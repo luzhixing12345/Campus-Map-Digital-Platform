@@ -20,6 +20,7 @@ Page({
         var cmtctt = res.data.content;
         var cmtusravt = res.data.userInfo.avatarUrl;
         var cmtusrnam = res.data.userInfo.nickName;
+        var cmtusrid = res.data.userInfo._openid;
         var cmttim = timeUtil.displayRelativeTime(res.data.time);
         var cmtlike = res.data.like;
         var cmtdislike = res.data.dislike;
@@ -41,6 +42,7 @@ Page({
           commentContent : cmtctt,
           commentUserAvatarUrl : cmtusravt,
           commentUserName : cmtusrnam,
+          commentUserId : cmtusrid,
           commentTime : cmttim,
           commentLike : cmtlike,
           commentDislike : cmtdislike,
@@ -177,6 +179,27 @@ Page({
         console.log('更新失败');
       },
     })
+
+    //post 赋值
+    var temp = {};
+    temp.postType = 'cmt';
+    temp.postId = that.data.commentId;
+    temp.postIndex = 0;
+
+    db.collection('likeMessage').add({
+      data : {
+        originUserid : that.data.commentUserId,
+        time : new Date(),
+        post : temp,
+        isChecked : false,
+      },
+      success:(res)=>{
+        console.log('db add success');
+      },
+      fail:()=>{
+        console.log('db add success');
+      },
+    })
   },
   cmtTapDislike(e){
     const db = wx.cloud.database();
@@ -196,6 +219,7 @@ Page({
         console.log('更新失败');
       },
     })
+
   },
   cfcTapLike(e){
     const db = wx.cloud.database();
@@ -218,6 +242,28 @@ Page({
         console.log('更新失败');
       },
     })
+
+    //post 赋值
+    var temp = {};
+    temp.postType = 'cfc';
+    temp.postId = that.data.commentId;
+    temp.postIndex = index;
+
+    db.collection('likeMessage').add({
+      data : {
+        originUserid : that.data.commentUserId,
+        time : new Date(),
+        post : temp,
+        isChecked : false,
+      },
+      success:(res)=>{
+        console.log('db add success');
+      },
+      fail:()=>{
+        console.log('db add success');
+      },
+    })
+
   },
   cfcTapDislike(e){
     const db = wx.cloud.database();

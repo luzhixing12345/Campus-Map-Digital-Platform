@@ -1,9 +1,18 @@
 <!--group/group.wxml-->
 <view class="table">
   <view class="tr"> 
-    <view class="td"> <image src="../../images/replyToMe.png" class="icon" bindtap="replyToMe"></image> </view>
-    <view class="td"> <image src="../../images/receivedLikes.png" class="icon" bindtap="receivedLikes"></image> </view>
-    <view class="td"> <image src="../../images/systemNotify.png" class="icon" bindtap="systemNotify"></image> </view>
+    <view class="td"> 
+      <image src="../../images/replyToMe.png" class="icon" bindtap="replyToMe"></image>
+      <view wx:if="{{!ifReplyChecked}}" class="sup">12</view>
+    </view>
+    <view class="td"> 
+    <image src="../../images/receivedLikes.png" class="icon" bindtap="receivedLikes"></image>
+    <view wx:if="{{!ifLikesChecked}}" class="sup">{{likesUncheckedNum}}</view>
+    </view>
+    <view class="td"> 
+    <image src="../../images/systemNotify.png" class="icon" bindtap="systemNotify"></image> 
+    <view wx:if="{{!ifNotifyChecked}}" class="sup">12</view>
+    </view>
   </view>
   <view class="tr">
     <view class="td">回复我的</view>

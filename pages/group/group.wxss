@@ -11,6 +11,7 @@
 }
 
 .td{
+  position: relative;
   width: 33%;
   display: inline-flex;
   align-items: center;
@@ -20,4 +21,17 @@
 .icon {
   width: 100rpx;
   height: 100rpx;
+}
+
+.sup {
+  position:absolute;
+  width: 45rpx;
+  height: 45rpx;
+  text-align: center;
+  top: -20rpx;
+  right: 60rpx;
+  padding: 2px;
+  background-color: red;
+  color:white;
+  border-radius: 60%;
 }
