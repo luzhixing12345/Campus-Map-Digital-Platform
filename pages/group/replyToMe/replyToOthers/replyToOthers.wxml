@@ -12,9 +12,9 @@
     <view><text>{{commentContent}}</text></view>
     <view>
       <image 
-      src="/images/like.png" 
+      src="/images/{{commentIsLiked?'liked':'like'}}.png" 
       style="width: 40rpx;height: 40rpx;margin-right: 30rpx;"
-      bindtap="cmtTapLike"
+      bindtap="{{commentIsLiked?'cmtTapLiked':'cmtTapLike'}}"
       ></image><text>{{commentLike}}</text>
       <image 
       src="/images/like.png" 
@@ -42,9 +42,9 @@
             <view><text>{{item.content}}</text></view>
             <view>
               <image 
-              src="/images/like.png" 
+              src="/images/{{item.isLiked?'liked':'like'}}.png" 
               style="width: 40rpx;height: 40rpx;margin-right: 30rpx;"
-              bindtap="cfcTapLike"
+              bindtap="{{item.isLiked?'cfcTapLiked':'cfcTapLike'}}"
               data-index="{{item.index}}"
               ></image><text>{{item.like}}</text>
               <image 

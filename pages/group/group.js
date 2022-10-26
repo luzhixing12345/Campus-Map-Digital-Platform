@@ -44,7 +44,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+      
     },
 
     /**
@@ -65,7 +65,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
+      
     },
 
     /**
@@ -95,9 +95,24 @@ Page({
     },
 
     receivedLikes(e){
-        wx.navigateTo({
-          url: '../group/receivedLikes/receivedLikes',
-        })
+      var that = this;
+      wx.navigateTo({
+        url: '../group/receivedLikes/receivedLikes',
+        success:function(res){
+          console.log('refresh');
+          const db = wx.cloud.database();
+          db.collection('likeMessage').where({
+            isChecked : false,
+          }).count().then((res)=>{
+            var cnt_likes = res.total;
+            var likesCheckedFlag = (cnt_likes == 0)?true:false;
+            that.setData({
+              ifLikesChecked : likesCheckedFlag,
+              likesUncheckedNum : cnt_likes,
+            })
+          });
+        },
+      })
     },
 
     systemNotify(e){

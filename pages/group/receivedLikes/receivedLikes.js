@@ -1,64 +1,48 @@
 // pages/group/receivedLikes/receivedLikes.js
+const app = getApp();
+var timeUtil = require('../../utils/time')
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {
-    likesArray : [
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-      {
-        likesAvartar : '/images/zood.png',
-        likesName : '丁真珍珠',
-        likesTime : '2022/10/10 15:15:15'
-      },
-    ],
-  },
+  data: {},
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const db = wx.cloud.database();
+    var that = this;
+    db.collection('likeMessage').where({
+      originUserid : app.globalData._openid
+    }).get({
+      success:(res)=>{
+        var tempList = [];
+        for(var i = 0; i<res.data.length; ++i){
+          var temp = {};
+          temp.likesAvartar = res.data[i].userInfo.avatarUrl;
+          temp.likesName = res.data[i].userInfo.nickName;
+          temp.likesTime = timeUtil.displayRelativeTime(res.data[i].time);
+          temp.likesContent = res.data[i].post.postContent;
+          tempList.push(temp); 
+        }
+        that.setData({
+          likesArray : tempList,
+        });
+        db.collection('likeMessage').where({
+          originUserid : app.globalData._openid,
+          isChecked : false,
+        }).update({
+          data:{
+            isChecked : true,
+          },
+        })
+      },
+      fail:(res)=>{
+        console.log(res);
+      },
+    })
   },
 
   /**

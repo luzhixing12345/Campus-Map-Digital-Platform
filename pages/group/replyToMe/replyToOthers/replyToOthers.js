@@ -35,9 +35,9 @@ Page({
           temp.like = cmtcfc[i].like;
           temp.dislike = cmtcfc[i].dislike;
           temp.index = i;
+          temp.isLiked = false;
           tempList.push(temp);
         }
-        
         that.setData({
           commentContent : cmtctt,
           commentUserAvatarUrl : cmtusravt,
@@ -53,6 +53,42 @@ Page({
         console.log('查询失败');
         console.log(res);
       }, 
+    });
+
+    db.collection('likeMessage').where({
+      _openid : app.globalData.userInfo._openid,
+      'post.postType' : 'cmt',
+      'post.postId' : that.data.commentId
+    }).count().then((res)=>{
+      if(res.total==0){
+        that.setData({
+          commentIsLiked : false,
+        })
+      }
+      else if(res.total>0){
+        that.setData({
+          commentIsLiked : true,
+        })
+      }
+    });
+
+    db.collection('likeMessage').where({
+      _openid :app.globalData.userInfo._openid,
+      'post.postId' : that.data.commentId,
+      'post.postType' : 'cfc',
+    }).get({
+      success:(res)=>{
+        var resList = res.data;
+        for(var i=0; i<resList.length; ++i){
+          var cfcIndex = resList[i].post.postIndex;
+          that.setData({
+            ['commentCfcList['+cfcIndex+'].isLiked'] : true,
+          })
+        }
+      },//实际测试，这里有一定的更新延迟，后面应当要解决这个问题
+      fail:(res)=>{
+        console.log(res);
+      }
     })
   },
   onLoad:function(options){
@@ -162,6 +198,7 @@ Page({
     })
   },
   cmtTapLike(e){
+    console.log('cmtlike');
     const db = wx.cloud.database();
     const  _ = db.command;
     var that = this;
@@ -173,6 +210,7 @@ Page({
         console.log('更新成功');
         that.setData({
           commentLike : that.data.commentLike + 1,
+          commentIsLiked : !that.data.commentIsLiked,
         })
       },
       fail:()=>{
@@ -185,6 +223,7 @@ Page({
     temp.postType = 'cmt';
     temp.postId = that.data.commentId;
     temp.postIndex = 0;
+    temp.postContent = (that.data.commentContent.length>10)?(that.data.commentContent.substring(0,10)+'...'):that.data.commentContent;
 
     db.collection('likeMessage').add({
       data : {
@@ -192,6 +231,7 @@ Page({
         time : new Date(),
         post : temp,
         isChecked : false,
+        userInfo : app.globalData.userInfo,
       },
       success:(res)=>{
         console.log('db add success');
@@ -200,6 +240,29 @@ Page({
         console.log('db add success');
       },
     })
+    // this.updateComment();
+  },
+  cmtTapLiked(e){
+    //TODO:减少数值，并且like减1
+    console.log('cmt liked');
+    const db = wx.cloud.database();
+    const _ = db.command;
+    var that = this;
+    db.collection('comment').doc(this.data.commentId).update({
+      data:{
+        like : _.inc(-1),
+      },
+      success:(res)=>{
+        that.setData({
+          commentLike : that.data.commentLike - 1,
+          commentIsLiked : !that.data.commentIsLiked,
+        })
+      },
+      fail:(res)=>{
+        console.log(res);  
+      },
+    })
+    // this.updateComment();
   },
   cmtTapDislike(e){
     const db = wx.cloud.database();
@@ -222,12 +285,14 @@ Page({
 
   },
   cfcTapLike(e){
+    console.log('cfclike');
     const db = wx.cloud.database();
     const  _ = db.command;
     var that = this;
     var index = e.currentTarget.dataset.index;
     var item = 'cfc.' + index + '.like';
     var array_item = 'commentCfcList['+index+'].like';
+    var array_item_bool = 'commentCfcList['+index+'].isLiked';
     db.collection('comment').doc(this.data.commentId).update({
       data:{
          [item] : _.inc(1)
@@ -236,6 +301,7 @@ Page({
         console.log('更新成功');
         that.setData({
           [array_item] : that.data.commentCfcList[index].like + 1,
+          [array_item_bool] : !that.data.commentCfcList[index].isLiked,
         })
       },
       fail:()=>{
@@ -248,6 +314,7 @@ Page({
     temp.postType = 'cfc';
     temp.postId = that.data.commentId;
     temp.postIndex = index;
+    temp.postContent = (that.data.commentCfcList[index].content.length>10)?(that.data.commentCfcList[index].content.substring(0,10)+'...'):that.data.commentCfcList[index].content;
 
     db.collection('likeMessage').add({
       data : {
@@ -255,6 +322,7 @@ Page({
         time : new Date(),
         post : temp,
         isChecked : false,
+        userInfo : app.globalData.userInfo,
       },
       success:(res)=>{
         console.log('db add success');
@@ -263,7 +331,32 @@ Page({
         console.log('db add success');
       },
     })
-
+    // this.updateComment();
+  },
+  cfcTapLiked(e){
+    //TODO: like-1
+    // console.log('cfc like-1');
+    var index = e.currentTarget.dataset.index;
+    const db = wx.cloud.database();
+    const _ = db.command;
+    var that = this;
+    var array_item = 'commentCfcList['+index+'].like';
+    var array_item_bool = 'commentCfcList['+index+'].isLiked';
+    db.collection('comment').doc(this.data.commentId).update({
+      data:{
+        ['cfc.'+index+'.like'] : _.inc(-1),
+      },
+      success:(res)=>{
+        that.setData({
+          [array_item] : that.data.commentCfcList[index].like - 1,
+          [array_item_bool] : !that.data.commentCfcList[index].isLiked,
+        })
+      },
+      fail:(res)=>{
+        console.log(res);  
+      },
+    })
+    // this.updateComment();
   },
   cfcTapDislike(e){
     const db = wx.cloud.database();

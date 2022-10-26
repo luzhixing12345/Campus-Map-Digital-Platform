@@ -8,25 +8,37 @@
   font-size: 30rpx;
 }
 
+.user-avartar-row,.likes-row,.your-post-row {
+  display: block;
+  height: 16vh;
+}
+
+.user-avartar-row {
+  width: 15%;
+}
+
+.likes-row {
+  width: 70%;
+}
+
+.your-post-row {
+  width: 15%;
+}
+
+
 .likes-cell {
   padding: 10rpx;
   align-self: left;
   /* border-radius: 20rpx; */
   margin: 10rpx;
   background-color: #e6e5e5;
+  display: flex;
+  flex-direction: row;
 }
 
 .user-avartar {
   position: relative; 
-  width: 150rpx; 
-  height:150rpx; 
-  border-radius: 50rpx;
-}
-
-.user-name {
-  position: relative;
-  left: 50rpx;
-  top: -60rpx;
-  color: black;
-  font-size: 40rpx;
+  width: 80rpx; 
+  height:80rpx; 
+  border-radius: 50%;
 }
