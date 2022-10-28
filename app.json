@@ -3,14 +3,12 @@
     "pages/user/login/login",
     "pages/map/map",
     "pages/user/user",
-    "pages/group/group",
-    "pages/group/message/message",
+    "pages/message/message",
     "pages/map/marker/addNewMarker/addNewMarker",
-    "pages/group/replyToMe/replyToMe",
-    "pages/group/atMe/atMe",
-    "pages/group/receivedLikes/receivedLikes",
-    "pages/group/systemNotify/systemNotify",
-    "pages/group/replyToMe/replyToOthers/replyToOthers",
+    "pages/message/replyToMe/replyToMe",
+    "pages/message/replyToMe/replyToOthers/replyToOthers",
+    "pages/message/receivedLikes/receivedLikes",
+    "pages/message/systemNotify/systemNotify",
     "pages/map/marker/addNewMarker/uploadImg/uploadImg",
     "pages/map/marker/addNewMarker/picker/picker"
   ],
@@ -28,7 +26,7 @@
     "selectedColor": "#0A44DF",
     "list": [
       {
-        "pagePath": "pages/group/group",
+        "pagePath": "pages/message/message",
         "text": "消息",
         "iconPath": "images/message.png",
         "selectedIconPath": "images/message.png"

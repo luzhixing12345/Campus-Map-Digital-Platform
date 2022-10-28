@@ -25,7 +25,7 @@
     </view>
     <view>
       <image src="../../images/record.png"></image>
-      <view>我的记录</view>
+      <view>系统记录</view>
     </view>
   </view>
 
