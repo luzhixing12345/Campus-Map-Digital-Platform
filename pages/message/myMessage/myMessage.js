@@ -9,7 +9,7 @@ Page({
    */
   data: {
     //三项数据只用作测试，更新后可集成到一个对象中进行遍历。
-      userName : app.globalData.userInfo.nickName,
+      
     },
   
 
@@ -17,6 +17,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setData({
+      userName : app.globalData.userInfo.nickName,
+    })
+
     var that = this;
     const db = wx.cloud.database();
     db.collection('comment').where({

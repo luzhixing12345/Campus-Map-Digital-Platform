@@ -11,19 +11,19 @@
 
 <view class="body">
   <view class="user-account">
-    <view>
+    <view bindtap="myLike">
       <image src="../../images/like.png"></image>
       <view>我的点赞</view>
     </view>
-    <view>
+    <view bindtap="myCollection">
       <image src="../../images/collection.png"></image>
       <view>我的收藏</view>
     </view>
-    <view>
+    <view bindtap="myMessage">
       <image src="../../images/comment.png"></image>
       <view>我的消息</view>
     </view>
-    <view>
+    <view bindtap="systemNotify">
       <image src="../../images/record.png"></image>
       <view>系统记录</view>
     </view>

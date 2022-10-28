@@ -1,16 +1,20 @@
 {
   "pages": [
     "pages/user/login/login",
-    "pages/map/map",
     "pages/user/user",
-    "pages/message/message",
+    "pages/map/map",
+
     "pages/map/marker/addNewMarker/addNewMarker",
-    "pages/message/replyToMe/replyToMe",
-    "pages/message/replyToMe/replyToOthers/replyToOthers",
-    "pages/message/receivedLikes/receivedLikes",
-    "pages/message/systemNotify/systemNotify",
     "pages/map/marker/addNewMarker/uploadImg/uploadImg",
-    "pages/map/marker/addNewMarker/picker/picker"
+    "pages/map/marker/addNewMarker/picker/picker",
+
+    "pages/message/message",
+    "pages/message/myLike/myLike",
+    "pages/message/myMessage/myMessage",
+    "pages/message/myMessage/replyToOthers/replyToOthers",
+    "pages/message/myCollection/myCollection",
+    "pages/message/systemNotify/systemNotify"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

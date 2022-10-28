@@ -1,0 +1,24 @@
+<!--pages/group/receivedLikes/receivedLikes.wxml-->
+<view class="head">收到的赞</view>
+
+<mp-cells>
+  <mp-cell wx:for="{{likesArray}}" wx:key="" wx:for-item="a">
+    <view class="likes-cell" bindtap="likes">
+      <view class="user-avartar-row">
+        <image class="user-avartar" src="{{a.likesAvartar}}"></image>
+      </view>
+      <view class="likes-row">
+        <view>
+          <text style="color: grey; font-size: 14px;font-weight: bold;">{{a.likesName}}</text>
+          <text style="color: grey; font-size: 14px;"> 赞了您</text>
+        </view>
+        <view>
+          <text style="color: grey; font-size: 14px;">{{a.likesTime}}</text>
+        </view>
+      </view>
+      <view class="your-post-row">
+        <text style="color: grey; font-size: 14px;">{{a.likesContent}}</text>
+      </view>
+    </view>
+  </mp-cell>
+</mp-cells>

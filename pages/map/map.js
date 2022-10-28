@@ -37,6 +37,7 @@ Page({
 
     onShow() {
       this.getAllMarkers();
+      // console.log(app.globalData.userInfo)
     },
 
     onLoad() {

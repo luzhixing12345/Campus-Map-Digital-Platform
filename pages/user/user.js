@@ -11,8 +11,30 @@ Page({
       userInfo: app.globalData.userInfo,
    })
   },
-  onLoad() {
+
+  myLike() {
+    wx.navigateTo({
+      url: '../message/myLike/myLike',
+    })
   },
+
+  myCollection() {
+    wx.navigateTo({
+      url: '../message/myCollection/myCollection',
+    })
+  },
+
+  myMessage() {
+    wx.navigateTo({
+      url: '../message/myMessage/myMessage',
+    })
+  },
+
+  systemNotify() {
+    wx.navigateTo({
+      url: '../message/systemNotify/systemNotify',
+    })
+  }
 
     
 })

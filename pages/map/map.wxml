@@ -153,10 +153,8 @@
 
   </block>
   <block wx:else>
-    <image src="../../images/noInfo.png" class="no_info"></image>
+    <view class="no-comment">暂无评论</view>
   </block>
-
-
 
   <view>
     <input type="text" class="comment-box" placeholder="发一条友善的评论" placeholder-class="comment-placeholder" bindinput="captureComment" value="{{commentContent}}"></input>

@@ -16,7 +16,7 @@
       <view>我的消息</view>
     </view>
     <view class="item">
-      <image src="../../images/record.png" class="icon" bindtap="systemNotification"></image>
+      <image src="../../images/record.png" class="icon" bindtap="systemNotify"></image>
       <view wx:if="{{!ifNotifyChecked}}" class="sup">12</view>
       <view>系统记录</view>
     </view>

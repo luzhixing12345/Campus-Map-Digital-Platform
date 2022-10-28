@@ -1,4 +1,4 @@
-// pages/message/receivedLikes/receivedLikes.js
+// pages/message/myCollection/myCollection.js
 Page({
 
   /**

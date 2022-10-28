@@ -33,16 +33,12 @@ Page({
       
     },
 
-    replyToMe(e){
-        wx.navigateTo({
-          url: 'replyToMe/replyToMe',
-        })
-    },
 
-    receivedLikes(e){
+
+    myLike(){
       var that = this;
       wx.navigateTo({
-        url: 'receivedLikes/receivedLikes',
+        url: 'myLike/myLike',
         success:function(res){
           console.log('refresh');
           const db = wx.cloud.database();
@@ -57,6 +53,18 @@ Page({
             })
           });
         },
+      })
+    },
+
+    myCollection() {
+      wx.navigateTo({
+        url: 'myCollection/myCollection',
+      })
+    },
+
+    myMessage() {
+      wx.navigateTo({
+        url: 'myMessage/myMessage',
       })
     },
 
