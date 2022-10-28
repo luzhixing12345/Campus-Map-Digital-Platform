@@ -266,6 +266,15 @@ Page({
       },
       success(res) {
         // console.log(res);
+        var marker_id = res._id
+        wx.cloud.database().collection('systemNotification').add({
+          data: {
+            marker_id : marker_id,
+            userOpenid : app.globalData.userInfo._openid,
+            type : 'add',
+            content : that.data.name.trim() + that.data.faculty[0],
+          },
+        })
         wx.showModal({
           title: "温馨提示", // 提示的标题
           content: "上传成功", // 提示的内容

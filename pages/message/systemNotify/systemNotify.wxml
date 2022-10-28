@@ -1,2 +1,22 @@
 <!--pages/group/systemNotify/systemNotify.wxml-->
 <view class="head">系统通知</view>
+
+<block wx:if="{{system_info.length!=0}}">
+  <view class="notification-list">
+  <view wx:for="{{system_info}}" class="notification-container">
+      <view class="content">
+        <view>{{item.head}}</view>
+        <view>{{item.body}}</view>
+      </view>
+      <view class="line"></view>
+      <view class="marker-link" wx:if="{{item.marker_id!=''}}" bindtap="jumpToMarker" data-id='{{item.marker_id}}'>
+        <view>点击查看详情</view>
+        <view class="arrow-right"></view>
+      </view>
+  </view>
+</view>
+</block>
+
+<block wx:else>
+<view class="no-info">暂无通知</view>
+</block>

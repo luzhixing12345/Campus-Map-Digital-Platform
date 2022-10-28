@@ -56,6 +56,7 @@
   <view class="add"></view>
 </view>
 
+<!-- 标记点的信息 -->
 <view class="light-background" animation="{{ani}}">
   <view class="marker-info">
     <view class="marker-info-header">
@@ -68,7 +69,6 @@
         <view class="creator">创建者: {{marker_info.creator}}</view>
       </view>
       <view class="right-header">
-        <!-- 这里未来考虑hover -->
         <view class="item" bindtap="clickLikeButton">
           <image wx:if="{{!liked}}" src="../../images/like.png"></image>
           <image wx:else src="../../images/liked.png"></image>
