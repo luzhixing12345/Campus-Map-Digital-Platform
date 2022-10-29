@@ -146,6 +146,17 @@ page {
   opacity: 0.9;
 }
 
+.delete {
+  position: absolute;
+  background-color: red;
+  color: white;
+  z-index: 3;
+  top: 100px;
+  right: 15px;
+  padding: 2px 10px;
+  border-radius: 5px;
+}
+
 .arrow-right{
   width: 10px;
   height: 10px;

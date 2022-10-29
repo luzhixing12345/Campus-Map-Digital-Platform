@@ -100,6 +100,10 @@
   <view>
     <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
   </view>
+  <view>
+    <view class="delete" bindtap="deleteMarker" wx:if="{{marker_info.creator_openid==app.globalData.userInfo._openid}}">删除</view>
+  </view>
+  
 </view>
 
 <!-- 评论信息展开TODO -->

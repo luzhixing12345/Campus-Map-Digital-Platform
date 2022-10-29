@@ -20,7 +20,7 @@ Page({
     onLoad: function (options) {
       var that = this;
       const db = wx.cloud.database();
-      db.collection('likeMessage').where({
+      db.collection('like').where({
         isChecked : false,
       }).count().then((res)=>{
         var cnt_likes = res.total;
@@ -42,7 +42,7 @@ Page({
         success:function(res){
           console.log('refresh');
           const db = wx.cloud.database();
-          db.collection('likeMessage').where({
+          db.collection('like').where({
             isChecked : false,
           }).count().then((res)=>{
             var cnt_likes = res.total;

@@ -98,21 +98,20 @@ Page({
       success(res) {
         var i;
         for (i = 0; i < res.data.length; i++) {
-          wx.cloud.database().collection('marker').doc(res.data[i]._id).update({
+          var name = res.data[i].creator;
+          var id = res.data[i]._id
+          var openid = app.globalData.userInfo._openid;
+          wx.cloud.database().collection('marker').doc(id).update({
             data: {
-              collection: 0,
-              comment: [],
-              creator: "admin",
-              description: "",
-              like: 0,
-              comment: 0,
-              picturesUrl: []
+              creator: {
+                'nickName':name,
+                '_openid':openid
+              },
             },
           })
         }
-        console.log("已更新所有marker表信息");
       }
-    })
+      })
   },
 
   // 筛选标记点 TODO
@@ -374,13 +373,14 @@ Page({
       "marker_info._id": res.data._id, // 用于点赞和收藏的信息处理
       "marker_info.name": res.data.name,
       "marker_info.type": res.data.type,
-      "marker_info.creator": res.data.creator,
+      "marker_info.creator": res.data.creator.nickName,
       "marker_info.faculty": res.data.faculty,
       "marker_info.like_number": res.data.like,
       "marker_info.collection_number": res.data.collection,
       "marker_info.comment_number": res.data.comment,
       "marker_info.description": res.data.description,
-      "marker_info.picturesUrl": res.data.picturesUrl
+      "marker_info.picturesUrl": res.data.picturesUrl,
+      "marker_info.creator_openid" : res.data.creator._openid
     })
   },
   async upMarkerInfo(e) {
@@ -466,7 +466,7 @@ Page({
       }
     })
 
-    // 更新likeMessage表TODO
+    // 更新like表TODO
   },
   // 当用户点击收藏按钮
   clickCollectionButton() {

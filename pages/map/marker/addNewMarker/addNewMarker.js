@@ -213,6 +213,7 @@ Page({
 
   submitButton() {
 
+    // 图片必须添加
     if (this.data.picList.length == 0) {
       wx.showModal({
         title: "温馨提示", // 提示的标题
@@ -223,6 +224,7 @@ Page({
       })
       return;
     }
+    // 地点名必须添加
     if (this.data.name.trim() == '') {
       wx.showModal({
         title: "温馨提示", // 提示的标题
@@ -233,6 +235,7 @@ Page({
       })
       return;
     }
+    // 地点描述必须添加
     if (this.data.description.trim() == '') {
       wx.showModal({
         title: "温馨提示", // 提示的标题
@@ -260,7 +263,10 @@ Page({
         collection : 0,
         comment : 0,
         picturesUrl : that.data.picList,
-        creator : app.globalData.userInfo.nickName,
+        creator : {
+          nickName: app.globalData.userInfo.nickName,
+          _openid : app.globalData.userInfo._openid
+        },
         position : that.data.position,
         visiable : true
       },

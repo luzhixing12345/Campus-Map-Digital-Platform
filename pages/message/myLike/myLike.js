@@ -14,7 +14,7 @@ Page({
   onLoad: function (options) {
     const db = wx.cloud.database();
     var that = this;
-    db.collection('likeMessage').where({
+    db.collection('like').where({
       originUserid : app.globalData._openid
     }).get({
       success:(res)=>{
@@ -30,7 +30,7 @@ Page({
         that.setData({
           likesArray : tempList,
         });
-        db.collection('likeMessage').where({
+        db.collection('like').where({
           originUserid : app.globalData._openid,
           isChecked : false,
         }).update({

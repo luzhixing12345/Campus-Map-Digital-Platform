@@ -24,6 +24,9 @@ Page({
         likes: [], // 所有点赞的marker
         collections: [], // 所有收藏的marker
         comments: [] // 评论相关信息
+      },
+      success(res) {
+        app.globalData.userInfo._id = res._id
       }
     })
   },

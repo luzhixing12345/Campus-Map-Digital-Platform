@@ -55,7 +55,7 @@ Page({
       }, 
     });
 
-    db.collection('likeMessage').where({
+    db.collection('like').where({
       _openid : app.globalData.userInfo._openid,
       'post.postType' : 'cmt',
       'post.postId' : that.data.commentId
@@ -72,7 +72,7 @@ Page({
       }
     });
 
-    db.collection('likeMessage').where({
+    db.collection('like').where({
       _openid :app.globalData.userInfo._openid,
       'post.postId' : that.data.commentId,
       'post.postType' : 'cfc',
@@ -225,7 +225,7 @@ Page({
     temp.postIndex = 0;
     temp.postContent = (that.data.commentContent.length>10)?(that.data.commentContent.substring(0,10)+'...'):that.data.commentContent;
 
-    db.collection('likeMessage').add({
+    db.collection('like').add({
       data : {
         originUserid : that.data.commentUserId,
         time : new Date(),
@@ -316,7 +316,7 @@ Page({
     temp.postIndex = index;
     temp.postContent = (that.data.commentCfcList[index].content.length>10)?(that.data.commentCfcList[index].content.substring(0,10)+'...'):that.data.commentCfcList[index].content;
 
-    db.collection('likeMessage').add({
+    db.collection('like').add({
       data : {
         originUserid : that.data.commentUserId,
         time : new Date(),
