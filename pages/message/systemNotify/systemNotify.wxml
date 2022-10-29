@@ -1,5 +1,5 @@
 <!--pages/group/systemNotify/systemNotify.wxml-->
-<view class="head">系统通知</view>
+<!-- <view class="head">系统通知</view> -->
 
 <block wx:if="{{system_info.length!=0}}">
   <view class="notification-list">
@@ -13,6 +13,7 @@
         <view>点击查看详情</view>
         <view class="arrow-right"></view>
       </view>
+      <view wx:else class="marker-link" >系统消息</view>
   </view>
 </view>
 </block>

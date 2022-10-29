@@ -27,6 +27,7 @@ Page({
       },
       success(res) {
         app.globalData.userInfo._id = res._id
+        wx.setStorageSync('userInfo', app.globalData.userInfo)
       }
     })
   },

@@ -13,7 +13,7 @@ Page({
       "userOpenid" : app.globalData.userInfo._openid
     }).get({
       success(res) {
-        console.log(res);
+        // console.log(res);
         var notification = [];
         for (var i=0;i<res.data.length;i++) {
           var temp = {};
@@ -25,7 +25,7 @@ Page({
           } else {
             // 删除
             temp.head = "标记点" + res.data[i].content + "删除成功";
-            temp.body = '感谢您的参与';
+            temp.body = '您刚刚删除了一个标记点信息，感谢您的参与~';
             temp.marker_id = ''
           }
           notification.push(temp);

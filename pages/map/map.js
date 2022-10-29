@@ -53,14 +53,8 @@ Page({
       }
     })
     this.mpCtx = wx.createMapContext('myMap');
-
-    // 获取用户的 _id 方便数据库使用 doc 查询
-    wx.cloud.database().collection('user').where({
-      _openid: app.globalData.userInfo._openid
-    }).get({
-      success(res) {
-        app.globalData.userInfo._id = res.data[0]._id;
-      }
+    this.setData({
+      _openid : app.globalData.userInfo._openid
     })
   },
 
@@ -700,4 +694,45 @@ Page({
     this.upMarkerInfo(app.globalData.marker_id)
   },
 
+  deleteMarker() {
+    var that = this;
+    wx.showModal({
+      title: "准备删除标记", // 提示的标题
+      content: "您确认要删除该标记吗？", // 提示的内容
+      showCancel: true, // 是否显示取消按钮，默认true
+      confirmText: "确定", // 确认按钮的文字，最多4个字符
+      confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+      cancelText: "取消",
+      cancelColor:"#576B95",
+      success(r) {
+        if (r.confirm) {
+          // 删除
+          wx.cloud.database().collection('marker').doc(that.data.marker_info._id).remove()
+          wx.cloud.database().collection('systemNotification').add({
+            data: {
+              marker_id : '',
+              userOpenid : app.globalData.userInfo._openid,
+              type : 'delete',
+              content : that.data.marker_info.name + that.data.marker_info.faculty,
+            },
+            success(res) {
+              wx.showModal({
+                title: "删除成功", // 提示的标题
+                showCancel: false, // 是否显示取消按钮，默认true
+                confirmText: "确定", // 确认按钮的文字，最多4个字符
+                confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+                success(rrr) {
+                  if (rrr.confirm) {
+                    wx.switchTab({
+                      url: 'map',
+                    })
+                  }
+                }
+              })
+            }
+          })
+        }
+      }
+    })
+  },
 })
