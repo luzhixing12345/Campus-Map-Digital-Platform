@@ -1,5 +1,5 @@
 
-<block wx:if="{{collections.length!=0}}">
+<block wx:if="{{collections.length==0}}">
 <view class="no-info">暂无收藏</view>
 </block>
 
