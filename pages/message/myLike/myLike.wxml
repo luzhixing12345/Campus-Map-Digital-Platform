@@ -1,24 +1,30 @@
-<!--pages/group/receivedLikes/receivedLikes.wxml-->
-<view class="head">收到的赞</view>
 
-<mp-cells>
-  <mp-cell wx:for="{{likesArray}}" wx:key="" wx:for-item="a">
-    <view class="likes-cell" bindtap="likes">
-      <view class="user-avartar-row">
-        <image class="user-avartar" src="{{a.likesAvartar}}"></image>
+<block wx:if="{{likes.length==0}}">
+<view class="no-info">暂无点赞</view>
+</block>
+
+<block wx:else>
+  <view class="body">
+  <view wx:for="{{likes}}" class="item" bindtap="jumpToMarker" data-id="{{item._id}}">
+      <view class="left">
+        <image src="../../../images/WHU_logo.png"></image>
       </view>
-      <view class="likes-row">
-        <view>
-          <text style="color: grey; font-size: 14px;font-weight: bold;">{{a.likesName}}</text>
-          <text style="color: grey; font-size: 14px;"> 赞了您</text>
+      <view class="right">
+        <view class="header">
+          <view>{{item.faculty}}{{item.name}}</view>
+          <view>创建者：{{item.creator.nickName}}</view>
         </view>
-        <view>
-          <text style="color: grey; font-size: 14px;">{{a.likesTime}}</text>
+        <view class="footer">
+          <view class="data">
+            <image src="../../../images/like.png"></image>
+            <view>{{item.like}}</view>
+          </view>
+          <view class="data">
+            <image src="../../../images/collection.png"></image>
+            <view>{{item.collection}}</view>
+          </view>
         </view>
-      </view>
-      <view class="your-post-row">
-        <text style="color: grey; font-size: 14px;">{{a.likesContent}}</text>
       </view>
     </view>
-  </mp-cell>
-</mp-cells>
+  </view>
+</block>

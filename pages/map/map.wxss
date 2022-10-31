@@ -395,20 +395,14 @@ page {
 
 .comment .main-comment .comment-footer .left {
   display: flex;
-  margin-left: 15px;
+  margin-left: 10px;
   margin-top: 5px;
   width: 40%;
-  justify-content: space-around;
 }
 
 .comment .main-comment .comment-footer .left image{
   width: 22px;
   height: 22px;
-}
-
-.comment .main-comment .comment-footer .left :nth-child(2) image {
-  transform: rotateY(180deg);
-  transform: rotateX(180deg);
 }
 
 

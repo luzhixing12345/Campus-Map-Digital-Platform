@@ -1,96 +1,53 @@
-// pages/group/receivedLikes/receivedLikes.js
-const app = getApp();
-var timeUtil = require('../../utils/time')
+
+const app = getApp()
 Page({
+  data : {
+    likes :[]
+  },
+  onLoad() {
+    wx.showLoading({
+      title: '正在加载',
+      mask: true,
+    })
+    this.getUserlikes();
+  },
 
-  /**
-   * 页面的初始数据
-   */
-  data: {},
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    const db = wx.cloud.database();
+  // 获取用户所用的点赞信息
+  // 点赞信息有两种： 点赞的marker和点赞的评论
+  getUserlikes() {
     var that = this;
-    db.collection('like').where({
-      originUserid : app.globalData._openid
-    }).get({
-      success:(res)=>{
-        var tempList = [];
-        for(var i = 0; i<res.data.length; ++i){
-          var temp = {};
-          temp.likesAvartar = res.data[i].userInfo.avatarUrl;
-          temp.likesName = res.data[i].userInfo.nickName;
-          temp.likesTime = timeUtil.displayRelativeTime(res.data[i].time);
-          temp.likesContent = res.data[i].post.postContent;
-          tempList.push(temp); 
-        }
-        that.setData({
-          likesArray : tempList,
-        });
-        db.collection('like').where({
-          originUserid : app.globalData._openid,
-          isChecked : false,
-        }).update({
-          data:{
-            isChecked : true,
-          },
-        })
-      },
-      fail:(res)=>{
-        console.log(res);
-      },
+    wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).get({
+      success(res) {
+        that.getlikesInfo(res.data.likes)
+      }
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  // 获取收藏的marker的信息
+  getlikesInfo(likes_id) {
+    
+    var that = this;
+    const _ = wx.cloud.database().command;
+    wx.cloud.database().collection('marker').where({
+      _id: _.in(likes_id)
+    }).get({
+      success(res) {
+        that.setData({
+          likes : res.data
+        })
+        wx.hideLoading();
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  // 跳转到对应的marker
 
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  jumpToMarker(e) {
+    var marker_id = e.currentTarget.dataset.id;
+    app.globalData.marker_id = marker_id; // 设置一个全局变量解决wx.switchTab不能传参
+    app.globalData.marker_jump = true; // 是否跳转到该marker
+    wx.switchTab({
+      url: '../../map/map'
+    })
   }
 })

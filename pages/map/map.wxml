@@ -129,16 +129,13 @@
           <view class="comment-body">{{a.content}}</view>
           <view class="comment-footer">
             <view class="left">
-              <view class="like" style="display:flex;">
+              <view class="like" style="display:flex; margin-left: 10px;" bindtap="clickCommentLikeButton" data-index="{{index}}">
                 <image src="../../images/like.png"></image>
                 <view style="margin-left: 10px;">{{a.like}}</view>
               </view>
-              <view class="dislike" style="display: flex;">
-                <!-- 倒转180变不喜欢 -->
-                <image src="../../images/like.png"></image>
-                <view style="margin-left: 10px;">{{a.dislike}}</view>
+              <view style="margin-left: 10px;">
+                <image src='../../images/inner_comment.png' bindtap="upCfcInfo" data-avatarurl="{{a.userInfo.avatarUrl}}" data-nickname="{{a.userInfo.nickName}}" data-time="{{a.time}}" data-content="{{a.content}}" data-like="{{a.like}}" data-dislike="{{a.dislike}}" data-cfc="{{a.cfc}}" data-commentid="{{a._id}}"></image>
               </view>
-              <image src='../../images/inner_comment.png' bindtap="upCfcInfo" data-avatarurl="{{a.userInfo.avatarUrl}}" data-nickname="{{a.userInfo.nickName}}" data-time="{{a.time}}" data-content="{{a.content}}" data-like="{{a.like}}" data-dislike="{{a.dislike}}" data-cfc="{{a.cfc}}" data-commentid="{{a._id}}"></image>
             </view>
             <!-- 版主和评论用户本人可以删除 -->
             <view class="right" wx:if="{{a.enable_delete}}">删除</view>
@@ -185,14 +182,9 @@
       <view class="comment-body">{{cfc_data.content}}</view>
       <view class="comment-footer">
         <view class="left">
-          <view class="like" style="display:flex;">
+          <view class="like" style="display:flex; margin-left: 10px;">
             <image src="../../images/like.png"></image>
             <view style="margin-left: 10px;">{{cfc_data.like}}</view>
-          </view>
-          <view class="dislike" style="display: flex;">
-            <!-- 倒转180变不喜欢 -->
-            <image src="../../images/like.png"></image>
-            <view style="margin-left: 10px;">{{cfc_data.dislike}}</view>
           </view>
         </view>
         <!-- 版主和评论用户本人可以删除 -->

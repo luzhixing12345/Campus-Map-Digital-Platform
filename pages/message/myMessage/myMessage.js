@@ -4,18 +4,6 @@ var timeUtil = require("../../utils/time");
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    //三项数据只用作测试，更新后可集成到一个对象中进行遍历。
-      
-    },
-  
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
     this.setData({
       userName : app.globalData.userInfo.nickName,

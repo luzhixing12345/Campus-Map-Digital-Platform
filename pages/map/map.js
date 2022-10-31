@@ -414,7 +414,7 @@ Page({
     this.animationAdjust('ani', 'down');
   },
 
-  // 当用户点击喜欢按钮
+  // 当用户点击marker的喜欢按钮
   clickLikeButton() {
     var that = this;
     var like_status = !this.data.liked; // 改变之后的liked
@@ -462,6 +462,21 @@ Page({
 
     // 更新like表TODO
   },
+
+  // 当用户点击评论的喜欢按钮
+  clickCommentLikeButton(e) {
+    // console.log(e)
+    var comment_index = e.currentTarget.dataset.index;
+    var that = this;
+    var comment = this.data.comment_info[comment_index];
+    wx.cloud.database().collection('comment').doc(comment._id).update({
+      data : {
+        like: comment.like + 1
+      }
+    })
+  },
+
+
   // 当用户点击收藏按钮
   clickCollectionButton() {
     var that = this;
@@ -537,14 +552,12 @@ Page({
     }).get({
       success(res) {
         var tempList = [];
-        console.log(res)
         for (var i = 0; i < res.data.length; i++) {
           var time = timeUtil.displayRelativeTime(res.data[i].time);
           var temp = {};
           temp.userInfo = res.data[i].userInfo,
             temp.content = res.data[i].content,
             temp.like = res.data[i].like,
-            temp.dislike = res.data[i].dislike,
             temp.time = time,
             temp.cfc = res.data[i].cfc,
             temp._id = res.data[i]._id
