@@ -5,6 +5,10 @@ Page({
     collections :[]
   },
   onLoad() {
+    wx.showLoading({
+      title: '正在加载',
+      mask: true,
+    })
     this.getUserCollections();
   },
 
@@ -30,6 +34,7 @@ Page({
         that.setData({
           collections : res.data
         })
+        wx.hideLoading();
       }
     })
   },
