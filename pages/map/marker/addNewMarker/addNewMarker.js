@@ -213,17 +213,17 @@ Page({
 
   submitButton() {
 
-    // 图片必须添加
-    if (this.data.picList.length == 0) {
-      wx.showModal({
-        title: "温馨提示", // 提示的标题
-        content: "请至少添加一张描述图片", // 提示的内容
-        showCancel: false, // 是否显示取消按钮，默认true
-        confirmText: "确定", // 确认按钮的文字，最多4个字符
-        confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
-      })
-      return;
-    }
+    // 图片不必须添加
+    // if (this.data.picList.length == 0) {
+    //   wx.showModal({
+    //     title: "温馨提示", // 提示的标题
+    //     content: "请至少添加一张描述图片", // 提示的内容
+    //     showCancel: false, // 是否显示取消按钮，默认true
+    //     confirmText: "确定", // 确认按钮的文字，最多4个字符
+    //     confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+    //   })
+    //   return;
+    // }
     // 地点名必须添加
     if (this.data.name.trim() == '') {
       wx.showModal({

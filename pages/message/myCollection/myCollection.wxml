@@ -1,2 +1,30 @@
-<!--pages/message/myCollection/myCollection.wxml-->
-<text>pages/message/myCollection/myCollection.wxml</text>
+
+<block wx:if="{{collections.length==0}}">
+<view>暂无收藏</view>
+</block>
+
+<block wx:else>
+  <view class="body">
+  <view wx:for="{{collections}}" class="item" bindtap="jumpToMarker" data-id="{{item._id}}">
+      <view class="left">
+        <image src="../../../images/WHU_logo.png"></image>
+      </view>
+      <view class="right">
+        <view class="header">
+          <view>{{item.faculty}}{{item.name}}</view>
+          <view>创建者：{{item.creator.nickName}}</view>
+        </view>
+        <view class="footer">
+          <view class="data">
+            <image src="../../../images/like.png"></image>
+            <view>{{item.like}}</view>
+          </view>
+          <view class="data">
+            <image src="../../../images/collection.png"></image>
+            <view>{{item.collection}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>

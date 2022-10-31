@@ -1,66 +1,47 @@
-// pages/message/myCollection/myCollection.js
+
+const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-
+  data : {
+    collections :[]
+  },
+  onLoad() {
+    this.getUserCollections();
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  // 获取用户所用的收藏信息
+  getUserCollections() {
+    var that = this;
+    wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).get({
+      success(res) {
+        that.getCollectionsInfo(res.data.collections)
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  // 获取收藏的marker的信息
+  getCollectionsInfo(collections_id) {
+    
+    var that = this;
+    const _ = wx.cloud.database().command;
+    wx.cloud.database().collection('marker').where({
+      _id: _.in(collections_id)
+    }).get({
+      success(res) {
+        that.setData({
+          collections : res.data
+        })
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
+  // 跳转到对应的marker
 
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  jumpToMarker(e) {
+    var marker_id = e.currentTarget.dataset.id;
+    app.globalData.marker_id = marker_id; // 设置一个全局变量解决wx.switchTab不能传参
+    app.globalData.marker_jump = true; // 是否跳转到该marker
+    wx.switchTab({
+      url: '../../map/map'
+    })
   }
 })

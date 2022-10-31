@@ -474,7 +474,7 @@ Page({
       success(res) {
         // 喜欢则添加，取消喜欢则删除
         var new_collections = res.data.collections;
-        if (like_status) {
+        if (collection_status) {
           new_collections.push(that.data.marker_info._id);
         } else {
           for (var i = 0; i < new_collections.length; i++) {
