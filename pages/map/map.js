@@ -43,6 +43,7 @@ Page({
   onLoad(option) {
     // this.refactorDatabaseMarkerItem();
     // 跳转到此页面即申请权限
+
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.userLocation']) {
@@ -613,7 +614,7 @@ Page({
 
   captureComment(e) {
     let content = e.detail.value;
-    console.log("要发布的评论是" + content);
+    // console.log("要发布的评论是" + content);
     this.setData({
       commentContent: content
     })

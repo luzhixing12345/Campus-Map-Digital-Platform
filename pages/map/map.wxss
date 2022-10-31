@@ -1,28 +1,27 @@
-
 page {
   width: 750px;
   height: 100vh;
 }
 
-.page-section-gap{
+.page-section-gap {
   box-sizing: border-box;
   padding: 0;
 }
 
 .map {
-  position:fixed;
+  position: fixed;
   width: 100%;
   height: 100vh;
 }
 
 .header {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   position: fixed;
   z-index: 2;
   width: 95%;
   height: 40px;
-  left: 10px;  
+  left: 10px;
   top: 10px;
 }
 
@@ -43,7 +42,7 @@ page {
 }
 
 .main-comment .cfc-info {
-  background-color: rgb(244,244,244);
+  background-color: rgb(244, 244, 244);
   opacity: 0.5;
   margin-left: 20px;
   margin-right: 20px;
@@ -64,6 +63,7 @@ page {
   color: black;
   font-weight: bolder;
 }
+
 .search-box {
   color: white;
   background-color: grey;
@@ -139,7 +139,7 @@ page {
   border-radius: 15px;
   width: 95%;
   height: 95%;
-  background-color:white;
+  background-color: white;
   opacity: 1.0;
   top: 1000px;
   left: 10px;
@@ -157,7 +157,7 @@ page {
   border-radius: 5px;
 }
 
-.arrow-right{
+.arrow-right {
   width: 10px;
   height: 10px;
   border-top: 1px solid white;
@@ -166,7 +166,7 @@ page {
   transition: all 0.3s;
 }
 
-.arrow-down{
+.arrow-down {
   width: 10px;
   height: 10px;
   border-top: 1px solid white;
@@ -179,7 +179,7 @@ page {
 .circle {
   width: 50px;
   height: 50px;
-  background-color: rgb(221,168,36);
+  background-color: rgb(221, 168, 36);
   transition: color .25s;
   position: fixed;
   bottom: 15px;
@@ -199,7 +199,7 @@ page {
   left: 50%;
   top: 50%;
   width: 40%;
-  transform:translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   border-top: 3px solid white;
 }
 
@@ -209,7 +209,7 @@ page {
   left: 50%;
   top: 50%;
   height: 40%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   border-left: 3px solid white;
 }
 
@@ -221,7 +221,8 @@ page {
   height: 95%;
   background-color: grey;
   opacity: 0.6;
-  top: 45px; /*区别于dark-background，top多一些，为40px*/
+  top: 45px;
+  /*区别于dark-background，top多一些，为40px*/
   left: 10px;
 }
 
@@ -249,14 +250,14 @@ page {
   height: 35vh;
   background-color: grey;
   opacity: 0.6;
-  top : 50px;
-  right : 10px;
+  top: 50px;
+  right: 10px;
 }
 
 .select-switch {
   position: relative;
-  left:10px;
-  top:10px;
+  left: 10px;
+  top: 10px;
 }
 
 .marker-info-header {
@@ -284,14 +285,15 @@ page {
 .marker-info-header .left-header .type {
   display: flex;
   margin-left: 15px;
-  color: rgb(122,122,122)
+  color: rgb(122, 122, 122)
 }
 
 .marker-info-header .left-header .type :last-child {
   color: red;
 }
+
 .marker-info-header .left-header .creator {
-  color: rgb(122,122,122);
+  color: rgb(122, 122, 122);
   margin-left: 15px;
 }
 
@@ -310,10 +312,11 @@ page {
   margin-top: 40px;
 }
 
-.marker-info-header .right-header image{
+.marker-info-header .right-header image {
   width: 30px;
   height: 30px;
 }
+
 .marker-info-footer {
   width: 100%;
   height: 300px;
@@ -350,7 +353,7 @@ page {
   border-radius: 15px;
   width: 95%;
   height: 95%;
-  background-color:rgb(255,255,255);
+  background-color: rgb(255, 255, 255);
   opacity: 1.0;
   top: 1000px;
   left: 10px;
@@ -360,7 +363,7 @@ page {
   display: flex;
 }
 
-.comment .main-comment .comment-header .left image{
+.comment .main-comment .comment-header .left image {
   border-radius: 50%;
   margin-left: 10px;
   margin-top: 10px;
@@ -369,7 +372,7 @@ page {
 }
 
 .comment .main-comment .comment-header .right .comment-id {
-  color: rgb(225,135,171);
+  color: rgb(225, 135, 171);
   margin-top: 10px;
   margin-left: 5px;
   font-weight: bold;
@@ -400,7 +403,15 @@ page {
   width: 40%;
 }
 
-.comment .main-comment .comment-footer .left image{
+.comment-reply {
+  margin-top: 10px;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  /* background-color: rgb(238, 238, 238); */
+}
+
+.comment .main-comment .comment-footer .left image {
   width: 22px;
   height: 22px;
 }
@@ -409,7 +420,7 @@ page {
 .comment .comment-box {
   position: absolute;
   bottom: 180px;
-  background-color: rgb(250,250,250);
+  background-color: rgb(250, 250, 250);
   width: 75%;
   left: 2.5%;
   height: 6%;
@@ -427,7 +438,7 @@ page {
   border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: center ;
+  justify-content: center;
   color: white;
 }
 

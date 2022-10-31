@@ -24,7 +24,6 @@ Page({
 
   // 获取收藏的marker的信息
   getCollectionsInfo(collections_id) {
-    
     var that = this;
     const _ = wx.cloud.database().command;
     wx.cloud.database().collection('marker').where({

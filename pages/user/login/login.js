@@ -8,9 +8,8 @@ Page({
   },
   onshow() {},
 
-  // 注册新用户
-  registerNewUser(userInfo) {
-    console.log("$register new user")
+  // 注册新用户 以及 获取用户的 _id
+  registerUser(userInfo) {
     wx.cloud.database().collection('user').add({
       data: {
         _openid: userInfo._openid,
@@ -18,12 +17,9 @@ Page({
           nickName: userInfo.nickName,
           avatarUrl: userInfo.avatarUrl,
           introduction: "这个人很神秘，什么也没有说",
-          entryGrade: "",
-          studentID: ""
         }, // 个人详细信息
         likes: [], // 所有点赞的marker
         collections: [], // 所有收藏的marker
-        comments: [] // 评论相关信息
       },
       success(res) {
         app.globalData.userInfo._id = res._id
@@ -59,6 +55,9 @@ Page({
                 if (r.data.length == 0) {
                   // 尚未注册
                   that.registerNewUser(app.globalData.userInfo);
+                } else {
+                  app.globalData.userInfo._id = r.data[0]._id;
+                  wx.setStorageSync('userInfo', app.globalData.userInfo)
                 }
               }
             })
