@@ -1,44 +1,71 @@
 /* pages/group/replyToMe/replyToMe.wxss */
-.head {
-  position: relative;
-  height: 10%;
+page {
+  background-color: rgb(238,242,243);
+}
+
+.no-info {
+  width: 100%;
+  height: 100px;
   text-align: center;
-  padding: 20rpx;
-  background-color: rgb(219, 219, 218);
-  font-size: 30rpx;
+  margin-top: 100px;
+  font-size: 35px;
 }
 
-.reply-cell {
-  padding: 10rpx;
-  align-self: left;
-  /* border-radius: 20rpx; */
-  margin: 10rpx;
-  background-color: #e6e5e5;
+
+.body {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(238,242,243);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
 }
 
-.user-avartar-row,.reply-content-row,.your-comment-row {
-  display: block;
-  height: 15vh;
+.body .item {
+  width: 80%;
+  height: 120px;
+  margin-top: 30px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 1px rgb(165, 229, 255);
+  display: flex;
+}
+.body .item .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-.user-avartar-row {
-  width: 15%;
+.body .item .left image{
+  height: 100px;
+  width: 100px;
 }
 
-.reply-content-row {
-  width: 70%;
+.body .item .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.your-comment-row {
-  width: 15%;
+.body .item .right .header :first-child{
+  font-weight: bolder;
 }
 
-.user-avartar {
-  position: relative; 
-  width: 80rpx; 
-  height:80rpx; 
-  border-radius: 50%;
+.body .item .right .footer {
+  margin-top: 10px;
+  display: flex;
 }
 
+.body .item .right .footer .data {
+  display: flex;
+  align-items: center;
+}
+
+.body .item .right .footer .data image {
+  margin-right: 5px;
+  margin-left: 5px;
+  height: 25px;
+  width: 25px;
+}

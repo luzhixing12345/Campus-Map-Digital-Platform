@@ -1,27 +1,22 @@
 <!--pages/group/replyToMe/replyToMe.wxml-->
-<view class="head">回复我的</view>
+<block wx:if="{{comments_array.length == 0}}">
+<view class="no-info">暂无回复</view>
+</block>
 
-<mp-cells>
-  <mp-cell wx:for="{{replyList}}" wx:key="">
-    <view class="reply-cell" bindtap="reply" data-commentid="{{item.originCommentId}}">
-      <view class="user-avartar-row">
-        <image class="user-avartar" src="{{item.replyerAvatarUrl}}"></image>
+<block wx:else>
+  <view class="body" wx:for="{{comments_array}}" wx:for-item="cmt">
+    <view wx:for="{{cmt.cfc}}" wx:for-item="cfc" class="item" bindtap="jumpToComment" data-id="{{cmt._id}}" data-markerid="{{cmt._marker_id}}">
+      <view class="left">
+        <image src="../../../images/WHU_logo.png"></image>
       </view>
-      <view class="reply-content-row">
-        <view>
-          <text style="color: gray;font-weight: bold;font-size: 12px;">{{item.replyerName}}</text>
-          <text style="color: gray;font-size: 12px;"> 回复了我的评论</text>
+      <view class="right">
+        <view class="header">
+          <view>[我的评论]{{cmt.content.length>10?cmt.content.substring(0,10)+'...':cmt.content}}</view>
+          <view>[{{cfc.userInfo.nickName}}]回复我：<text>{{cfc.content.length>10?cfc.content.substring(0,10)+'...':cfc.content}}</text></view>
         </view>
-        <view>
-          <text style="color: grey;font-size: 14px;">回复<text style="color:cornflowerblue;font-size: 14px;">@{{userName}}</text>: </text>
-          <text style="color: grey;font-size: 14px;">{{item.replyContent}}</text>
-        </view>
-        <view><text style="color: grey;font-size: 14px;">{{item.replyTime}}</text></view>
-        
-      </view>
-      <view class="your-comment-row">
-        <text style="color: grey;font-size: 14px;">{{item.originComment}}</text>
       </view>
     </view>
-  </mp-cell>
-</mp-cells>
+  </view>
+</block>
+
+
