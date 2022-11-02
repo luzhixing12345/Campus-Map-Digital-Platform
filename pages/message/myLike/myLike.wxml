@@ -1,11 +1,11 @@
 
-<block wx:if="{{likes.length==0}}">
+<block wx:if="{{likes_markers.length==0 && likes_comments.length==0}}">
 <view class="no-info">暂无点赞</view>
 </block>
 
 <block wx:else>
   <view class="body">
-  <view wx:for="{{likes}}" class="item" bindtap="jumpToMarker" data-id="{{item._id}}">
+    <view wx:for="{{likes_markers}}" class="item" bindtap="jumpToMarker" data-id="{{item._id}}">
       <view class="left">
         <image src="../../../images/WHU_logo.png"></image>
       </view>
@@ -22,6 +22,27 @@
           <view class="data">
             <image src="../../../images/collection.png"></image>
             <view>{{item.collection}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:for="{{likes_comments}}" class="item" bindtap="jumpToComment" data-id="{{item._id}}" data-markerid="{{item._marker_id}}">
+      <view class="left">
+        <image src="../../../images/WHU_logo.png"></image>
+      </view>
+      <view class="right">
+        <view class="header">
+          <view>[评论]{{item.content.length>10?item.content.substring(0,10)+'...':item.content}}</view>
+          <view>创建者：{{item.userInfo.nickName}}</view>
+        </view>
+        <view class="footer">
+          <view class="data">
+            <image src="../../../images/like.png"></image>
+            <view>{{item.like}}</view>
+          </view>
+          <view class="data">
+            <image src="../../../images/comment.png"></image>
+            <view>{{item.cfc.length}}</view>
           </view>
         </view>
       </view>

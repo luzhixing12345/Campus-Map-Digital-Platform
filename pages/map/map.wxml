@@ -130,7 +130,8 @@
           <view class="comment-footer">
             <view class="left">
               <view class="like" style="display:flex; margin-left: 10px;" bindtap="clickCommentLikeButton" data-index="{{index}}">
-                <image src="../../images/like.png"></image>
+                <image wx:if="{{!a.isLiked}}" src="../../images/like.png"></image>
+                <image wx:else src="../../images/liked.png"></image>
                 <view style="margin-left: 10px;">{{a.like}}</view>
               </view>
               <view style="margin-left: 10px;">

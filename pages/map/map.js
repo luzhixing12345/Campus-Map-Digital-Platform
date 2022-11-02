@@ -36,6 +36,7 @@ Page({
 
   onShow(option) {
     this.jumpToMarker();
+    this.jumpToComment();
     this.getAllMarkers();
     // console.log(app.globalData.userInfo)
   },
@@ -402,7 +403,7 @@ Page({
     const db = wx.cloud.database();
     const res = await db.collection('user').doc(app.globalData.userInfo._id).get();
     this.setData({
-      liked: res.data.likes.indexOf(marker_id) != -1,
+      liked: res.data.likes.markers.indexOf(marker_id) != -1,
       collected: res.data.collections.indexOf(marker_id) != -1
     })
     const marker_info = await db.collection('marker').doc(marker_id).get()
@@ -426,7 +427,7 @@ Page({
     wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).get({
       success(res) {
         // 喜欢则添加，取消喜欢则删除
-        var new_likes = res.data.likes;
+        var new_likes = res.data.likes.markers;
         if (like_status) {
           new_likes.push(that.data.marker_info._id);
         } else {
@@ -440,7 +441,7 @@ Page({
         // 更新用户数据库表
         wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).update({
           data: {
-            likes: new_likes
+            'likes.markers': new_likes
           }
         })
       }
@@ -470,9 +471,44 @@ Page({
     var comment_index = e.currentTarget.dataset.index;
     var that = this;
     var comment = this.data.comment_info[comment_index];
-    wx.cloud.database().collection('comment').doc(comment._id).update({
-      data : {
-        like: comment.like + 1
+    var like_status = !comment.isLiked; //改变之后的isLiked
+    this.setData({
+      ['comment_info['+comment_index+'].isLiked'] : like_status,
+    })
+    //更新user表
+    wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).get({
+      success(res) {
+        var new_likes = res.data.likes.comments;
+        if(like_status) {
+          new_likes.push(comment._id);
+        } else {
+          for (var i = 0; i < new_likes.length; i++) {
+            if(new_likes[i] == comment._id) {
+              new_likes.splice(i,1);
+              break;
+            }
+          }
+        }
+        //更新用户数据库表
+        wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).update({
+          data: {
+            'likes.comments': new_likes
+          }
+        })
+      }
+    })
+    //更新comment表
+    wx.cloud.database().collection('comment').doc(comment._id).get({
+      success(res){
+        var new_like = like_status ? res.data.like + 1 : res.data.like - 1;
+        that.setData({
+          ['comment_info['+comment_index+'].like']: new_like
+        })
+        wx.cloud.database().collection('comment').doc(comment._id).update({
+          data: {
+            like: new_like
+          }
+        })
       }
     })
   },
@@ -546,8 +582,9 @@ Page({
   },
 
   // 更新当前的评论信息
-  updateCommentInfo() {
+  async updateCommentInfo() {
     var that = this;
+    const user_liked_comments = await wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).get();
     wx.cloud.database().collection('comment').where({
       _marker_id: that.data.marker_id
     }).get({
@@ -561,8 +598,8 @@ Page({
             temp.like = res.data[i].like,
             temp.time = time,
             temp.cfc = res.data[i].cfc,
-            temp._id = res.data[i]._id
-
+            temp._id = res.data[i]._id,
+            temp.isLiked = user_liked_comments.data.likes.comments.indexOf(res.data[i]._id) != -1,
           tempList.push(temp);
         }
 
@@ -708,6 +745,12 @@ Page({
     this.upMarkerInfo(app.globalData.marker_id)
   },
 
+  jumpToComment() {
+    if (!app.globalData.comment_jump) return;
+    app.globalData.comment_jump = false; // 下次不再跳转
+    this.upMarkerInfo(app.globalData.marker_id)
+    this.upCommentInfo()
+  },
   deleteMarker() {
     var that = this;
     wx.showModal({

@@ -2,7 +2,8 @@
 const app = getApp()
 Page({
   data : {
-    likes :[]
+    likes_markers : [],
+    likes_comments : []
   },
   onLoad() {
     wx.showLoading({
@@ -18,28 +19,43 @@ Page({
     var that = this;
     wx.cloud.database().collection('user').doc(app.globalData.userInfo._id).get({
       success(res) {
-        that.getlikesInfo(res.data.likes)
+        that.getlikesInfo_markers(res.data.likes);
+        that.getlikesInfo_comments(res.data.likes);
       }
     })
   },
 
   // 获取收藏的marker的信息
-  getlikesInfo(likes_id) {
+  getlikesInfo_markers(likes_id) {
     
     var that = this;
     const _ = wx.cloud.database().command;
     wx.cloud.database().collection('marker').where({
-      _id: _.in(likes_id)
+      _id: _.in(likes_id.markers)
     }).get({
       success(res) {
         that.setData({
-          likes : res.data
+          likes_markers : res.data
         })
         wx.hideLoading();
       }
     })
   },
 
+  getlikesInfo_comments(likes_id){
+    var that = this;
+    const _ = wx.cloud.database().command;
+    wx.cloud.database().collection('comment').where({
+      _id: _.in(likes_id.comments)
+    }).get({
+      success(res) {
+        that.setData({
+          likes_comments : res.data
+        })
+        wx.hideLoading();
+      }
+    })
+  },
   // 跳转到对应的marker
 
   jumpToMarker(e) {
@@ -48,6 +64,17 @@ Page({
     app.globalData.marker_jump = true; // 是否跳转到该marker
     wx.switchTab({
       url: '../../map/map'
+    })
+  },
+
+  jumpToComment(e) {
+    var comment_id = e.currentTarget.dataset.id;
+    var marker_id = e.currentTarget.dataset.markerid;
+    app.globalData.marker_id = marker_id;
+    app.globalData.comment_id = comment_id;
+    app.globalData.comment_jump = true;
+    wx.switchTab({
+      url: '../../map/map',
     })
   }
 })
