@@ -9,7 +9,7 @@ Page({
   onshow() {},
 
   // 注册新用户 以及 获取用户的 _id
-  registerUser(userInfo) {
+  registerNewUser(userInfo) {
     wx.cloud.database().collection('user').add({
       data: {
         _openid: userInfo._openid,
@@ -52,6 +52,7 @@ Page({
               _openid: app.globalData.userInfo._openid
             }).get({
               success(r) {
+                console.log(r)
                 if (r.data.length == 0) {
                   // 尚未注册
                   that.registerNewUser(app.globalData.userInfo);
