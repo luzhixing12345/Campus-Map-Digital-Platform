@@ -29,7 +29,7 @@
 
 - 清空全部缓存,重新编译
 
-## [开发者文档](docs)
+## [开发者文档](https://github.com/luzhixing12345/Campus-Map-Digital-Platform/releases/download/v0.0.1/docs.zip)
 
 小组章程，小组选题，需求定义，项目计划，迭代任务，迭代报告
 
