@@ -186,11 +186,11 @@ page {
   right: 30px;
   z-index: 2;
   border-radius: 50%;
-  box-shadow: 2px 2px 5px #000;
+  box-shadow: 2px 2px 5px #999999;
 }
 
 .circle-hover {
-  box-shadow: 2px 2px 8px #000;
+  box-shadow: 2px 2px 8px #999999;
 }
 
 .add::before {
@@ -372,7 +372,7 @@ page {
 }
 
 .comment .main-comment .comment-header .right .comment-id {
-  color: rgb(225, 135, 171);
+  color: rgb(226, 173, 60);
   margin-top: 10px;
   margin-left: 5px;
   font-weight: bold;
@@ -431,7 +431,7 @@ page {
 .comment .comment-button {
   position: absolute;
   bottom: 180px;
-  background-color: #04BE02;
+  background-color: #e4aa0b;
   width: 16%;
   right: 2.5%;
   height: 6%;

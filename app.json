@@ -27,24 +27,24 @@
   "tabBar": {
     "color": "#9c9d9b",
     "backgroundColor": "#fff",
-    "selectedColor": "#0A44DF",
+    "selectedColor": "#f5af2d",
     "list": [
       {
         "pagePath": "pages/message/message",
         "text": "消息",
-        "iconPath": "images/message.png",
+        "iconPath": "images/message_grey.png",
         "selectedIconPath": "images/message.png"
       },
       {
         "pagePath": "pages/map/map",
         "text": "地图",
-        "iconPath": "images/map.png",
+        "iconPath": "images/map_grey.png",
         "selectedIconPath": "images/map.png"
       },
       {
         "pagePath": "pages/user/user",
         "text": "我的",
-        "iconPath": "images/user.png",
+        "iconPath": "images/user_grey.png",
         "selectedIconPath": "images/user.png"
       }
     ]

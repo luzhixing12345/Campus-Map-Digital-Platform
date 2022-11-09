@@ -40,6 +40,7 @@
 .body .user-account {
   display: flex;
   justify-content: center;
+  
 }
 
 .body .user-account image {
