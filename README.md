@@ -16,16 +16,24 @@
 
   > AppID: `wx1da74111d21bd6a6`
 
+- 新建数据库表 `comment` `like` `marker` `systemNotification` `user`
+
+  修改数据库表的数据权限，自定义安全规则
+
+  ```json
+  {
+    "read": true,
+    "write": true
+  }
+  ```
+
 - 清空全部缓存,重新编译
 
-## 开发者文档
+## [开发者文档](docs)
 
-- [x] [Week1-小组章程，选题](docs/Week1-%E5%B0%8F%E7%BB%84%E7%AB%A0%E7%A8%8B%EF%BC%8C%E9%80%89%E9%A2%98/)
-- [x] [Week2-需求定义，项目计划](docs/Week2-需求定义，项目计划)
+小组章程，小组选题，需求定义，项目计划，迭代任务，迭代报告
 
 ---
-
-- [ ] [代码结构文档](docs/code-structure.md)
 
 ## 贡献者
 

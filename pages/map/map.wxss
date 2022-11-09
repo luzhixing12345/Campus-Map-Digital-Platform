@@ -394,6 +394,7 @@ page {
 
 .comment .main-comment .comment-footer {
   display: flex;
+  justify-content: space-between;
 }
 
 .comment .main-comment .comment-footer .left {
@@ -401,6 +402,15 @@ page {
   margin-left: 10px;
   margin-top: 5px;
   width: 40%;
+}
+
+.comment .main-comment .comment-footer .right {
+  margin-right: 20px;
+  background-color: red;
+  color: white;
+  z-index: 3;
+  padding: 2px 10px;
+  border-radius: 5px;
 }
 
 .comment-reply {

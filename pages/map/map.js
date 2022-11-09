@@ -593,13 +593,19 @@ Page({
         for (var i = 0; i < res.data.length; i++) {
           var time = timeUtil.displayRelativeTime(res.data[i].time);
           var temp = {};
-          temp.userInfo = res.data[i].userInfo,
-            temp.content = res.data[i].content,
-            temp.like = res.data[i].like,
-            temp.time = time,
-            temp.cfc = res.data[i].cfc,
-            temp._id = res.data[i]._id,
-            temp.isLiked = user_liked_comments.data.likes.comments.indexOf(res.data[i]._id) != -1,
+          temp.userInfo = res.data[i].userInfo;
+          if (temp.userInfo._openid != app.globalData.userInfo._openid) {
+            temp.enable_delete = false;
+          } else {
+            // 同一个人则可以删除
+            temp.enable_delete = true;
+          }
+          temp.content = res.data[i].content;
+          temp.like = res.data[i].like;
+          temp.time = time;
+          temp.cfc = res.data[i].cfc;
+          temp._id = res.data[i]._id;
+          temp.isLiked = user_liked_comments.data.likes.comments.indexOf(res.data[i]._id) != -1;
           tempList.push(temp);
         }
 
@@ -783,6 +789,50 @@ Page({
                     wx.switchTab({
                       url: 'map',
                     })
+                  }
+                }
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  // 删除评论
+  deleteComment(e) {
+    var index = e.currentTarget.dataset.index;
+    var that = this;
+    var comment = this.data.comment_info[index];
+    var marker_id = this.data.marker_id;
+    console.log(comment)
+    console.log(marker_id)
+    wx.showModal({
+      title: "准备删除评论", // 提示的标题
+      content: "您确认要删除该评论吗？", // 提示的内容
+      showCancel: true, // 是否显示取消按钮，默认true
+      confirmText: "确定", // 确认按钮的文字，最多4个字符
+      confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+      cancelText: "取消",
+      cancelColor:"#576B95",
+      success(r) {
+        if (r.confirm) {
+          // 删除comment的信息
+          wx.cloud.database().collection('comment').doc(comment._id).remove();
+          // 修改marker中评论数
+          wx.cloud.database().collection('marker').doc(marker_id).update({
+            data : {
+              comment : that.data.marker_info.comment_number - comment.cfc.length -1
+            },
+            success() {
+              wx.showModal({
+                title: "删除成功", // 提示的标题
+                showCancel: false, // 是否显示取消按钮，默认true
+                confirmText: "确定", // 确认按钮的文字，最多4个字符
+                confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+                success(rrr) {
+                  if (rrr.confirm) {
+                    that.updateCommentInfo();
                   }
                 }
               })

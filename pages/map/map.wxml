@@ -139,9 +139,9 @@
               </view>
             </view>
             <!-- 版主和评论用户本人可以删除 -->
-            <view class="right" wx:if="{{a.enable_delete}}">删除</view>
+            <view class="right" wx:if="{{a.enable_delete}}" bindtap="deleteComment" data-index='{{index}}'>删除</view>
           </view>
-          <view class="cfc-info" wx:for="{{a.cfc}}">
+          <view class="cfc-info" wx:for="{{a.cfc}}" bindtap="upCfcInfo"  data-avatarurl="{{a.userInfo.avatarUrl}}" data-nickname="{{a.userInfo.nickName}}" data-time="{{a.time}}" data-content="{{a.content}}" data-like="{{a.like}}" data-dislike="{{a.dislike}}" data-cfc="{{a.cfc}}" data-commentid="{{a._id}}">
             <view class="cfc-item">
               <view class="name">{{item.userInfo.nickName}}：</view>
               <view>{{item.content}}</view>
@@ -176,7 +176,7 @@
           <image src="{{cfc_data.avatarurl}}"></image>
         </view>
         <view class="right">
-          <view class="comment-id">{{cfc_data.nickname}} (楼主)</view>
+          <view class="comment-id">{{cfc_data.nickname}}</view>
           <view class="comment-time">{{cfc_data.time}}</view>
         </view>
       </view>
