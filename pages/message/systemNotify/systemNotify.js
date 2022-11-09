@@ -22,10 +22,14 @@ Page({
             temp.head = "标记点" +res.data[i].content + "发布成功";
             temp.body = '您刚刚成功发布了一个标记点信息，快来看看吧~';
             temp.marker_id = res.data[i].marker_id;
-          } else {
+          } else if(res.data[i].type == 'delete'){
             // 删除
             temp.head = "标记点" + res.data[i].content + "删除成功";
             temp.body = '您刚刚删除了一个标记点信息，感谢您的参与~';
+            temp.marker_id = ''
+          } else if (res.data[i].type == 'edit') {
+            temp.head = "标记点" + res.data[i].content + "修改成功";
+            temp.body = '您刚刚修改了一个标记点信息，感谢您的参与~';
             temp.marker_id = ''
           }
           notification.push(temp);

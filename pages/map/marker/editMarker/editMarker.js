@@ -1,11 +1,12 @@
+// pages/map/marker/editMarker/editMarker.js
 const app = getApp();
 
 Page({
 
-  data: {
-
+  data : {
     time : 0,
     name : "",
+    description: '',
 
     facultyArray: [['文理学部', '工学部', '信息学部']],
     faculty : ["文理学部"],
@@ -24,14 +25,19 @@ Page({
     picList : [],
   },
 
-  onLoad: function (options) {
+  onLoad() {
     var that = this;
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel.on('position', function (data) {
+    eventChannel.on('marker_info', function (marker_info) {
       that.setData({
-        position : data.position
+        name : marker_info.name,
+        description: marker_info.description,
+        faculty: [marker_info.faculty],
+        type: that.data.typeArray[0][that.data.typeArray_en.indexOf(marker_info.type)],
+        picList: marker_info.picturesUrl,
+        _id : marker_info._id
       })
-    })
+    });
   },
 
   myEventListener: function (e) {
@@ -200,38 +206,26 @@ Page({
     // console.log(this.data.faculty)
     // console.log(this.data.picList)
     var that = this;
-
-    wx.cloud.database().collection("marker").add({
+    wx.cloud.database().collection("marker").doc(that.data._id).update({
       data : {
         name : that.data.name.trim(),
         faculty : that.data.faculty[0],
         type : that.data.typeArray_en[that.data.typeArray[0].indexOf(that.data.type[0])],
         description : that.data.description.trim(),
-        like : 0,
-        collection : 0,
-        comment : 0,
         picturesUrl : that.data.picList,
-        creator : {
-          nickName: app.globalData.userInfo.nickName,
-          _openid : app.globalData.userInfo._openid
-        },
-        position : that.data.position,
-        visiable : true
       },
       success(res) {
-        // console.log(res);
-        var marker_id = res._id
         wx.cloud.database().collection('systemNotification').add({
           data: {
-            marker_id : marker_id,
+            marker_id : that.data._id,
             userOpenid : app.globalData.userInfo._openid,
-            type : 'add',
+            type : 'edit',
             content : that.data.name.trim() + that.data.faculty[0],
           },
         })
         wx.showModal({
           title: "温馨提示", // 提示的标题
-          content: "上传成功", // 提示的内容
+          content: "信息修改成功", // 提示的内容
           showCancel: false, // 是否显示取消按钮，默认true
           confirmText: "确定", // 确认按钮的文字，最多4个字符
           confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串

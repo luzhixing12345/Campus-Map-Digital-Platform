@@ -3,18 +3,16 @@
     "pages/user/login/login",
     "pages/user/user",
     "pages/map/map",
-
     "pages/map/marker/addNewMarker/addNewMarker",
     "pages/map/marker/addNewMarker/uploadImg/uploadImg",
     "pages/map/marker/addNewMarker/picker/picker",
-
     "pages/message/message",
     "pages/message/myLike/myLike",
     "pages/message/myMessage/myMessage",
     "pages/message/myMessage/replyToOthers/replyToOthers",
     "pages/message/myCollection/myCollection",
-    "pages/message/systemNotify/systemNotify"
-
+    "pages/message/systemNotify/systemNotify",
+    "pages/map/marker/editMarker/editMarker"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,72 @@
+
+<view class="title">
+  <view class="text">
+    修改地点信息
+    <view class="line"></view>
+  </view>
+</view>
+
+<view class="body">
+
+  <!-- 名称 -->
+  <view class="name">
+    <view class="text">地点名称</view>
+    <input
+    type="text" 
+    placeholder="请输入地点名称" 
+    placeholder-class="comment-placeholder"
+    bindinput="captureName"
+    value="{{name}}"
+    ></input>
+  </view>
+
+  <!-- 学部 -->
+  <view class="faculty" bindtap="selectFaculty">
+    <view class="text">学部名称</view>
+    <view class="text item">- {{faculty}}</view>
+    <PICKER
+      isShowPicker="{{show_faculty_picker}}"
+      bindsure="comfirmFaculty"
+      bindcancle="cancelFaculty"
+      scrollType="normal"
+      listData="{{facultyArray}}"
+      indicatorStyle="height:80px"
+      titleText="学部名称"
+    ></PICKER>
+  </view>
+
+  <!-- 类型 -->
+  <view class="type" bindtap="selectType">
+    <view class="text">地点类型</view>
+    <view class="text item">- {{type}}</view>
+    <PICKER
+      isShowPicker="{{show_type_picker}}"
+      bindsure="comfirmType"
+      bindcancle="cancelType"
+      scrollType="normal"
+      listData="{{typeArray}}"
+      indicatorStyle="height:80px"
+      titleText="类型名称"
+    ></PICKER>
+  </view>
+
+  <view class="input">
+    <view class="text">
+      描述信息
+    </view>
+    <textarea placeholder="请输入该地点的描述信息" bindinput="handleInput" value="{{description}}" autoheight />
+  </view>
+
+
+  <view class="input">
+    <view class="text">
+      补充图片
+    </view>
+    <uploadImages bindmyevent="myEventListener" count='{{countPic}}' showUrl="{{showImgUrl}}" uploadUrl="{{uploadImgUrl}}"></uploadImages>
+  </view>
+</view>
+
+<!-- 仅作为占位置空间 -->
+<view class="place"></view>
+
+<view class="submitButton" bindtap="submitButton" hover-class="submitButton-hover">发布</view>

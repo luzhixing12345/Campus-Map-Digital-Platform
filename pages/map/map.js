@@ -379,6 +379,19 @@ Page({
       "marker_info.creator_openid" : res.data.creator._openid
     })
   },
+  
+  editMarker() {
+    var marker_info = this.data.marker_info;
+    this.downMarkerInfo();
+    wx.navigateTo({
+      url: './marker/editMarker/editMarker',
+      success(res) {
+        res.eventChannel.emit('marker_info',marker_info)
+      }
+    })
+  },
+
+
   async upMarkerInfo(e) {
     // 添加标记点的情况，不处理
     if (this.data.enable_add_marker) return;
@@ -805,8 +818,8 @@ Page({
     var that = this;
     var comment = this.data.comment_info[index];
     var marker_id = this.data.marker_id;
-    console.log(comment)
-    console.log(marker_id)
+    // console.log(comment)
+    // console.log(marker_id)
     wx.showModal({
       title: "准备删除评论", // 提示的标题
       content: "您确认要删除该评论吗？", // 提示的内容
@@ -820,11 +833,15 @@ Page({
           // 删除comment的信息
           wx.cloud.database().collection('comment').doc(comment._id).remove();
           // 修改marker中评论数
+          var new_comment_number = that.data.marker_info.comment_number - comment.cfc.length -1;
           wx.cloud.database().collection('marker').doc(marker_id).update({
             data : {
-              comment : that.data.marker_info.comment_number - comment.cfc.length -1
+              comment : new_comment_number
             },
             success() {
+              that.setData({
+                'marker_info.comment_number' : new_comment_number
+              })
               wx.showModal({
                 title: "删除成功", // 提示的标题
                 showCancel: false, // 是否显示取消按钮，默认true

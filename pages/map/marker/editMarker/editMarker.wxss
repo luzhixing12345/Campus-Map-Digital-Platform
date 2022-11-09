@@ -1,0 +1,84 @@
+/* 主标题 */
+.title {
+  display: flex;
+}
+.title .line {
+  background-color: #ffeb37;
+  height: 14rpx;
+  border-radius: 35rpx;
+  width: 100%;
+}
+.title .text {
+  margin: 30rpx 50rpx 0rpx;
+  font-size: 38rpx;
+}
+
+.comment-placeholder {
+  /* margin-left: 10px; */
+  color: rgb(198,198,198);
+}
+
+.body .name input {
+  background-color: rgb(244,244,244);
+  border-radius: 20rpx;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+  word-break: break-all;
+  padding: 20rpx;
+  width: 85%;
+}
+
+
+.body {
+  background-color: #fff;
+  padding: 20rpx;
+  width: 85%;
+  margin: 0 auto;
+  border-radius: 50rpx;
+  margin-top: 30rpx;
+  box-shadow: 5rpx 5rpx 10rpx 10rpx #e1e1e1;
+}
+
+.body .text {
+  margin: 0rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-left: 30rpx;
+  margin-top: 15rpx;
+}
+
+.body .item {
+  font-weight: lighter;
+}
+
+.body .input textarea {
+  background-color: #e2e2e250;
+  border-radius: 20rpx;
+  margin-left: 20rpx;
+  margin-top: 30rpx;
+  height: 400rpx;
+  word-break: break-all;
+  padding: 20rpx;
+  width: 85%;
+}
+
+.submitButton {
+  position : fixed;
+  background-color: rgb(245,175,25);
+  border-radius: 30rpx;
+  bottom: 20px;
+  left: 5%;
+  width: 80%;
+  text-align: center;
+  padding: 30rpx;
+  box-shadow: 5rpx 5rpx 10rpx 5rpx #e1e1e1;
+}
+
+.submitButton-hover {
+  box-shadow: 10rpx 10rpx 20rpx 10rpx #e1e1e1;
+}
+
+.place {
+  width: 100vw;
+  height: 10vh;
+}

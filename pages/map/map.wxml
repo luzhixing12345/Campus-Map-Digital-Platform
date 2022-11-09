@@ -103,6 +103,9 @@
   <view>
     <view class="delete" bindtap="deleteMarker" wx:if="{{marker_info.creator_openid==_openid}}">删除</view>
   </view>
+  <view>
+    <view class="edit" bindtap="editMarker" wx:if="{{marker_info.creator_openid==_openid}}">编辑</view>
+  </view>
   
 </view>
 

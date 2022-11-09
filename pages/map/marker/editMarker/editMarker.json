@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "PICKER" : "../addNewMarker/picker/picker",
+    "uploadImages": "../addNewMarker/uploadImg/uploadImg"
+  }
+}
