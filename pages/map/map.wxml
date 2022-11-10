@@ -184,22 +184,14 @@
         </view>
       </view>
       <view class="comment-body">{{cfc_data.content}}</view>
-      <!-- <view class="comment-footer">
-        <view class="left">
-          <view class="like" style="display:flex; margin-left: 10px;">
-            <image src="../../images/like.png"></image>
-            <view style="margin-left: 10px;">{{cfc_data.like}}</view>
-          </view>
-        </view>
-        <view class="right" wx:if="{{cfc_data.enable_delete}}">删除</view>
-      </view> -->
     </view>
 
     <!-- <view class="comment-reply">评论回复</view> -->
     <mp-cells>
-      <mp-cell wx:for="{{cfc_data.cfc}}" wx:key="" wx:for-item="a">
+      <mp-cell wx:for="{{cfc_data.cfc}}" wx:for-item="a">
         <view class="main-comment">
           <view class="comment-header">
+            <view class="left-part">
             <view class="left">
               <image src="{{a.userInfo.avatarUrl}}"></image>
             </view>
@@ -208,20 +200,9 @@
               <view class="comment-time">{{a.time}}</view>
             </view>
           </view>
+            <view class="right-delete" wx:if="{{a.enable_delete}}" bindtap="deletecfcComment" data-index="{{index}}">删除</view>
+          </view>
           <view class="comment-body">{{a.content}}</view>
-          <!-- <view class="comment-footer">
-            <view class="left">
-              <view class="like" style="display:flex;">
-                <image src="../../images/like.png"></image>
-                <view style="margin-left: 10px;">{{a.like}}</view>
-              </view>
-              <view class="dislike" style="display: flex;">
-                <image src="../../images/like.png"></image>
-                <view style="margin-left: 10px;">{{a.dislike}}</view>
-              </view>
-            </view>
-            <view class="right" wx:if="{{a.enable_delete}}">删除</view>
-          </view> -->
         </view>
       </mp-cell>
     </mp-cells>

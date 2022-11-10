@@ -372,6 +372,11 @@ page {
 
 .comment .main-comment .comment-header {
   display: flex;
+  position: relative;
+}
+
+.comment .main-comment .comment-header .left-part {
+  display: flex;
 }
 
 .comment .main-comment .comment-header .left image {
@@ -380,6 +385,19 @@ page {
   margin-top: 10px;
   width: 50px;
   height: 50px;
+}
+
+.right-delete {
+  position: absolute;
+  left: 290px;
+  top : 10px;
+  /* width: 80px; */
+  /* margin-right: 20px; */
+  background-color: red;
+  color: white;
+  z-index: 3;
+  padding: 2px 10px;
+  border-radius: 5px;
 }
 
 .comment .main-comment .comment-header .right .comment-id {
@@ -451,6 +469,7 @@ page {
 
 .comment .comment-button {
   position: absolute;
+  z-index: 100;
   bottom: 180px;
   background-color: #e4aa0b;
   width: 16%;

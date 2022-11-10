@@ -647,8 +647,11 @@ Page({
       success: (res) => {
         for (var i = 0; i < res.data.cfc.length; i++) {
           var time = timeUtil.displayRelativeTime(res.data.cfc[i].time);
+          res.data.cfc[i].original_time = res.data.cfc[i].time;
           res.data.cfc[i].time = time;
+          res.data.cfc[i].enable_delete = res.data.cfc[i].userInfo._openid == app.globalData.userInfo._openid;
         }
+        // console.log(res.data.cfc)
         that.setData({
           "cfc_data.cfc": res.data.cfc
         })
@@ -713,7 +716,7 @@ Page({
 
   captureCfc(e) {
     let content = e.detail.value;
-    console.log("要发布的cfc是" + content);
+    // console.log("要发布的cfc是" + content);
     this.setData({
       cfcContent: content
     })
@@ -725,8 +728,6 @@ Page({
     temp.userInfo = app.globalData.userInfo;
     temp.time = new Date();
     temp.content = that.data.cfcContent;
-    temp.like = 0;
-    temp.dislike = 0;
     //TODO：完成对应评论cfc数据的更新
     var commentId = that.data.cfc_data.commentid;
     const db = wx.cloud.database();
@@ -748,6 +749,7 @@ Page({
         cfc: _.push(temp)
       },
       success: () => {
+        // console.log("success")
         //TODO:刷新楼中楼评论
         that.updateCfc(commentId);
         that.setData({
@@ -859,4 +861,59 @@ Page({
       }
     })
   },
+  //删除楼中楼的一条评论
+  deletecfcComment(e) {
+    // console.log(e)
+    var index = e.currentTarget.dataset.index;
+    var that = this;
+    wx.showModal({
+      title: "准备删除评论", // 提示的标题
+      content: "您确认要删除该评论吗？", // 提示的内容
+      showCancel: true, // 是否显示取消按钮，默认true
+      confirmText: "确定", // 确认按钮的文字，最多4个字符
+      confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+      cancelText: "取消",
+      cancelColor:"#576B95",
+      success(r) {
+        if (r.confirm) {
+          // 删除楼中楼的一条评论
+          var current_cfc = that.data.cfc_data.cfc;
+          current_cfc.splice(index,1)
+          for (var i=0;i<current_cfc.length;i++) {
+            current_cfc[i].time = current_cfc[i].original_time;
+            delete current_cfc[i].enable_delete;
+            delete current_cfc[i].original_time;
+          }
+          // console.log(current_cfc)
+          var new_comment_number = that.data.marker_info.comment_number -1;
+          wx.cloud.database().collection('marker').doc(that.data.marker_id).update({
+            data : {
+              comment : new_comment_number
+            }
+          })
+          wx.cloud.database().collection('comment').doc(that.data.cfc_data.commentid).update({
+            data : {
+              cfc : current_cfc
+            },
+            success(res) {
+              that.setData({
+                'marker_info.comment_number' : new_comment_number
+              })
+              wx.showModal({
+                title: "删除成功", // 提示的标题
+                showCancel: false, // 是否显示取消按钮，默认true
+                confirmText: "确定", // 确认按钮的文字，最多4个字符
+                confirmColor: "#576B95", // 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
+                success(rrr) {
+                  if (rrr.confirm) {
+                    that.updateCfc(that.data.cfc_data.commentid);
+                  }
+                }
+              })
+            }
+          })
+        }
+      }
+    })
+  }
 })
