@@ -26,7 +26,7 @@
   <switch color="#4a90e2" class="select-switch" bindchange="switchChange_learning" checked="true">学习</switch>
   <switch color="#7ed321" class="select-switch" bindchange="switchChange_food" checked="true">餐饮</switch>
   <switch color="#f5a623" class="select-switch" bindchange="switchChange_notify" checked="true">通知</switch>
-  <switch color="#000000" class="select-switch" bindchange="switchChange_group" checked="true">群组</switch>
+  <!-- <switch color="#000000" class="select-switch" bindchange="switchChange_group" checked="true">群组</switch> -->
 </view>
 
 <!-- 搜索结果列表 -->
