@@ -59,7 +59,7 @@
 <!-- 标记点的信息 -->
 
 <view class="light-background" animation="{{ani}}">
-  <scroll-view scroll-y="true" style="height: 600rpx;">
+  <scroll-view scroll-y="true">
   <view class="marker-info">
     <view class="marker-info-header">
       <view class="left-header">
@@ -98,7 +98,6 @@
       </swiper>
     </view>
   </view>
-  <!-- <view style="width: 100%; height: 150px;"></view> -->
 </scroll-view>
   <view>
     <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
