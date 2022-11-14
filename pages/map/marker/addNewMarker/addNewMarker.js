@@ -12,8 +12,8 @@ Page({
     close_faculty_picker : false,
     show_faculty_picker : false,
 
-    typeArray: [['办事', '学习', '餐饮', '通知', '群组']],
-    typeArray_en: ['work', 'learning', 'food', 'notify', 'group'],
+    typeArray: [['办事', '学习', '餐饮', '通知']],
+    typeArray_en: ['work', 'learning', 'food', 'notify'],
     type : ["办事"],
     close_type_picker : false,
     show_type_picker : false,

@@ -275,10 +275,11 @@ page {
   display: flex;
   justify-content: space-between;
   overflow: visible;
+  margin-bottom: 30px;
 }
 
 .marker-info-header .left-header {
-  width: 50%;
+  width: 70%;
   height: 100%;
   display: flex;
   flex-direction: column;

@@ -64,6 +64,7 @@
 
 .submitButton {
   position : fixed;
+  z-index: 100;
   background-color: rgb(245,175,25);
   border-radius: 30rpx;
   bottom: 20px;
