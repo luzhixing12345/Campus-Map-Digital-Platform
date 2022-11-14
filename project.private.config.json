@@ -3,5 +3,6 @@
   "projectname": "Campus-Map-Digital-Platform",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "2.27.2"
 }

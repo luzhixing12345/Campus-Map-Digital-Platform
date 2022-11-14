@@ -1,7 +1,20 @@
 
 
 
-<image class="logoImg" src="../../../images/WHU_logo.png"></image>
-<view class="logoName">{{logo_info}}</view>
+<!-- <image class="logoImg" src="../../../images/WHU_logo.png"></image>
+<view class="logoName">{{logo_info}}</view> -->
 
-<button wx:if="{{!userInfo}}" type="default" bindtap="getUserProfile" class="buttonType">微信授权</button>
+<view data-weui-theme="{{theme}}">
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{avatarUrl}}"></image>
+  </button> 
+  <view class="text">选择头像</view>
+  <mp-form>
+    <mp-cells>
+      <mp-cell title="昵称">
+        <input type="nickname" class="weui-input" value="{{nickName}}" placeholder="请输入昵称" bindinput="handleInput" />
+      </mp-cell>
+    </mp-cells>
+  </mp-form>
+</view>
+<button class="confirm-enter" disabled="{{!getNickName || !getAvatarUrl}}" type="primary" bindtap="login">确认进入</button>
