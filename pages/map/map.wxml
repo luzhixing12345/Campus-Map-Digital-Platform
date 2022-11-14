@@ -57,7 +57,9 @@
 </view>
 
 <!-- 标记点的信息 -->
+
 <view class="light-background" animation="{{ani}}">
+  <scroll-view scroll-y="true" style="height: 600rpx;">
   <view class="marker-info">
     <view class="marker-info-header">
       <view class="left-header">
@@ -96,7 +98,8 @@
       </swiper>
     </view>
   </view>
-
+  <!-- <view style="width: 100%; height: 150px;"></view> -->
+</scroll-view>
   <view>
     <image src="../../images/cancel.png" bindtap="downMarkerInfo" class="cancel-icon"></image>
   </view>
@@ -154,8 +157,7 @@
       </mp-cell>
     </mp-cells>
     <view style="width: 100%; height: 150px;"></view>
-  </scroll-view>
-
+    </scroll-view>
   </block>
   <block wx:else>
     <view class="no-comment">暂无评论</view>
