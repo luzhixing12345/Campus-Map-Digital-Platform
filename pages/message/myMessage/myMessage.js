@@ -20,8 +20,15 @@ Page({
     }).get({
       success(res) {
         console.log(res.data);
+        var comments_with_cfc = []
+        for (var i=0;i<res.data.length;i++) {
+          if (res.data[i].cfc.length!=0){
+            comments_with_cfc.push(res.data[i]);
+          }
+        }
+        console.log(comments_with_cfc)
         that.setData({
-          comments_array : res.data,
+          comments_array :comments_with_cfc,
         })
         wx.hideLoading();
       }

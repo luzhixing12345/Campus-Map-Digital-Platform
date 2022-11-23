@@ -7,7 +7,9 @@
 
 ## 小程序预览
 
-- [ ] [gif](gif)
+|![](README-img/1.png)|![](README-img/2.jpg)|![](README-img/7.png)|![](README-img/5.png)|
+|:--:|:--:|:--:|:--:|
+|||||
 
 ## 使用说明
 
